@@ -1,1 +1,1 @@
-# GukRule-android
+# 국룰(GukRule)
