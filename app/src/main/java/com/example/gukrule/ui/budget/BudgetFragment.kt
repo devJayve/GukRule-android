@@ -1,5 +1,6 @@
 package com.example.gukrule.ui.budget
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.gukrule.BudgetVisualActivity
 import com.example.gukrule.R
 import com.example.gukrule.adapter.CarouselRVAdapter
 import com.example.gukrule.databinding.FragmentBudgetBinding
@@ -49,10 +51,9 @@ class BudgetFragment : Fragment() {
         viewPager.adapter = carouselRVAdapter
         carouselRVAdapter.setItemClickListener(object : CarouselRVAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                //TODO::Fragment 이동
-                Toast.makeText(view?.context,
-                    "$position 클릭됐음.",
-                    Toast.LENGTH_SHORT).show()
+                val intent = Intent(activity, BudgetVisualActivity::class.java)
+                intent.putExtra("budget_type", position)
+                startActivity(intent)
             }
         })
 
