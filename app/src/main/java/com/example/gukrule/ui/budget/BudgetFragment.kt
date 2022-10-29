@@ -36,11 +36,10 @@ class BudgetFragment : Fragment() {
         }
 
         val demoData = arrayListOf(
-            "Curabitur sit amet rutrum enim, sit amet commodo urna. Nullam nec nisl eget purus vulputate ultrices nec sit amet est. Sed sodales maximus risus sit amet placerat.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet lectus a mi lobortis iaculis. Mauris odio tortor, accumsan vel gravida sit amet, malesuada a tortor.",
-            "Praesent efficitur eleifend eros quis elementum. Vivamus eget nunc ante. Sed sed sodales libero. Nam ipsum lorem, consequat at ipsum sit amet, tempor vulputate nibh.",
-            "Aliquam sodales imperdiet augue at consectetur. Suspendisse dui mauris, tincidunt non auctor quis, facilisis et tellus.",
-            "Ut non tincidunt neque, et sodales ligula. Quisque interdum in dui sit amet sagittis. Curabitur erat magna, maximus quis libero quis, dapibus eleifend orci."
+            "국회 예산 1입니다",
+            "국회 예산 2입니다",
+            "국회 예산 3입니다",
+            "국회 예산 4입니다",
         )
 
         viewPager.adapter = CarouselRVAdapter(demoData)
@@ -48,8 +47,6 @@ class BudgetFragment : Fragment() {
         val compositePageTransformer = CompositePageTransformer()
         compositePageTransformer.addTransformer(MarginPageTransformer((40 * Resources.getSystem().displayMetrics.density).toInt()))
         viewPager.setPageTransformer(compositePageTransformer)
-
-
 
         return root
     }
