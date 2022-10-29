@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.support.v4.app.Fragment
-import android.arch.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import com.example.gukrule.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -22,18 +21,11 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-                ProfileViewModel::class.java
-            )
-
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
+
         return root
     }
 
