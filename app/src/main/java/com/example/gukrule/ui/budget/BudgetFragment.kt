@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -35,6 +36,8 @@ class BudgetFragment : Fragment() {
 
     private fun setCarouselSlider() {
         val margin = ((resources.displayMetrics.density) * 50).toInt()
+        val itemList = arrayListOf("test1", "test2", "test3", "test4")
+        val carouselRVAdapter = CarouselRVAdapter(itemList)
         val viewPager = binding.budgetViewPager
         viewPager.apply {
             offscreenPageLimit = 3
@@ -43,14 +46,16 @@ class BudgetFragment : Fragment() {
             getChildAt(0).overScrollMode=View.OVER_SCROLL_NEVER
         }
 
-        val demoData = arrayListOf(
-            "국회 예산 1입니다",
-            "국회 예산 2입니다",
-            "국회 예산 3입니다",
-            "국회 예산 4입니다",
-        )
+        viewPager.adapter = carouselRVAdapter
+        carouselRVAdapter.setItemClickListener(object : CarouselRVAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                //TODO::Fragment 이동
+                Toast.makeText(view?.context,
+                    "$position 클릭됐음.",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
 
-        viewPager.adapter = CarouselRVAdapter(demoData)
         val compositePageTransformer = CompositePageTransformer()
 
         // 양 옆 위젯 사이즈 조정
@@ -61,7 +66,6 @@ class BudgetFragment : Fragment() {
 
         // 위젯 간 Margin 조정
         compositePageTransformer.addTransformer(MarginPageTransformer((20 * Resources.getSystem().displayMetrics.density).toInt()))
-
         viewPager.setPageTransformer(compositePageTransformer)
 
     }
