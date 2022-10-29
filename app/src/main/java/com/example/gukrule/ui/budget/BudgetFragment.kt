@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
+import com.example.gukrule.R
 import com.example.gukrule.adapter.CarouselRVAdapter
 import com.example.gukrule.databinding.FragmentBudgetBinding
+import java.lang.Math.abs
 
 class BudgetFragment : Fragment() {
 
@@ -25,14 +28,19 @@ class BudgetFragment : Fragment() {
     ): View {
         _binding = FragmentBudgetBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        setCarouselSlider()
 
+        return root
+    }
+
+    private fun setCarouselSlider() {
+        val margin = ((resources.displayMetrics.density) * 50).toInt()
         val viewPager = binding.budgetViewPager
         viewPager.apply {
-            clipChildren = false
-            clipToPadding = false
             offscreenPageLimit = 3
-            (getChildAt(0) as RecyclerView).overScrollMode =
-                RecyclerView.OVER_SCROLL_NEVER
+            clipToPadding = false
+            setPadding(margin, 0, margin, 0)
+            getChildAt(0).overScrollMode=View.OVER_SCROLL_NEVER
         }
 
         val demoData = arrayListOf(
@@ -43,12 +51,19 @@ class BudgetFragment : Fragment() {
         )
 
         viewPager.adapter = CarouselRVAdapter(demoData)
-
         val compositePageTransformer = CompositePageTransformer()
-        compositePageTransformer.addTransformer(MarginPageTransformer((40 * Resources.getSystem().displayMetrics.density).toInt()))
+
+        // 양 옆 위젯 사이즈 조정
+        compositePageTransformer.addTransformer(ViewPager2.PageTransformer{ view: View, fl: Float ->
+            val v = 1- kotlin.math.abs(fl)
+            view.scaleY = 0.8f + v * 0.2f
+        })
+
+        // 위젯 간 Margin 조정
+        compositePageTransformer.addTransformer(MarginPageTransformer((20 * Resources.getSystem().displayMetrics.density).toInt()))
+
         viewPager.setPageTransformer(compositePageTransformer)
 
-        return root
     }
 
     override fun onDestroyView() {
