@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BudgetVisualActivity"/>
+        <activity android:name=".BudgetVisualActivity" />
+        <activity android:name=".VisualActivity" />
     </application>
 
 </manifest>
