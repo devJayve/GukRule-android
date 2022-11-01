@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ArticleVisualActivity">
 
-<!-- 뒤로가기 , 뒷페이지 이름 -->
+    <!-- 뒤로가기 , 뒷페이지 이름 -->
+
     <LinearLayout
         android:id="@+id/article_header"
         android:layout_width="match_parent"
@@ -35,68 +37,142 @@
             android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
-
-<!-- 기사 제목 -->
-    <TextView
-        android:id="@+id/article_title"
+    <!--기사 스크롤 뷰-->
+    <ScrollView
+        android:id="@+id/article_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="윤 대통령 '보육 책임' 말하고선 ... 국공립 어린이집 예산은 19% 삭감"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_height="0dp"
+        app:layout_constraintVertical_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/article_header" />
+        app:layout_constraintTop_toBottomOf="@+id/article_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        >
 
-<!--  요약 헤더 , 아이콘 -->
-    <TextView
-        android:id="@+id/article_summary_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:text="기사요약"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/article_title"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:focusable="true"
+            android:orientation="vertical">
 
-        />
+            <!-- 기사 제목 -->
+            <TextView
+                android:id="@+id/article_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="윤 대통령 '보육 책임' 말하고선 ... 국공립 어린이집 예산은 19% 삭감"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/article_summary_icon"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:gravity="center_vertical"
+                >
+
+                <!--  요약 헤더 , 아이콘 -->
+                <TextView
+                    android:id="@+id/article_summary_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="기사요약"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    />
+
+                <ImageView
+                    android:id="@+id/article_summary_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:src="@drawable/article_summary_icon" />
+
+
+            </LinearLayout>
+
+            <!-- 요약문 박스 -->
+            <TextView
+                android:id="@+id/article_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/article_summary_box"
+                android:lineHeight="17sp"
+                android:paddingStart="50dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="50dp"
+                android:paddingBottom="15dp"
+                android:text="어린이집 확충 19%↓, 시설 개선 10%↓ \n 600억 밑으로 떨어진 건 5년 만에 처음 \n '부모급여' 통해 보육 기조 '가정양육'으로?"
+                android:textColor="#0D2063"
+                android:textStyle="bold" />
+
+            <!-- 기사 이미지 -->
+            <ImageView
+                android:id="@+id/article_image"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/article_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/article_summary" />
+            <!--  기사 전문  -->
+            <!-- 기타 정보 (ex, 기자 이름, 신문사)-->
+
+            <TextView
+                android:id="@+id/article_full_article"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:lineHeight="30sp"
+                android:text="어린이집 시설 개보수와 장비 지원 예산도 덩달아 줄었다. 윤 대통령이 지난달 27일 세종시의 국공립 어린이집을 방문해 '어린이집 환경 개선을 국정과제로 선정하겠다'고 언급한 것과 배치된다. \n 어린이집 기능 보강 개선 예산은 34억7,300만 원으로 올해보다 10% 삭감됐다. 장애아동 시설 환경 개선 사업 예산(1억800만 원)도 10% 줄었다.
+                일각에선 윤석열 정부가 국정과제로 내년 처음 시행하는 '부모급여(만 0·1세 각각 100만 원, 50만 원, 내년에는 각각 70만 원, 35만 원 지급)'를 위해 보육 관련 사업 예산을 대부분 삭감한 것으로 해석한다. 복지부는 영아수당을 확대한 부모급여 사업에 약 1조6,000억 원을 책정했다. 지난해(영아수당)보다 366% 증액된 규모다.어린이집 시설 개보수와 장비 지원 예산도 덩달아 줄었다. 윤 대통령이 지난달 27일 세종시의 국공립 어린이집을 방문해 '어린이집 환경 개선을 국정과제로 선정하겠다'고 언급한 것과 배치된다. \n 어린이집 기능 보강 개선 예산은 34억7,300만 원으로 올해보다 10% 삭감됐다. 장애아동 시설 환경 개선 사업 예산(1억800만 원)도 10% 줄었다.
+                일각에선 윤석열 정부가 국정과제로 내년 처음 시행하는 '부모급여(만 0·1세 각각 100만 원, 50만 원, 내년에는 각각 70만 원, 35만 원 지급)'를 위해 보육 관련 사업 예산을 대부분 삭감한 것으로 해석한다. 복지부는 영아수당을 확대한 부모급여 사업에 약 1조6,000억 원을 책정했다. 지난해(영아수당)보다 366% 증액된 규모다."
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/article_image" />
+
+            <TextView
+                android:id="@+id/article_repoter"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="강건 기자(sksmsal97@newspaper.co.kr)"
+                android:textAlignment="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/article_full_article" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/article_button_bottom_sheet_open"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="5"
-        android:src="@drawable/article_summary_icon"
-        app:layout_constraintStart_toEndOf="@id/article_summary_header"
-        app:layout_constraintTop_toBottomOf="@id/article_title"
-
-        />
-<!-- 요약 전문 -->
-    <TextView
-        android:id="@+id/article_summary"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="어린이집 확충 19%↓, 시설 개선 10%↓"
-        app:layout_constraintTop_toBottomOf="@id/article_summary_icon"
-        app:layout_constraintBottom_toTopOf="@+id/article_image"
-        />
-
-<!-- 기사 이미지 -->
-    <ImageView
-        android:id="@+id/article_image"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="5dp"
+        android:background="@drawable/article_bottom_sheet_button"
+        android:drawableStart="@drawable/article_chart"
+        android:text="기사 데이터 그래프"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/article_summary_header"
-        android:src="@drawable/article_image"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="120dp"
+        android:paddingEnd="120dp"
         />
-<!--  기사 전문  -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
