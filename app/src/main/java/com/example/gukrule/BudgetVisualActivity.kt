@@ -18,6 +18,5 @@ class BudgetVisualActivity : AppCompatActivity() {
 
         val getBudgetType = intent.getIntExtra("budget_type", 0)
         binding.testText.text = getBudgetType.toString()
-
     }
 }
