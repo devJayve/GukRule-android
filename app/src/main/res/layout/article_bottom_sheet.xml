@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="bottom"
+    android:gravity="center"
+    >
+
+    <Button
+        android:id="@+id/bottom_sheet_close"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#ffffff"
+        android:drawableTop="@drawable/bottom_sheet_close"
+        android:gravity="center" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="데이터 그래프"
+        android:layout_marginBottom="15dp"
+        />
+    <ImageView
+        android:id="@+id/bottom_sheet_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/article_image"
+        android:layout_margin="10dp"
+        />
+
+</LinearLayout>
