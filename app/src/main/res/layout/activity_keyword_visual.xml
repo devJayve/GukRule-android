@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KeywordActivity">
+
+    <LinearLayout
+        android:id="@+id/keyword_header"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageButton
+            android:id="@+id/back_keyword"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:backgroundTint="#ffffff"
+            android:scaleType="fitCenter"
+            android:src="@drawable/keyword_back_button" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="전체 키워드"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/keyword_short"
+        android:padding="20dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="각 키워드는 국회 세부 사업별 지출 집행현황에서 단위사업명을 기반으로 추출한 키워드입니다"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/keyword_box"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/keyword_recyclerGrid"
+        app:layout_constraintTop_toBottomOf="@+id/keyword_header" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/keyword_recyclerGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="550dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/keyword_short"
+        tools:listitem="@layout/item_keyword"
+        android:layout_marginTop="40dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
