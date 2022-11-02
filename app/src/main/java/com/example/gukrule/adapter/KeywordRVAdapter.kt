@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gukrule.R
 
-class KeywordRVAdapter : RecyclerView.Adapter<KeywordRVAdapter.KeywordViewHolder>() {
+class KeywordRVAdapter() : RecyclerView.Adapter<KeywordRVAdapter.KeywordViewHolder>() {
 
     private val keywordList = listOf(
         "사무국\n 인건비",
@@ -66,6 +66,8 @@ class KeywordRVAdapter : RecyclerView.Adapter<KeywordRVAdapter.KeywordViewHolder
     }
 
     private lateinit var itemClickListener: OnItemClickListener
+
+
 
     override fun getItemCount(): Int {
         return keywordList.size
