@@ -11,6 +11,7 @@
     app:umanoPanelHeight="50dp"
     app:umanoOverlay="true"
     app:umanoShadowHeight="0dp"
+    app:umanoInitialState="expanded"
     tools:context=".VisualActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,8 +27,6 @@
             android:background="@color/transparent"
             />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,17 +36,10 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_border">
 
-        <TextView
-            android:id="@+id/test_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="시각화 하고싶은 국회 사업을 선택해주세요."
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/budget_item_grid_RV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
