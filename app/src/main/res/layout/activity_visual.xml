@@ -74,10 +74,39 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_border">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/budget_item_grid_RV"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/program_list_scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/linear_in_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/program_list_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="국회 프로그램 목록"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/navy"
+                    android:fontFamily="@font/nanum_square_aceb"
+                    android:textSize="20sp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/budget_RV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_budget"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
