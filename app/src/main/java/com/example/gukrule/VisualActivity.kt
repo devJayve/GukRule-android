@@ -31,6 +31,7 @@ import retrofit2.create
 
 class VisualActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisualBinding
+    private var budgetInfoList = ArrayList<DetailBudgetData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,19 +67,29 @@ class VisualActivity : AppCompatActivity() {
 
         visualBudgetRVAdapter.setItemClickListener(object : VisualBudgetRVAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                hostRetrofitClient()
+                budgetInfoList.clear()
+                for (i in 0 .. 3) {
+                    hostRetrofitClient((2019+i).toString(), "국회도서관")
+                }
                 binding.visualPanel.panelState = PanelState.COLLAPSED
             }
         })
+
+        // floating action btn
+        binding.fab.setOnClickListener {
+            binding.visualPanel.panelState = PanelState.EXPANDED
+        }
 
 
 
     }
 
-    private fun hostRetrofitClient() {
-        var retrofit = RetrofitClient.initCongressRetrofit()
-        var budgetDetailApi = retrofit.create(RetrofitClient.BudgetApi::class.java)
-        budgetDetailApi.getDetailBusiness(fsclYY = "2020")
+    private fun hostRetrofitClient(fsclYY : String, programName : String) {
+        val retrofit = RetrofitClient.initCongressRetrofit()
+        Log.d("LOG", "fsclYY : $fsclYY, pgmName : $programName")
+        val budgetDetailApi = retrofit.create(RetrofitClient.BudgetApi::class.java)
+
+        budgetDetailApi.getDetailBusiness(fsclYY = fsclYY, pgmName = programName)
             .enqueue(object : retrofit2.Callback<DetailBudgetList> {
             override fun onResponse(
                 call: Call<DetailBudgetList>,
@@ -87,7 +98,8 @@ class VisualActivity : AppCompatActivity() {
                 val jsonResponse: JsonObject = response.body()!!.njzofberazvhjncha[1]
                 val jsonRowList = Gson().fromJson(jsonResponse, JsonRowList::class.java)
                 val finalData = Gson().fromJson(jsonRowList.row[0], DetailBudgetData::class.java)
-                Log.d("success", finalData.toString())
+                budgetInfoList.add(finalData)
+                Log.d("success", budgetInfoList.count().toString())
             }
 
             override fun onFailure(call: Call<DetailBudgetList>, t: Throwable) {
@@ -107,13 +119,9 @@ class VisualActivity : AppCompatActivity() {
         // 패널의 상태가 변했을 때
         override fun onPanelStateChanged(panel: View?, previousState: PanelState?, newState: PanelState?) {
             if (newState == PanelState.COLLAPSED) {
-                binding.budgetRV.visibility = View.GONE
-                binding.visualPanel.isTouchEnabled = true
 //                binding.programListTitle.text = "다른거 보려면 클릭하세요"
 //                binding.programListTitle.gravity = Gravity.CENTER
             } else if (newState == PanelState.EXPANDED) {
-                binding.budgetRV.visibility = View.VISIBLE
-                binding.visualPanel.isTouchEnabled = false
 //                binding.programListTitle.text = "국회 프로그램 목록"
 //                binding.programListTitle.gravity = Gravity.START
             }

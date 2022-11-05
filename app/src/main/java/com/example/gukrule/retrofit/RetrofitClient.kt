@@ -14,7 +14,6 @@ import retrofit2.http.*
 object RetrofitClient {
     // 레트로핏 클라이언트 선언
     private var retrofitClient: Retrofit? = null
-    // 레트로핏 클라이언트 가져오기
 
     fun initCongressRetrofit(): Retrofit {
         val url = "https://open.assembly.go.kr/portal/openapi/" //서버 주소
@@ -57,24 +56,5 @@ object RetrofitClient {
             @Query("ACTV_NM") actvName:String? = null,      // 단위사업명
         ) : Call<DetailBudgetList>
     }
-
-//    /** Login Api (worked by KJY) **/
-//    interface LoginApi {
-//        @POST("/account/login")
-//        fun postLogin(
-//            @Body loginData : LoginData
-//        ) :Call<LoginResponse>
-//
-//        @GET("/logout")
-//        fun getLogout(
-//            @Header("auth") token: String
-//        ) :Call<LoginResponse>
-//
-//        @POST("/account")
-//        fun postAccount(
-//            @Body registerData : RegisterData
-//        ) :Call<NoneData>
-//    }
-
 
 }
