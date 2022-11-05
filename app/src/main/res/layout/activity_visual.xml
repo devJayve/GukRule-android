@@ -28,6 +28,7 @@
             />
 
         <ScrollView
+            android:id="@+id/chart_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -36,31 +37,45 @@
                 android:id="@+id/visual_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="200dp"
                 android:orientation="vertical">
-            <TextView
+                <TextView
                 android:id="@+id/visual_1_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="시각화 1"
+                android:text="bar chart"
                 android:textSize="15dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/custom_bar_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="10dp"/>
                 <TextView
                     android:id="@+id/visual_1_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="시각화 1"
+                    android:text="pie chart"
                     android:fontFamily="@font/nanum_square_acl"
                     android:textSize="15dp"
                     android:textColor="@color/white" />
-
-            <TextView
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/custom_pie_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="10dp"/>
+                <TextView
                 android:id="@+id/visual_2_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="시각화 1"
+                android:text="line_chart"
                 android:textSize="15dp"
                 android:textColor="@color/white" />
-
+                <com.github.mikephil.charting.charts.BubbleChart
+                    android:id="@+id/custom_bubble_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_margin="10dp"/>
             <TextView
                 android:id="@+id/visual_3_title"
                 android:layout_width="match_parent"
