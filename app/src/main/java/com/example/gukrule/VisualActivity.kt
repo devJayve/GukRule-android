@@ -12,10 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gukrule.adapter.VisualBudgetRVAdapter
 import com.example.gukrule.data.BudgetData
 import com.example.gukrule.databinding.ActivityVisualBinding
-import com.example.gukrule.retrofit.DetailBudgetData
-import com.example.gukrule.retrofit.DetailBudgetList
-import com.example.gukrule.retrofit.JsonRowList
-import com.example.gukrule.retrofit.RetrofitClient
+import com.example.gukrule.retrofit.*
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -34,6 +31,8 @@ import retrofit2.Response
 class VisualActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisualBinding
     private var budgetInfoList = ArrayList<DetailBudgetData>()
+    private val graphValueList = ArrayList<BarEntry>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +74,8 @@ class VisualActivity : AppCompatActivity() {
                 }
                 binding.visualPanel.panelState = PanelState.COLLAPSED
                 binding.chartScroll.fullScroll(ScrollView.FOCUS_UP)
+                crawlingNewsList()
+
             }
         })
 
@@ -161,21 +162,17 @@ class VisualActivity : AppCompatActivity() {
 
         val yValues = ArrayList<PieEntry>()
 
-        yValues.add(PieEntry(34f, "Japen"))
-        yValues.add(PieEntry(23f, "USA"))
-        yValues.add(PieEntry(14f, "UK"))
-        yValues.add(PieEntry(35f, "India"))
-        yValues.add(PieEntry(40f, "Russia"))
-        yValues.add(PieEntry(40f, "Korea"))
+        yValues.add(PieEntry(34f, "단위사업1"))
+        yValues.add(PieEntry(23f, "단위사업2"))
+        yValues.add(PieEntry(14f, "단위사업3"))
+        yValues.add(PieEntry(35f, "단위사업4"))
+        yValues.add(PieEntry(40f, "단위사업5"))
 
         val description = Description()
         description.text = "세계 국가" //라벨
 
         description.textSize = 15f
         binding.customPieChart.description = description
-
-        binding.customPieChart.animateY(1000, Easing.EaseInOutCubic) //애니메이션
-
 
         val dataSet = PieDataSet(yValues, "Countries")
         dataSet.sliceSpace = 3f
@@ -187,6 +184,10 @@ class VisualActivity : AppCompatActivity() {
         data.setValueTextColor(Color.YELLOW)
 
         binding.customPieChart.data = data
+    }
+
+    private fun animateGraph() {
+        binding.customPieChart.animateY(1000, Easing.EaseInOutCubic) //애니메이션
     }
 
     private fun initBubbleChart() {
@@ -212,20 +213,13 @@ class VisualActivity : AppCompatActivity() {
         return bubbleEntries
     }
 
-
     private fun setBarChartData() {
         // Zoom In / Out 가능 여부 설정
         binding.customBarChart.setScaleEnabled(false)
 
-        val valueList = ArrayList<BarEntry>()
-        val title = "걸음 수"
+        val title = "예산현액 추이"
 
-        // 임의 데이터
-        for (i in 0 until 5) {
-            valueList.add(BarEntry(i.toFloat(), i * 100f))
-        }
-
-        val barDataSet = BarDataSet(valueList, title)
+        val barDataSet = BarDataSet(graphValueList, title)
         // 바 색상 설정 (ColorTemplate.LIBERTY_COLORS)
         barDataSet.setColors(
             Color.rgb(207, 248, 246), Color.rgb(148, 212, 212), Color.rgb(136, 180, 187),
@@ -237,9 +231,12 @@ class VisualActivity : AppCompatActivity() {
     }
 
     private fun hostRetrofitClient(fsclYY : String, programName : String) {
+        // retrofit 객체 선언
         val retrofit = RetrofitClient.initCongressRetrofit()
         Log.d("LOG", "fsclYY : $fsclYY, pgmName : $programName")
         val budgetDetailApi = retrofit.create(RetrofitClient.BudgetApi::class.java)
+
+        // 회원가입 id, pw, email
 
         budgetDetailApi.getDetailBusiness(fsclYY = fsclYY, pgmName = programName)
             .enqueue(object : retrofit2.Callback<DetailBudgetList> {
@@ -251,7 +248,12 @@ class VisualActivity : AppCompatActivity() {
                 val jsonRowList = Gson().fromJson(jsonResponse, JsonRowList::class.java)
                 val finalData = Gson().fromJson(jsonRowList.row[0], DetailBudgetData::class.java)
                 budgetInfoList.add(finalData)
-                Log.d("success", budgetInfoList.count().toString())
+                graphValueList.add(BarEntry((fsclYY).toFloat(), finalData.annualExpBdgAmt!!.toFloat()))
+                if(graphValueList.count() == 4) {
+                    setBarChartData()
+                    animateGraph()
+                }
+                Log.d("success", finalData.annualExpBdgAmt.toString())
             }
 
             override fun onFailure(call: Call<DetailBudgetList>, t: Throwable) {
@@ -260,6 +262,26 @@ class VisualActivity : AppCompatActivity() {
         })
     }
 
+    private  fun crawlingNewsList() {
+        val retrofit = RetrofitClient.initLocalRetrofit()
+        val newsApi = retrofit.create(RetrofitClient.CrawlingApi::class.java)
+        val crawlingRequestData = CrawlingRequestData(keyword = "고흥", page = 1)
+        newsApi.getCrawlingNews(crawlingRequestData = crawlingRequestData)
+            .enqueue(object : retrofit2.Callback<CrawlingNewList> {
+                override fun onResponse(
+                    call: Call<CrawlingNewList>,
+                    response: Response<CrawlingNewList>,
+                ) {
+                    Log.d("success", response.body()!!.code.toString())
+                    Log.d("success", response.body()!!.message)
+                    Log.d("success", response.body()!!.result[1].toString())
+                }
+
+                override fun onFailure(call: Call<CrawlingNewList>, t: Throwable) {
+                    Log.d("failure", t.message.toString())
+                }
+            })
+    }
 
     // 이벤트 리스너
     inner class PanelEventListener : SlidingUpPanelLayout.PanelSlideListener {

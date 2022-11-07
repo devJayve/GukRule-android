@@ -29,7 +29,7 @@ object RetrofitClient {
     }
 
     fun initLocalRetrofit(): Retrofit {
-        val url = "" //서버 주소
+        val url = "https://www.dorisdev.shop/" //서버 주소
         val gson = Gson()                   // 서버와 주고 받을 데이터 형식
         val clientBuilder = OkHttpClient.Builder().build()
 
@@ -38,6 +38,13 @@ object RetrofitClient {
             .client(clientBuilder)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
+    }
+
+    interface CrawlingApi {
+        @POST("crawling/newsList")
+        fun getCrawlingNews(
+            @Body() crawlingRequestData: CrawlingRequestData
+        ) : Call<CrawlingNewList>
     }
 
     interface BudgetApi {

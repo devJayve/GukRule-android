@@ -13,7 +13,7 @@ data class JsonRowList(
     var row: List<JsonObject>
 )
 
-    data class DetailBudgetData(
+data class DetailBudgetData(
         @SerializedName("FSCL_YY") val fsclYY:String?,       // 회계년도
         @SerializedName("EXP_DATE") val exeDate:String?,     // 집행일
         @SerializedName("FSCL_NM") val fsclName:String?,     // 회계명
@@ -28,3 +28,15 @@ data class JsonRowList(
         @SerializedName("THISM_AGGR_EP_AMT") val aggExpenseAmt:Int?,         // 단위사업명
         @SerializedName("THISM_AGGR_EP_NAMT") val aggExpenseNetAmt:Int?,     // 단위사업명
     )
+
+data class CrawlingRequestData(
+    var keyword : String,
+    var page : Int
+)
+
+data class CrawlingNewList(
+    var isSuccess : String,
+    var code : Int,
+    var message : String,
+    var result : List<List<String>>
+)

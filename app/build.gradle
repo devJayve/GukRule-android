@@ -64,4 +64,8 @@ dependencies {
 
     // MPAndroidChart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // codeInputView
+    implementation 'com.raycoarana.codeinputview:codeinputview:2.1.4'
+
 }
