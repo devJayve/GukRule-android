@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/login_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="?android:attr/windowBackground"
-        android:elevation="4dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
     <ImageView
         android:id="@+id/logInLogo"
         android:layout_width="wrap_content"
@@ -82,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="아이디/비밀번호 찾기"
+            android:text="비밀번호 찾기"
             android:textSize="15sp" />
 
         <TextView

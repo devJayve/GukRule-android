@@ -17,14 +17,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginVisualBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(findViewById(R.id.login_toolbar))
-        supportActionBar?.apply {
-            setIcon(R.drawable.back_button_resize)
-            setDisplayUseLogoEnabled(true)
-            setTitle("로그인")
-        }
-
-
         val logIn_btn = findViewById<Button>(R.id.logIn_button)
         val sign_up_btn = findViewById<TextView>(R.id.sign_up)
         val find_id_btn = findViewById<TextView>(R.id.find_id_password)
