@@ -30,7 +30,7 @@ class ArticleVisualActivity : AppCompatActivity() {
 
         // 기사 내용 텍스트 뷰로 전달
         binding.articleTitle.setText("윤 대통령 '보육 책임' 말하고선 ... 국공립 어린이집 예산은 19% 삭감")
-        binding.articleSummary.setText("어린이집 확충 19%↓, 시설 개선 10%↓ \\n 600억 밑으로 떨어진 건 5년 만에 처음 \\n '부모급여' 통해 보육 기조 '가정양육'으로?")
+        binding.articleSummary.setText("어린이집 확충 19%↓, 시설 개선 10%↓ \n 600억 밑으로 떨어진 건 5년 만에 처음 \n '부모급여' 통해 보육 기조 '가정양육'으로?")
         binding.articleFullArticle.setText(
             "어린이집 시설 개보수와 장비 지원 예산도 덩달아 줄었다. 윤 대통령이 지난달 27일 세종시의 국공립 어린이집을 방문해 '어린이집 환경 개선을 국정과제로 선정하겠다'고 언급한 것과 배치된다. "
                     + "\\n 어린이집 기능 보강 개선 예산은 34억7,300만 원으로 올해보다 10% 삭감됐다. 장애아동 시설 환경 개선 사업 예산(1억800만 원)도 10% 줄었다.\n"

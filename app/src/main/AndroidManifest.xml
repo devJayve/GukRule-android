@@ -16,17 +16,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.GukRule">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".VisualActivity"/>
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".KeywordActivity" />
+        <activity android:name=".ArticleVisualActivity" />
+        <activity android:name=".BudgetVisualActivity" />
+        <activity android:name=".SignUpActivity" />
+
     </application>
 
 </manifest>

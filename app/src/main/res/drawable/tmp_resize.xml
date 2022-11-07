@@ -3,5 +3,6 @@
     <item
         android:width="40dp"
         android:height="30dp"
+        android:right="@dimen/activity_horizontal_margin"
         android:drawable="@drawable/ic_tmp"/>
 </layer-list>

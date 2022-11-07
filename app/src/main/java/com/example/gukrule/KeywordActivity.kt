@@ -10,10 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.gukrule.adapter.KeywordRVAdapter
+import com.example.gukrule.retrofit.adapter.KeywordRVAdapter
 import com.example.gukrule.databinding.ActivityKeywordVisualBinding
-
-
 
 class KeywordActivity : AppCompatActivity() {
 
