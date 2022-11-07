@@ -9,7 +9,7 @@ import android.view.animation.AnimationSet
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gukrule.adapter.VisualBudgetRVAdapter
+import com.example.gukrule.retrofit.adapter.VisualBudgetRVAdapter
 import com.example.gukrule.data.BudgetData
 import com.example.gukrule.databinding.ActivityVisualBinding
 import com.example.gukrule.retrofit.*

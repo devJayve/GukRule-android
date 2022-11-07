@@ -14,8 +14,8 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedDispatcher
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.gukrule.adapter.KeywordsAdapter
-import com.example.gukrule.adapter.NewsAdapter
+import com.example.gukrule.retrofit.adapter.KeywordsAdapter
+import com.example.gukrule.retrofit.adapter.NewsAdapter
 import com.example.gukrule.article.Article
 import com.example.gukrule.article.ArticleItemDecorator
 import com.example.gukrule.databinding.ActivityNewsBinding

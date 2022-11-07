@@ -1,4 +1,4 @@
-package com.example.gukrule.adapter
+package com.example.gukrule.retrofit.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +18,7 @@ class VisualBudgetRVAdapter(private val budgetList: ArrayList<BudgetData>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VisualBudgetHolder {
         val viewHolder = LayoutInflater.from(parent.context).inflate(R.layout.item_budget, parent, false)
-        return VisualBudgetRVAdapter.VisualBudgetHolder(viewHolder)
+        return VisualBudgetHolder(viewHolder)
     }
 
     override fun onBindViewHolder(holder: VisualBudgetHolder, position: Int) {

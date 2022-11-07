@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.gukrule.LoginActivity
 import com.example.gukrule.MainActivity
 import com.example.gukrule.databinding.FragmentFindPwBinding
 import com.raycoarana.codeinputview.CodeInputView
@@ -20,17 +21,15 @@ class FindPwFragment : Fragment() {
 
     private var _binding: FragmentFindPwBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var mainActivity : MainActivity
+    private lateinit var loginActivity : LoginActivity
     private lateinit var mCountDownTimer : CountDownTimer
     private var isRunning = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mainActivity = activity as MainActivity
+        loginActivity = activity as LoginActivity
     }
 
     override fun onCreateView(
@@ -48,10 +47,10 @@ class FindPwFragment : Fragment() {
 
     private fun sendCodeEvent() {
         if (binding.findPwIdET.text.isEmpty() || binding.findPwEmailET.text.isEmpty()) {
-            Toast.makeText(mainActivity, "아이디 또는 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(loginActivity, "아이디 또는 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
         }
         else {
-            Toast.makeText(mainActivity, "인증번호가 전송되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(loginActivity, "인증번호가 전송되었습니다.", Toast.LENGTH_SHORT).show()
             binding.codeInputLayout.visibility = View.VISIBLE
 
             if (isRunning) {
@@ -91,14 +90,14 @@ class FindPwFragment : Fragment() {
         if (isRunning) {
             mCountDownTimer.cancel()
         }
-//        mainActivity.moveBackPage()
+        loginActivity.moveToBack()
     }
 
     private fun setMailCodeView(mailCodeInput : CodeInputView) {
         if(mailCodeInput.code.toInt() == 123456) {
             mailCodeInput.setAnimateOnComplete(true)
-//            mainActivity.moveBackPage()
-            Toast.makeText(mainActivity, "이메일이 전송되었습니다.", Toast.LENGTH_SHORT).show()
+            loginActivity.moveToBack()
+            Toast.makeText(loginActivity, "이메일이 전송되었습니다.", Toast.LENGTH_SHORT).show()
         }
         else {
             mailCodeInput.error = "인증번호가 올바르지 않습니다."
