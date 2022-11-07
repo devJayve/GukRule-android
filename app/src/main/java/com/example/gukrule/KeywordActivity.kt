@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gukrule.adapter.KeywordRVAdapter
 import com.example.gukrule.databinding.ActivityKeywordVisualBinding
 
-
-
 class KeywordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityKeywordVisualBinding
