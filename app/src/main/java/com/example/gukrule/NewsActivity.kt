@@ -1,97 +1,73 @@
-package com.example.gukrule.ui.feed
+package com.example.gukrule
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageButton
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import com.example.gukrule.MainActivity
-import com.example.gukrule.NewsActivity
-import com.example.gukrule.R
-import com.example.gukrule.adapter.ArticlesAdapter
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
+import android.widget.TextView
+import androidx.activity.OnBackPressedDispatcher
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gukrule.adapter.KeywordsAdapter
+import com.example.gukrule.adapter.NewsAdapter
 import com.example.gukrule.article.Article
 import com.example.gukrule.article.ArticleItemDecorator
-import com.example.gukrule.databinding.FragmentFeedBinding
-import com.example.gukrule.keyword.Keyword
-import com.example.gukrule.keyword.KeywordItemDecorator
+import com.example.gukrule.databinding.ActivityNewsBinding
 
+/* NewsActivity - 최신순으로 정렬, 10개씩 추가 업로드 기능 */
+class NewsActivity() : AppCompatActivity() {
+    private lateinit var binding: ActivityNewsBinding
+    lateinit var newsAdapter: NewsAdapter
+    lateinit var newsTextView: TextView
+    var newsData = mutableListOf<Article>()
 
-class FeedFragment : Fragment() {
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    private var _binding: FragmentFeedBinding? = null
-    private val keywordData = mutableListOf<Keyword>()
-    private val articleData = mutableListOf<Article>()
-    lateinit var keywordsAdapter: KeywordsAdapter
-    lateinit var articlesAdapter: ArticlesAdapter
+        binding = ActivityNewsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+        val newsAdapter = NewsAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentFeedBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val keywordsAdapter = KeywordsAdapter()
-        val articlesAdapter = ArticlesAdapter()
-
-        val keywordRecyclerView: RecyclerView = binding.keywordRecycler
-        keywordRecyclerView.adapter = keywordsAdapter
-        keywordRecyclerView.addItemDecoration(KeywordItemDecorator(30))
-
-        val articleRecyclerView: RecyclerView = binding.articleRecycler
-        articleRecyclerView.adapter = articlesAdapter
-        articleRecyclerView.addItemDecoration(ArticleItemDecorator(1, Color.GRAY))
-
-        val keywordArrow: ImageButton = binding.keywordArrow
-        val articleArrow: ImageButton = binding.articleArrow
-
-        // 더미 데이터
-        keywordData.apply {
-            add(
-                Keyword(
-                    id = 1,
-                    name = resources.getString(R.string.keyword1_name),
-                ),
-            )
-            add(
-                Keyword(
-                    id = 2,
-                    name = resources.getString(R.string.keyword2_name),
-                ),
-            )
-            add(
-                Keyword(
-                    id = 3,
-                    name = resources.getString(R.string.keyword3_name),
-                ),
-            )
-            add(
-                Keyword(
-                    id = 4,
-                    name = resources.getString(R.string.keyword4_name),
-                ),
-            )
-            add(
-                Keyword(
-                    id = 5,
-                    name = resources.getString(R.string.keyword5_name),
-                ),
-            )
-
-            keywordsAdapter.keywordData = keywordData
-            keywordsAdapter.notifyDataSetChanged()
+        /* toolbar 클릭 범위를 전체에서 아이콘으로 줄이기 */
+        setSupportActionBar(findViewById(R.id.article_toolbar))
+        supportActionBar?.apply {
+            setIcon(R.drawable.back_arrow)
+            setDisplayUseLogoEnabled(true)
+            setTitle(R.string.subtitle_article)
         }
-        articleData.apply {
+        val articleToolbar = binding.articleToolbar
+        articleToolbar.setOnClickListener{
+            val nextIntent = Intent(this, MainActivity::class.java)
+            startActivity(nextIntent)
+        }
+
+        val newsRecyclerView = binding!!.newsRecycler
+        newsRecyclerView.adapter = newsAdapter
+        newsRecyclerView.addItemDecoration(ArticleItemDecorator(1, Color.GRAY))
+
+        val newsTextView = binding!!.newsDescription
+        val textData: String = newsTextView.text.toString()
+        val builder = SpannableStringBuilder(textData)
+        /* 볼드체 적용 */
+        val boldSpan = StyleSpan(Typeface.BOLD)
+        builder.setSpan(boldSpan, 18, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        /* 크기 1.05배 적용 */
+        val sizeBigSpan = RelativeSizeSpan(1.05f)
+        builder.setSpan(sizeBigSpan, 18, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        /* 글자 색상 변경 적용 */
+        val colorBlueSpan = ForegroundColorSpan(Color.BLUE)
+        builder.setSpan(colorBlueSpan, 18, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        newsTextView.text = builder
+
+        newsData.apply {
             add(
                 Article(
                     id = 1,
@@ -198,31 +174,8 @@ class FeedFragment : Fragment() {
                 ),
             )
 
-            articlesAdapter.articleData = articleData
-            articlesAdapter.notifyDataSetChanged()
+            newsAdapter.newsData = newsData
+            newsAdapter.notifyDataSetChanged()
         }
-
-        // Fragment to Activity
-        keywordArrow.setOnClickListener{
-            requireActivity().run{
-                startActivity(Intent(this, NewsActivity::class.java))
-                finish()
-            }
-        }
-        articleArrow.setOnClickListener{
-            requireActivity().run{
-                startActivity(Intent(this, NewsActivity::class.java))
-                finish()
-            }
-        }
-
-        return root
-    }
-
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
