@@ -27,10 +27,10 @@
             </intent-filter>
         </activity>
 
-<!--        <activity android:name=".NewsActivity" />-->
-<!--        <activity android:name=".KeywordActivity" />-->
-<!--        <activity android:name=".ArticleVisualActivity" />-->
-<!--        <activity android:name=".BudgetVisualActivity" />-->
+        <activity android:name=".NewsActivity" />
+        <activity android:name=".KeywordActivity" />
+        <activity android:name=".ArticleVisualActivity" />
+        <activity android:name=".BudgetVisualActivity" />
     </application>
 
 </manifest>

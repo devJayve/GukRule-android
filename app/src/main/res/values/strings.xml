@@ -24,5 +24,13 @@
         기사 PICK은 선택된 키워드 혹은 사용자의 선호도에
         따라 알맞은 기사를 추천해드립니다.
     </string>
+    <string name="bookmark_tooltip">
+        북마크 PICK은 기사, 예산, 용어사전에서 사용자의
+        편의성을 위해 즐겨찾기 기능을 제공해드립니다.
+    </string>
+    <string name="setting_tooltip">
+        환경설정에서 앱 설정, 공지사항, 자주 묻는 질문
+        기능을 제공해드립니다.
+    </string>
 
 </resources>
