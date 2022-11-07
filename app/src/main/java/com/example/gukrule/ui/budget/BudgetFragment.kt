@@ -14,7 +14,8 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.gukrule.BudgetVisualActivity
 import com.example.gukrule.R
-import com.example.gukrule.adapter.CarouselRVAdapter
+import com.example.gukrule.VisualActivity
+import com.example.gukrule.retrofit.adapter.CarouselRVAdapter
 import com.example.gukrule.databinding.FragmentBudgetBinding
 import java.lang.Math.abs
 
@@ -51,7 +52,7 @@ class BudgetFragment : Fragment() {
         viewPager.adapter = carouselRVAdapter
         carouselRVAdapter.setItemClickListener(object : CarouselRVAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                val intent = Intent(activity, BudgetVisualActivity::class.java)
+                val intent = Intent(activity, VisualActivity::class.java)
                 intent.putExtra("budget_type", position)
                 startActivity(intent)
             }

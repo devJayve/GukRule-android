@@ -33,4 +33,12 @@
         기능을 제공해드립니다.
     </string>
 
+    <string-array name="domain_array">
+        <item>naver.com</item>
+        <item>daum.net</item>
+        <item>gmail.com</item>
+        <item>kakao.com</item>
+        <item>nate.com</item>
+    </string-array>
+
 </resources>

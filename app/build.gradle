@@ -56,8 +56,21 @@ dependencies {
     // glide
     implementation 'com.github.bumptech.glide:glide:4.14.2' // 이미지로딩 라이브러리
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
-    
+
     // RV
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    // slidingUpPanel
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // MPAndroidChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // codeInputView
+    implementation 'com.raycoarana.codeinputview:codeinputview:2.1.4'
 
 }

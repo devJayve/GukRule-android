@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/visual_panel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    app:umanoDragView="@id/custom_drawer"
+    app:umanoPanelHeight="0dp"
+    app:umanoOverlay="true"
+    app:umanoShadowHeight="0dp"
+    app:umanoInitialState="expanded"
+    tools:context=".VisualActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/budget_toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/transparent"
+            />
+
+        <ScrollView
+            android:id="@+id/chart_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/budget_toolbar">
+            <LinearLayout
+                android:id="@+id/visual_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="200dp"
+                android:orientation="vertical">
+                <TextView
+                android:id="@+id/visual_1_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="bar chart"
+                android:textSize="15dp"
+                android:textColor="@color/black" />
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/custom_bar_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:id="@+id/visual_1_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="pie chart"
+                    android:fontFamily="@font/nanum_square_acl"
+                    android:textSize="15dp"
+                    android:textColor="@color/white" />
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/custom_pie_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="10dp"/>
+                <TextView
+                android:id="@+id/visual_2_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="line_chart"
+                android:textSize="15dp"
+                android:textColor="@color/white" />
+                <com.github.mikephil.charting.charts.BubbleChart
+                    android:id="@+id/custom_bubble_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_margin="10dp"/>
+            <TextView
+                android:id="@+id/visual_3_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="시각화 1"
+                android:textSize="15dp"
+                android:textColor="@color/white" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_budget_on"
+            android:backgroundTint="@color/grey"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="30dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/custom_drawer"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_border">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/program_list_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/linear_in_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/program_list_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="국회 프로그램 목록"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/navy"
+                    android:fontFamily="@font/nanum_square_aceb"
+                    android:textSize="20sp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/budget_RV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_budget"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

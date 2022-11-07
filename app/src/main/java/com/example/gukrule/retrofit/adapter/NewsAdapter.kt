@@ -1,4 +1,4 @@
-package com.example.gukrule.adapter
+package com.example.gukrule.retrofit.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
