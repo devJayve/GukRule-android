@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- ic_back_arrow 사이즈 조절 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:width="40dp"
-        android:height="30dp"
+        android:width="20dp"
+        android:height="25dp"
         android:right="@dimen/activity_horizontal_margin"
-        android:drawable="@drawable/ic_tmp"/>
+        android:drawable="@drawable/ic_back_arrow" />
 </layer-list>

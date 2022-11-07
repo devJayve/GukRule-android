@@ -24,7 +24,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:background="@color/transparent"
-            android:src="@drawable/ic_buget_on"
+            android:src="@drawable/ic_budget_on"
             android:scaleType="fitStart"
             android:layout_weight="1"/>
 
