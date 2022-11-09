@@ -73,7 +73,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 1,
                     budgetKey = "국회활동관련단체지원",
                     title = "윤 대통령 '보육 책임' 말하고선... 국공립 어린이집 예산은 19% 삭감",
-                    image = R.drawable.article1,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "어린이집 확충 19%↓ 시설 개선 10%↓\n" +
                             "600억 밑으로 떨어진 건 5년만에 처음\n" +
                             "'부모급여' 통해 보육 기조 '가정양육'으로?\n",
@@ -85,7 +85,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 2,
                     budgetKey = "사무처 인건비",
                     title = "6년째 공회전 북한인권재단... 텅 빈 사무실 임대료만 24억",
-                    image = R.drawable.article2,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "이사회 구성 지연으로 출범 못 한 북한인권재단에 예산 24억 들어... 통일부, 마포구 700평 규모 사무실 임차했지만 23개월만에 철수",
                     date = "2022-10-11 09:00"
                 ),
@@ -95,7 +95,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 3,
                     budgetKey = "의회운영지원",
                     title = "아산시 비정규직지원센터 인력·예산 반토막 논란",
-                    image = R.drawable.article3,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content ="시 민간위탁 동의안 인력·예산 현행 대비 50% 축소 계획\n" +
                             "센터 사업 대폭 축소 불가피... 동의안 의회 통과 험로 예상",
                     date = "2022-10-12 09:00"
@@ -106,7 +106,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 4,
                     budgetKey = "국회활동관련단체지원",
                     title = "윤 대통령 '보육 책임' 말하고선... 국공립 어린이집 예산은 19% 삭감",
-                    image = R.drawable.article1,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "어린이집 확충 19%↓ 시설 개선 10%↓\n" +
                             "600억 밑으로 떨어진 건 5년만에 처음\n" +
                             "'부모급여' 통해 보육 기조 '가정양육'으로?\n",
@@ -118,7 +118,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 5,
                     budgetKey = "사무처 인건비",
                     title = "6년째 공회전 북한인권재단... 텅 빈 사무실 임대료만 24억",
-                    image = R.drawable.article2,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "이사회 구성 지연으로 출범 못 한 북한인권재단에 예산 24억 들어... 통일부, 마포구 700평 규모 사무실 임차했지만 23개월만에 철수",
                     date = "2022-10-11 09:00"
                 ),
@@ -128,7 +128,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 6,
                     budgetKey = "국회활동관련단체지원",
                     title = "윤 대통령 '보육 책임' 말하고선... 국공립 어린이집 예산은 19% 삭감",
-                    image = R.drawable.article1,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "어린이집 확충 19%↓ 시설 개선 10%↓\n" +
                             "600억 밑으로 떨어진 건 5년만에 처음\n" +
                             "'부모급여' 통해 보육 기조 '가정양육'으로?\n",
@@ -140,7 +140,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 7,
                     budgetKey = "사무처 인건비",
                     title = "6년째 공회전 북한인권재단... 텅 빈 사무실 임대료만 24억",
-                    image = R.drawable.article2,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "이사회 구성 지연으로 출범 못 한 북한인권재단에 예산 24억 들어... 통일부, 마포구 700평 규모 사무실 임차했지만 23개월만에 철수",
                     date = "2022-10-11 09:00"
                 ),
@@ -150,7 +150,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 8,
                     budgetKey = "의회운영지원",
                     title = "아산시 비정규직지원센터 인력·예산 반토막 논란",
-                    image = R.drawable.article3,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content ="시 민간위탁 동의안 인력·예산 현행 대비 50% 축소 계획\n" +
                             "센터 사업 대폭 축소 불가피... 동의안 의회 통과 험로 예상",
                     date = "2022-10-12 09:00"
@@ -161,7 +161,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 9,
                     budgetKey = "국회활동관련단체지원",
                     title = "윤 대통령 '보육 책임' 말하고선... 국공립 어린이집 예산은 19% 삭감",
-                    image = R.drawable.article1,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "어린이집 확충 19%↓ 시설 개선 10%↓\n" +
                             "600억 밑으로 떨어진 건 5년만에 처음\n" +
                             "'부모급여' 통해 보육 기조 '가정양육'으로?\n",
@@ -173,7 +173,7 @@ class NewsActivity() : AppCompatActivity() {
                     id = 10,
                     budgetKey = "사무처 인건비",
                     title = "6년째 공회전 북한인권재단... 텅 빈 사무실 임대료만 24억",
-                    image = R.drawable.article2,
+                    image = "https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F047%2F2015%2F06%2F25%2F2091448.jpg&type=ofullfill264_180_gray&expire=2&refresh=true",
                     content = "이사회 구성 지연으로 출범 못 한 북한인권재단에 예산 24억 들어... 통일부, 마포구 700평 규모 사무실 임차했지만 23개월만에 철수",
                     date = "2022-10-11 09:00"
                 ),

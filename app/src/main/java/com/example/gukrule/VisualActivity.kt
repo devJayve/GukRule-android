@@ -75,7 +75,6 @@ class VisualActivity : AppCompatActivity() {
                 binding.visualPanel.panelState = PanelState.COLLAPSED
                 binding.chartScroll.fullScroll(ScrollView.FOCUS_UP)
                 crawlingNewsList()
-
             }
         })
 
@@ -265,16 +264,19 @@ class VisualActivity : AppCompatActivity() {
     private  fun crawlingNewsList() {
         val retrofit = RetrofitClient.initLocalRetrofit()
         val newsApi = retrofit.create(RetrofitClient.CrawlingApi::class.java)
-        val crawlingRequestData = CrawlingRequestData(keyword = "고흥", page = 1)
-        newsApi.getCrawlingNews(crawlingRequestData = crawlingRequestData)
+        val crawlingRequestData = CrawlingRequestData(userIdx = 218, keyword = "고흥", page = 1)
+        newsApi.getCrawlingNews(
+            jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE" ,
+            crawlingRequestData = crawlingRequestData
+            )
             .enqueue(object : retrofit2.Callback<CrawlingNewList> {
                 override fun onResponse(
                     call: Call<CrawlingNewList>,
                     response: Response<CrawlingNewList>,
                 ) {
                     Log.d("success", response.body()!!.code.toString())
-                    Log.d("success", response.body()!!.message)
-                    Log.d("success", response.body()!!.result[1].toString())
+//                    Log.d("success", response.body()!!.message)
+//                    Log.d("success", response.body()!!.result[0].toString())
                 }
 
                 override fun onFailure(call: Call<CrawlingNewList>, t: Throwable) {

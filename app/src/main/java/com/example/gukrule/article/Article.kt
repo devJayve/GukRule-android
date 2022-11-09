@@ -3,11 +3,11 @@ package com.example.gukrule.article
 import androidx.annotation.DrawableRes
 
 data class Article(
-    var id: Long,
+    var id: Int?,
     var budgetKey: String?,
-    var title: String,
-    @DrawableRes
-    val image: Int?,
-    var content: String,
-    var date: String,
+    var title: String?,
+    val image: String?,
+    var content: String?,
+    var date: String?,
 )
+
