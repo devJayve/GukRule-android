@@ -53,7 +53,7 @@ class LoginFragment : Fragment() {
         return root
     }
 
-    fun loginPress(){
+    private fun loginPress(){
         if(binding.id.text.isEmpty() || binding.password.text.isEmpty()){
             Toast.makeText(loginActivity, "아이디 또는 비밀번호란이 비어있습니다", Toast.LENGTH_SHORT).show()
         }else{
@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
     private fun connectLoginApi() {
         val loginData = LoginData(
             id = binding.id.text.toString(),
-            pw = binding.password.text.toString()
+            password = binding.password.text.toString()
         )
 
         val retrofit = RetrofitClient.initLocalRetrofit()
@@ -74,10 +74,12 @@ class LoginFragment : Fragment() {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.body()!!.isSuccess && response.body()!!.code == 1000) {
                     //id, token preference Util 설정
-                    if(PrefManager.getUserToken().isNotEmpty()){
+                    if(PrefManager.getUserToken().isNotEmpty() && PrefManager.getUserIdx() > 0){
                         PrefManager.deleteUserToken()
+                        PrefManager.deleteUserIdx()
                     }
-                    PrefManager.storeUserToken(response.body()!!.result.token.toString())
+                    PrefManager.storeUserToken(response.body()!!.result.token)
+                    PrefManager.storeUserIdx(response.body()!!.result.useridx)
 
                     //Main Activity로 intent
                     val intent = Intent(loginActivity, MainActivity::class.java) // 메인 페이지로 전환
@@ -88,7 +90,6 @@ class LoginFragment : Fragment() {
 
                 Log.d("success", response.body()!!.code.toString())
                 Log.d("success", response.body()!!.message)
-                Log.d("success", response.body()!!.result.toString())
                 Log.d("success", "로그인 성공 : ${response.body()!!.isSuccess}")
             }
 

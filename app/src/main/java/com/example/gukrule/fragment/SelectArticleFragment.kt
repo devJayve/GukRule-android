@@ -46,7 +46,12 @@ class SelectArticleFragment : Fragment() {
         val root: View = binding.root
 
         val dummyDataList = arrayListOf(
-            "a", "b", "c", "d", "e", "f"
+            "국회행정지원 조사처 기본경비",
+            "의정활동지원 의정지원",
+            "의정활동지원 예비금",
+            "국회도서관운영 입법정보지원",
+            "국회사무처운영 입법정보화",
+            "국회사무처운영 의회운영지원"
         )
 
         selectAdapter = SelectRVAdapter(dummyDataList, dummyDataList)
@@ -57,7 +62,6 @@ class SelectArticleFragment : Fragment() {
         binding.selectArticleGrid.apply {
             layoutManager = gridManger
             adapter = selectAdapter
-
         }
 
         selectAdapter.setItemClickListener(object : SelectRVAdapter.OnItemClickListener{

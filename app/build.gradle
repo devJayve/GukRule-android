@@ -72,5 +72,4 @@ dependencies {
 
     // codeInputView
     implementation 'com.raycoarana.codeinputview:codeinputview:2.1.4'
-
 }

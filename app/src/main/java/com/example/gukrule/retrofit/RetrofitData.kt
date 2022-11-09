@@ -41,7 +41,7 @@ data class CrawlingNewList(
 
 data class LoginData(
     var id : String,
-    var pw : String
+    var password : String
 )
 
 data class LoginResponse(
@@ -52,8 +52,8 @@ data class LoginResponse(
 )
 
 data class UserInfo(
-    var id : String,
-    var token : Int
+    var useridx : Int,
+    var token : String
 )
 
 data class RegisterData(

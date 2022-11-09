@@ -3,6 +3,8 @@ package com.example.gukrule.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
@@ -26,12 +28,14 @@ class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val
 
     override fun onBindViewHolder(holder: SelectRVAdapter.SelectViewHolder, position: Int) {
         val reportItem = holder.itemView.findViewById<Button>(R.id.select_article_button)
+        val submitBtn = holder.itemView.findViewById<Button>(R.id.sign_up_submit_btn)
         reportItem.text = reportDataList[position]
         reportItem.setOnClickListener {
             if(sendDataList.count() > 4) {
                 if (reportItem.isSelected) {
                     sendDataList.removeAt(position)
                     reportItem.isSelected = !(reportItem.isSelected)
+                    submitBtn.setVisibility(VISIBLE)
                 }
             } else {
                 Log.d("TAG", "size1  : ${sendDataList.count()}")

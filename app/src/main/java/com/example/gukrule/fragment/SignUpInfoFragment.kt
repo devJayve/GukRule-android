@@ -21,7 +21,6 @@ import com.example.gukrule.retrofit.RegisterData
 import com.example.gukrule.retrofit.RegisterResponse
 import com.example.gukrule.retrofit.RetrofitClient
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import java.util.regex.Pattern
 
@@ -195,7 +194,6 @@ class SignUpInfoFragment : Fragment() {
 
     private fun moveNextPageEvent() {
         signUpActivity.transFragEvent(2)
-
 //        if (!isNameAcceptable) signUpActivity.showToastEvent("이름을 확인해주세요.", true)
 //        else if (!isIdAcceptable) signUpActivity.showToastEvent("아이디를 확인해주세요.", true)
 //        else if (!isIdOverlapping) signUpActivity.showToastEvent("아이디가 중복 확인되지 않았습니다.", true)
@@ -226,11 +224,9 @@ class SignUpInfoFragment : Fragment() {
             ) {
                 TODO("응답 코드가 성공일 시에 login Activity로 보내고," +
                         "실패 응답 코드에 따라 dialog")
-//                if(response.body()!!.isSuccess && response.body()!!.code == 1000){
-//                    val intent = Intent(signUpActivity, LoginActivity::class.java) //성공 시 로그인 페이지로 전환
-//                    startActivity(intent)
-//                    response.body()!!.result
-//                }
+                if(response.body()!!.isSuccess && response.body()!!.code == 1000){
+
+                }
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {

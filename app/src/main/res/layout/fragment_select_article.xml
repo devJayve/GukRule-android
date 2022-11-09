@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="관심 기사 선택하기"
+                android:text="관심 기사 5개를 골라주세요"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -50,5 +50,17 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <Button
+        android:id="@+id/sign_up_submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        android:background="@drawable/select_article_submit_button"
+        android:text="회원가입 완료하기"
+        android:layout_margin="10dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
