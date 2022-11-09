@@ -214,10 +214,15 @@ class SignUpInfoFragment : Fragment() {
             name = binding.nameET.text.toString(),
             nickname = binding.nickNameET.text.toString(),
             email = binding.emailET.text.toString(),
+            keyword1 = ,
+            keyword2 = ,
+            keyword3 = ,
+            keyword4 = ,
+            keyword5 = ,
         )
         val retrofit = RetrofitClient.initLocalRetrofit()
         val requestRegisterApi = retrofit.create(RetrofitClient.RegisterApi::class.java)
-        requestRegisterApi.getRegisterData(key = "").enqueue(object : retrofit2.Callback<RegisterResponse> {
+        requestRegisterApi.getRegisterData(registerData = registerData).enqueue(object : retrofit2.Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>

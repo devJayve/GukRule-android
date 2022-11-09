@@ -70,7 +70,7 @@ object RetrofitClient {
     }
 
     interface RegisterApi{
-        @POST("https://www.dorisdev.shop/users/signup")
+        @POST("users/signup")
         fun getRegisterData(
             @Body() registerData: RegisterData
 //            @Query("KEY") key:String = "amszkxcvjlj123"
