@@ -15,6 +15,7 @@ import com.example.gukrule.databinding.FragmentLoginBinding
 import com.example.gukrule.retrofit.LoginData
 import com.example.gukrule.retrofit.LoginResponse
 import com.example.gukrule.retrofit.RetrofitClient
+import com.example.gukrule.util.PrefManager
 import retrofit2.Call
 import retrofit2.Response
 
@@ -56,7 +57,7 @@ class LoginFragment : Fragment() {
         if(binding.id.text.isEmpty() || binding.password.text.isEmpty()){
             Toast.makeText(loginActivity, "아이디 또는 비밀번호란이 비어있습니다", Toast.LENGTH_SHORT).show()
         }else{
-
+            connectLoginApi()
         }
     }
 
@@ -72,10 +73,17 @@ class LoginFragment : Fragment() {
             .enqueue(object : retrofit2.Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.body()!!.isSuccess && response.body()!!.code == 1000) {
-                    val intent = Intent(loginActivity, MainActivity::class.java) // 로그인 페이지로 전환
+                    //id, token preference Util 설정
+                    if(PrefManager.getUserToken().isNotEmpty()){
+                        PrefManager.deleteUserToken()
+                    }
+                    PrefManager.storeUserToken(response.body()!!.result.token.toString())
+
+                    //Main Activity로 intent
+                    val intent = Intent(loginActivity, MainActivity::class.java) // 메인 페이지로 전환
                     startActivity(intent)
                     response.body()!!.result
-                    //TODO::추후에 id, token preference Util 설정
+
                 }
 
                 Log.d("success", response.body()!!.code.toString())

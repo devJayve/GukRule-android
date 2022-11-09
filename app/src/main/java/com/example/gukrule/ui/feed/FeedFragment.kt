@@ -95,7 +95,7 @@ class FeedFragment : Fragment() {
             add(
                 Article(
                     id = 1,
-                    budgetKey = "국회활동관련단체지원",
+                    budgetKey = "예산정책처운영국가재정경제분석및의안비용추계",
                     title = "윤 대통령 '보육 책임' 말하고선... 국공립 어린이집 예산은 19% 삭감",
                     image = R.drawable.article1,
                     content = "어린이집 확충 19%↓ 시설 개선 10%↓\n" +

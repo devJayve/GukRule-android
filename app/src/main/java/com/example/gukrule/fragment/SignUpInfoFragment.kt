@@ -2,6 +2,7 @@ package com.example.gukrule.fragment
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.gukrule.LoginActivity
 import com.example.gukrule.R
 import com.example.gukrule.SignUpActivity
 import com.example.gukrule.databinding.FragmentSignUpInfoBinding
@@ -214,11 +216,6 @@ class SignUpInfoFragment : Fragment() {
             name = binding.nameET.text.toString(),
             nickname = binding.nickNameET.text.toString(),
             email = binding.emailET.text.toString(),
-            keyword1 = ,
-            keyword2 = ,
-            keyword3 = ,
-            keyword4 = ,
-            keyword5 = ,
         )
         val retrofit = RetrofitClient.initLocalRetrofit()
         val requestRegisterApi = retrofit.create(RetrofitClient.RegisterApi::class.java)
@@ -229,6 +226,11 @@ class SignUpInfoFragment : Fragment() {
             ) {
                 TODO("응답 코드가 성공일 시에 login Activity로 보내고," +
                         "실패 응답 코드에 따라 dialog")
+//                if(response.body()!!.isSuccess && response.body()!!.code == 1000){
+//                    val intent = Intent(signUpActivity, LoginActivity::class.java) //성공 시 로그인 페이지로 전환
+//                    startActivity(intent)
+//                    response.body()!!.result
+//                }
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {

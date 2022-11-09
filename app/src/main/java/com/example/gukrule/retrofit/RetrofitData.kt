@@ -62,12 +62,6 @@ data class RegisterData(
     var name : String,
     var nickname : String,
     var email : String,
-    var keyword1 : String,
-    var keyword2 : String,
-    var keyword3 : String,
-    var keyword4 : String,
-    var keyword5 : String,
-
 )
 
 data class RegisterResponse(

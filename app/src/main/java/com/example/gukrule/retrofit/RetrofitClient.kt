@@ -73,19 +73,6 @@ object RetrofitClient {
         @POST("users/signup")
         fun getRegisterData(
             @Body() registerData: RegisterData
-//            @Query("KEY") key:String = "amszkxcvjlj123"
-//            @Query("Type") type:String = "json",
-//            @Query("id") id:String,
-//            @Query("password") password:String,
-//            @Query("passwordForCheck") passwordForCheck:String,
-//            @Query("phone") phone:String,
-//            @Query("email") email:String,
-//            @Query("nickName") nickName:String,
-//            @Query("keyword1") keyword1:String,
-//            @Query("keyword2") keyword2:String,
-//            @Query("keyword3") keyword3:String,
-//            @Query("keyword4") keyword4:String,
-//            @Query("keyword5") keyword5:String
         ) : Call<RegisterResponse>
 
     }
