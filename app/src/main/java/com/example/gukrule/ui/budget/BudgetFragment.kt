@@ -15,7 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.gukrule.BudgetVisualActivity
 import com.example.gukrule.R
 import com.example.gukrule.VisualActivity
-import com.example.gukrule.retrofit.adapter.CarouselRVAdapter
+import com.example.gukrule.adapter.CarouselRVAdapter
 import com.example.gukrule.databinding.FragmentBudgetBinding
 import java.lang.Math.abs
 

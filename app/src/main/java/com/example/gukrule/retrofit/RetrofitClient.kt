@@ -28,6 +28,10 @@ object RetrofitClient {
             .build()
     }
 
+    fun getBudgetService(): BudgetApi {
+        return initCongressRetrofit().create(BudgetApi::class.java)
+    }
+
     fun initLocalRetrofit(): Retrofit {
         val url = "https://www.dorisdev.shop/" //서버 주소
         val gson = Gson()                   // 서버와 주고 받을 데이터 형식
@@ -61,7 +65,7 @@ object RetrofitClient {
             @Query("SECT_NM") sectName:String? = null,      // 부문명
             @Query("PGM_NM") pgmName:String? = null,        // 프로그램명
             @Query("ACTV_NM") actvName:String? = null,      // 단위사업명
-        ) : Call<DetailBudgetList>
+        ) : Call<BudgetResponseData>
     }
 
 }

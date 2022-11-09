@@ -9,7 +9,7 @@ import android.view.animation.AnimationSet
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gukrule.retrofit.adapter.VisualBudgetRVAdapter
+import com.example.gukrule.adapter.VisualBudgetRVAdapter
 import com.example.gukrule.data.BudgetData
 import com.example.gukrule.databinding.ActivityVisualBinding
 import com.example.gukrule.retrofit.*
@@ -25,16 +25,35 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Response
+import retrofit2.await
+import retrofit2.awaitResponse
+import kotlin.coroutines.CoroutineContext
 
 
-class VisualActivity : AppCompatActivity() {
+class VisualActivity : AppCompatActivity(), CoroutineScope{
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
+
     private lateinit var binding: ActivityVisualBinding
     private var detailBudgetDataList = ArrayList<DetailBudgetData>()
 
-    private var annualBudgetList = ArrayList<ArrayList<DetailBudgetData>>()
-    // 0번째 index부터 2019 ~ 2022년도 데이터
+    private var annualBudgetList = arrayOfNulls<ArrayList<Row>>(4)
+
+    // 2019 데이터
+    private lateinit var annual2019BudgetData : List<Row>
+    // 2020 데이터
+    private var annual2020BudgetData = ArrayList<Row>()
+    // 2021 데이터
+    private var annual2021BudgetData = ArrayList<Row>()
+    // 2022 데이터
+    private var annual2022BudgetData = ArrayList<Row>()
+
+
+
     private val graphValueList = ArrayList<BarEntry>()
 
 
@@ -43,23 +62,12 @@ class VisualActivity : AppCompatActivity() {
 
         binding = ActivityVisualBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         // 단위사업명 string array
         val unitBusinessList = resources.getStringArray(R.array.unit_business)
 
-        val amt2019 = annualBudgetList[0].sumOf {
-            it.aggExpenseAmt!!.toInt()
-        }
-
-        // slidingUpPanel 설정
-        binding.visualPanel.isTouchEnabled = false
-        binding.visualPanel.addPanelSlideListener(PanelEventListener())
-
-        // actionBar 설정
-        setSupportActionBar(binding.budgetToolbar)
-        supportActionBar?.apply {
-            setDisplayUseLogoEnabled(true)
-            title = "시각화"
-        }
+        initUI()
 
         // add dummy data
         val dataList = ArrayList<BudgetData>()
@@ -82,13 +90,33 @@ class VisualActivity : AppCompatActivity() {
         visualBudgetRVAdapter.setItemClickListener(object : VisualBudgetRVAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
                 detailBudgetDataList.clear()
-                for (i in 0 .. 3) {
-                    hostRetrofitClient((2019+i).toString(), "국회도서관")
+
+                launch {
+                    val testData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2019", actvName = "입법정보지원").await()
+                    Log.d("Success", "2019 ${testData.njzofberazvhjncha[1].row[0].ANEXP_BDGAMT}")
                 }
+
+                launch {
+                    val testData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2020", actvName = "입법정보지원").await()
+                    Log.d("Success", "2020 ${testData.njzofberazvhjncha[1].row[0].ANEXP_BDGAMT}")
+                }
+
+                launch {
+                    val testData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2021", actvName = "입법정보지원").await()
+                    Log.d("Success", "2020 ${testData.njzofberazvhjncha[1].row[0].ANEXP_BDGAMT}")
+                }
+
+                launch {
+                    val testData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2022", actvName = "입법정보지원").await()
+                    Log.d("Success", "2020 ${testData.njzofberazvhjncha[1].row[0].ANEXP_BDGAMT}")
+                }
+
                 binding.visualPanel.panelState = PanelState.COLLAPSED
                 binding.chartScroll.fullScroll(ScrollView.FOCUS_UP)
             }
         })
+
+
 
         // floating action button 설정
         binding.fab.setOnClickListener {
@@ -100,6 +128,65 @@ class VisualActivity : AppCompatActivity() {
         initPieChart()
         initBubbleChart()
     }
+
+    private fun initUI() {
+        // slidingUpPanel 설정
+        binding.visualPanel.isTouchEnabled = false
+        binding.visualPanel.addPanelSlideListener(PanelEventListener())
+
+        // actionBar 설정
+        setSupportActionBar(binding.budgetToolbar)
+        supportActionBar?.apply {
+            setDisplayUseLogoEnabled(true)
+            title = "시각화"
+        }
+
+    }
+
+    private suspend fun hostRetrofitClient(fsclYY : String, unitName : String) : List<Row> {
+        // retrofit 객체 선언
+        val retrofit = RetrofitClient.initCongressRetrofit()
+        Log.d("LOG", "fsclYY : $fsclYY, unitName : $unitName")
+        val budgetDetailApi = retrofit.create(RetrofitClient.BudgetApi::class.java)
+
+        var totalData = listOf<Row>()
+
+        budgetDetailApi.getDetailBusiness(fsclYY = fsclYY, actvName = unitName)
+            .enqueue(object : retrofit2.Callback<BudgetResponseData> {
+                override fun onResponse(
+                    call: Call<BudgetResponseData>,
+                    response: Response<BudgetResponseData>,
+                ) {
+                    // response 받은 최종 데이터
+                    totalData = response.body()!!.njzofberazvhjncha[1].row
+
+                    when (fsclYY) {
+                        "2019" -> totalData.forEach { annualBudgetList[0]?.add( it ) }
+                        "2020" -> totalData.forEach { annualBudgetList[1]?.add( it ) }
+                        "2021" -> totalData.forEach { annualBudgetList[2]?.add( it ) }
+                        "2022" -> totalData.forEach { annualBudgetList[3]?.add( it ) }
+                    }
+
+                    if(annualBudgetList[0]!!.isNotEmpty() && annualBudgetList[1]!!.isNotEmpty()
+                        && annualBudgetList[2]!!.isNotEmpty() && annualBudgetList[3]!!.isNotEmpty()) {
+                        transformData()
+                        }
+                }
+
+                override fun onFailure(call: Call<BudgetResponseData>, t: Throwable) {
+                    Log.d("failure", t.message.toString())
+                }
+            })
+        return totalData
+    }
+
+    private fun transformData() {
+
+        val budgetGraphData = ArrayList<BarEntry>()
+        for (i in 0.. annualBudgetList.count())
+            budgetGraphData.add(BarEntry((2019+i).toFloat(), annualBudgetList[i]!!.sumOf { it.ANEXP_BDGAMT }.toFloat()))
+    }
+
 
     private fun initBarChart() {
         // 차트 회색 배경 설정 (default = false)
@@ -239,38 +326,6 @@ class VisualActivity : AppCompatActivity() {
         val data = BarData(barDataSet)
         binding.customBarChart.data = data
         binding.customBarChart.invalidate()
-    }
-
-    private fun hostRetrofitClient(fsclYY : String, programName : String) {
-        // retrofit 객체 선언
-        val retrofit = RetrofitClient.initCongressRetrofit()
-        Log.d("LOG", "fsclYY : $fsclYY, pgmName : $programName")
-        val budgetDetailApi = retrofit.create(RetrofitClient.BudgetApi::class.java)
-
-        // 회원가입 id, pw, email
-
-        budgetDetailApi.getDetailBusiness(fsclYY = fsclYY, pgmName = programName)
-            .enqueue(object : retrofit2.Callback<DetailBudgetList> {
-            override fun onResponse(
-                call: Call<DetailBudgetList>,
-                response: Response<DetailBudgetList>,
-            ) {
-                val jsonResponse: JsonObject = response.body()!!.njzofberazvhjncha[1]
-                val jsonRowList = Gson().fromJson(jsonResponse, JsonRowList::class.java)
-                val finalData = Gson().fromJson(jsonRowList.row[0], DetailBudgetData::class.java)
-                detailBudgetDataList.add(finalData)
-                graphValueList.add(BarEntry((fsclYY).toFloat(), finalData.annualExpBdgAmt!!.toFloat()))
-                if(graphValueList.count() == 4) {
-                    setBarChartData()
-                    animateGraph()
-                }
-                Log.d("success", finalData.annualExpBdgAmt.toString())
-            }
-
-            override fun onFailure(call: Call<DetailBudgetList>, t: Throwable) {
-                Log.d("failure", t.message.toString())
-            }
-        })
     }
 
     // 이벤트 리스너

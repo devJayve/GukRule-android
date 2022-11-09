@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gukrule.MainActivity
 import com.example.gukrule.NewsActivity
 import com.example.gukrule.R
-import com.example.gukrule.retrofit.adapter.ArticlesAdapter
-import com.example.gukrule.retrofit.adapter.KeywordsAdapter
+import com.example.gukrule.adapter.ArticlesAdapter
+import com.example.gukrule.adapter.KeywordsAdapter
 import com.example.gukrule.article.Article
 import com.example.gukrule.article.ArticleItemDecorator
 import com.example.gukrule.databinding.FragmentFeedBinding

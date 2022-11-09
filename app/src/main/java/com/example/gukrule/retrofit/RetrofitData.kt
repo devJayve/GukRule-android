@@ -1,16 +1,45 @@
 package com.example.gukrule.retrofit
 
-import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-
-    data class DetailBudgetList(
-        var njzofberazvhjncha: List<JsonObject>
-    )
 
 data class JsonRowList(
     var row: List<JsonObject>
+)
+
+data class Njzofberazvhjncha(
+    val head: List<Head>,
+    val row: List<Row>
+)
+
+data class Head(
+    val RESULT: RESULT,
+    val list_total_count: Int
+)
+
+data class RESULT(
+    val CODE: String,
+    val MESSAGE: String
+)
+
+data class Row(
+    val ACTV_NM: String,
+    val ANEXP_BDGAMT: Int,
+    val ANEXP_BDG_CAMT: Int,
+    val EP_AMT: Int,
+    val EXE_DATE: String,
+    val FLD_NM: String,
+    val FSCL_NM: String,
+    val FSCL_YY: String,
+    val PGM_NM: String,
+    val SACTV_NM: String,
+    val SECT_NM: String,
+    val THISM_AGGR_EP_AMT: Int,
+    val THISM_AGGR_EP_NAMT: Int
+)
+
+data class BudgetResponseData(
+    val njzofberazvhjncha: List<Njzofberazvhjncha>
 )
 
 data class DetailBudgetData(
