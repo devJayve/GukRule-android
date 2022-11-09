@@ -1,50 +1,51 @@
 package com.example.gukrule.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gukrule.R
+import com.example.gukrule.retrofit.adapter.CarouselRVAdapter
 
-class SelectRVAdapter() : RecyclerView.Adapter<SelectRVAdapter.SelectViewHolder>() {
+class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val keywordDataList: ArrayList<String>)
+    : RecyclerView.Adapter<SelectRVAdapter.SelectViewHolder>() {
 
-    private val titleList = listOf(
-        "기사 제목 1",
-        "기사 제목 2",
-        "기사 제목 3",
-        "기사 제목 4",
-        "기사 제목 5",
-        "기사 제목 6",
-        "기사 제목 7",
-        "기사 제목 8",
-        "기사 제목 9",
-        "기사 제목 10",
-    )
+    private var sendDataList = ArrayList<String>(keywordDataList.count())
 
-    class SelectViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val textView: TextView = view.findViewById(R.id.select_article_text)
-        val imageView: ImageView = view.findViewById(R.id.select_article_image)
+    class SelectViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-        fun bind(title: String){
-            textView.text = "$title"
-        }
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectRVAdapter.SelectViewHolder {
+        val viewHolder = LayoutInflater.from(parent.context).inflate(R.layout.item_select_article, parent, false)
+        return SelectRVAdapter.SelectViewHolder(viewHolder)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectViewHolder {
-        return SelectViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_select_article,parent,false)
-        )
-    }
+    override fun onBindViewHolder(holder: SelectRVAdapter.SelectViewHolder, position: Int) {
+        val reportItem = holder.itemView.findViewById<Button>(R.id.select_article_button)
+        reportItem.text = reportDataList[position]
+        reportItem.setOnClickListener {
+            if(sendDataList.count() > 4) {
+                if (reportItem.isSelected) {
+                    sendDataList.removeAt(position)
+                    reportItem.isSelected = !(reportItem.isSelected)
+                }
+            } else {
+                Log.d("TAG", "size1  : ${sendDataList.count()}")
+                Log.d("TAG", "size2  : ${keywordDataList.count()}")
+                if (!reportItem.isSelected) {
+                    sendDataList.add(position, keywordDataList[position])
+                } else {
+                    sendDataList.removeAt(position)
+                }
+                reportItem.isSelected = !(reportItem.isSelected)
+            }
 
-    override fun onBindViewHolder(holder: SelectViewHolder, position: Int) {
-        holder.bind(titleList[position])
+            Log.d("LOG", "isSelected : ${reportItem.isSelected}");
 
-        holder.itemView.setOnClickListener{
-            itemClickListener.onClick(it,position)
         }
     }
 
@@ -59,9 +60,8 @@ class SelectRVAdapter() : RecyclerView.Adapter<SelectRVAdapter.SelectViewHolder>
     private lateinit var itemClickListener: OnItemClickListener
 
 
-
     override fun getItemCount(): Int {
-        return titleList.size
+        return reportDataList.size
     }
 
 }

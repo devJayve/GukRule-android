@@ -42,7 +42,9 @@
                 android:id="@+id/select_article_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_select_article" />
+                tools:listitem="@layout/item_select_article"
+                android:paddingLeft="20dp"
+                />
 
         </LinearLayout>
 

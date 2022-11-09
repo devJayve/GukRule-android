@@ -1,8 +1,6 @@
 package com.example.gukrule.retrofit
 
-import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
     data class DetailBudgetList(
@@ -39,4 +37,52 @@ data class CrawlingNewList(
     var code : Int,
     var message : String,
     var result : List<List<String>>
+)
+
+data class LoginData(
+    var id : String,
+    var pw : String
+)
+
+data class LoginResponse(
+    var isSuccess : Boolean,
+    var code : Int,
+    var message : String,
+    var result : UserInfo
+)
+
+data class UserInfo(
+    var id : String,
+    var token : Int
+)
+
+data class RegisterData(
+    var id : String,
+    var pw : String,
+    var name : String,
+    var nickname : String,
+    var email : String,
+    var keyword1 : String,
+    var keyword2 : String,
+    var keyword3 : String,
+    var keyword4 : String,
+    var keyword5 : String,
+
+)
+
+data class RegisterResponse(
+    var isSuccess: Boolean,
+    var code: Int,
+    var message: String,
+    var result : RegisterToken,
+    var userIdx : Int
+)
+
+data class RegisterToken(
+    var jwt: String
+)
+
+data class SelectedArticleData(
+    var title : String,
+    var selected: Boolean,
 )

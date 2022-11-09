@@ -15,6 +15,12 @@ import androidx.fragment.app.Fragment
 import com.example.gukrule.R
 import com.example.gukrule.SignUpActivity
 import com.example.gukrule.databinding.FragmentSignUpInfoBinding
+import com.example.gukrule.retrofit.RegisterData
+import com.example.gukrule.retrofit.RegisterResponse
+import com.example.gukrule.retrofit.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class SignUpInfoFragment : Fragment() {
@@ -186,37 +192,44 @@ class SignUpInfoFragment : Fragment() {
     }
 
     private fun moveNextPageEvent() {
-        if (!isNameAcceptable) signUpActivity.showToastEvent("이름을 확인해주세요.", true)
-        else if (!isIdAcceptable) signUpActivity.showToastEvent("아이디를 확인해주세요.", true)
-        else if (!isIdOverlapping) signUpActivity.showToastEvent("아이디가 중복 확인되지 않았습니다.", true)
-        else if (!isPwAcceptable) signUpActivity.showToastEvent("비밀번호를 확인해주세요.", true)
-        else if (!isRePwAcceptable) signUpActivity.showToastEvent("비밀번호가 서로 일치하지 않습니다.", true)
-        else if (!isEmailAcceptable) signUpActivity.showToastEvent("이메일을 확인해주세요.", true)
-        else {
-            connectRegisterApi()
-            signUpActivity.transFragEvent(2)
-        }
+        signUpActivity.transFragEvent(2)
+
+//        if (!isNameAcceptable) signUpActivity.showToastEvent("이름을 확인해주세요.", true)
+//        else if (!isIdAcceptable) signUpActivity.showToastEvent("아이디를 확인해주세요.", true)
+//        else if (!isIdOverlapping) signUpActivity.showToastEvent("아이디가 중복 확인되지 않았습니다.", true)
+//        else if (!isPwAcceptable) signUpActivity.showToastEvent("비밀번호를 확인해주세요.", true)
+//        else if (!isRePwAcceptable) signUpActivity.showToastEvent("비밀번호가 서로 일치하지 않습니다.", true)
+//        else if (!isEmailAcceptable) signUpActivity.showToastEvent("이메일을 확인해주세요.", true)
+//        else {
+//            connectRegisterApi()
+//            signUpActivity.transFragEvent(2)
+//        }
     }
 
     //TODO::register Data class를 만들고 API 통신 test
     private fun connectRegisterApi() {
-//        val registerData = RegisterData(
-//            id = idET.text.toString(),
-//            pw = pwET.text.toString(),
-//            name = nameET.text.toString(),
-//            nickname = nickNameET.text.toString(),
-//            email = emailET.text.toString()
-//        )
-//        val retrofit = RetrofitClient.initClient()
-//        val requestRegisterApi = retrofit.create(RetrofitClient.LoginApi::class.java)
-//        requestRegisterApi.postAccount(registerData = registerData).enqueue(object :
-//            Callback<NoneData> {
-//            override fun onResponse(call: Call<NoneData>, response: Response<NoneData>) {
-//                Log.d("TAG", "register success : ${response.body()!!.success}")
-//            }
-//
-//            override fun onFailure(call: Call<NoneData>, t: Throwable) {
-//            }
-//        })
+        val registerData = RegisterData(
+            id = binding.idET.text.toString(),
+            pw = binding.pwET.text.toString(),
+            name = binding.nameET.text.toString(),
+            nickname = binding.nickNameET.text.toString(),
+            email = binding.emailET.text.toString(),
+        )
+        val retrofit = RetrofitClient.initLocalRetrofit()
+        val requestRegisterApi = retrofit.create(RetrofitClient.RegisterApi::class.java)
+        requestRegisterApi.getRegisterData(key = "").enqueue(object : retrofit2.Callback<RegisterResponse> {
+            override fun onResponse(
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
+            ) {
+                TODO("응답 코드가 성공일 시에 login Activity로 보내고," +
+                        "실패 응답 코드에 따라 dialog")
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }
