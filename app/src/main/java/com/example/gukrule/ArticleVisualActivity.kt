@@ -1,24 +1,26 @@
 package com.example.gukrule
 
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
 import com.bumptech.glide.Glide
+import com.example.gukrule.adapter.ArticlesAdapter
+import com.example.gukrule.article.Article
 import com.example.gukrule.databinding.ActivityArticleVisualBinding
+import com.example.gukrule.ui.feed.FeedFragment
 
 class ArticleVisualActivity : AppCompatActivity() {
     //GestureDetector.OnGestureListener
     private var _binding: ActivityArticleVisualBinding? = null
     private val binding get() = _binding!!
 
-
     //private lateinit var mDetector: GestureDetectorCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         _binding = ActivityArticleVisualBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -26,7 +28,6 @@ class ArticleVisualActivity : AppCompatActivity() {
         Glide.with(this)
             .load("https://imgnews.pstatic.net/image/469/2022/10/10/0000701258_001_20221010090104176.jpg?type=w647")
             .into(findViewById(R.id.article_image))
-
 
         // 기사 내용 텍스트 뷰로 전달
         binding.articleTitle.setText("윤 대통령 '보육 책임' 말하고선 ... 국공립 어린이집 예산은 19% 삭감")

@@ -1,6 +1,7 @@
 package com.example.gukrule.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,12 +33,18 @@ class ArticlesAdapter :
             if (item.budgetKey != null) {
                 articleBudgetKeyView.text = item.budgetKey
             } else {
-                articleBudgetKeyView.text = "keyword"
+                articleBudgetKeyView.text = "랜덤 키워드"
             }
             articleTitleView.text = item.title
-            Glide.with(articleImageView.context)
-                .load(item.image)
-                .into(itemView.findViewById(R.id.article_image))
+            if (item.image != null) {
+                Glide.with(articleImageView.context)
+                    .load(item.image)
+                    .error(R.drawable.img_load_failed)
+                    .into(articleImageView)
+            } else {
+                articleImageView.setImageResource(R.drawable.img_load_failed)
+            }
+
             articleContentView.text = item.content
             articleDateView.text = item.date
         }
@@ -52,10 +59,25 @@ class ArticlesAdapter :
 
     /* articles to bind view. */
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-//        val article = getItem(position)
-//        holder.bind(article)
         holder.bind(articleData[position])
+
+    // (1) item click
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
+
+    // (2) listener interface
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    // (3) click event
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+    // (4) setItemClickListener fun
+    private lateinit var itemClickListener : OnItemClickListener
 
     override fun getItemCount(): Int {
         return articleData.size

@@ -1,6 +1,6 @@
 package com.example.gukrule.retrofit.adapter
 
-import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.gukrule.ArticleVisualActivity
+import com.example.gukrule.NewsActivity
 import com.example.gukrule.R
 import com.example.gukrule.article.Article
 
