@@ -23,10 +23,11 @@
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_gravity="left"
             android:background="@color/transparent"
-            android:src="@drawable/ic_budget_on"
+            android:src="@drawable/ic_back_arrow"
             android:scaleType="fitStart"
-            android:layout_weight="1"/>
+            android:layout_weight="1.5"/>
 
         <EditText
             android:id="@+id/findPwIdET"
@@ -35,10 +36,10 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2"
             android:hint="아이디"
             android:inputType="text"
-            android:maxLength="10"
+            android:maxLength="30"
             android:paddingLeft="15dp"
             android:selectAllOnFocus="true"
             android:textColor="@color/black"
@@ -52,13 +53,13 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2"
             android:hint="이메일"
             android:textColorHint="@color/grey"
             android:textSize="15sp"
             android:paddingLeft="15dp"
             android:inputType="text"
-            android:maxLength="10"
+            android:maxLength="30"
             android:selectAllOnFocus="true"
             android:textColor="@color/black" />
 
@@ -73,7 +74,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textAllCaps="false"
-            android:layout_weight="1.5"/>
+            android:layout_weight="2"/>
 
         <LinearLayout
             android:id="@+id/codeInputLayout"

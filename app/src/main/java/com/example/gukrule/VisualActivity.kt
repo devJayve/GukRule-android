@@ -21,6 +21,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
@@ -30,7 +31,10 @@ import retrofit2.Response
 
 class VisualActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisualBinding
-    private var budgetInfoList = ArrayList<DetailBudgetData>()
+    private var detailBudgetDataList = ArrayList<DetailBudgetData>()
+
+    private var annualBudgetList = ArrayList<ArrayList<DetailBudgetData>>()
+    // 0번째 index부터 2019 ~ 2022년도 데이터
     private val graphValueList = ArrayList<BarEntry>()
 
 
@@ -39,10 +43,18 @@ class VisualActivity : AppCompatActivity() {
 
         binding = ActivityVisualBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // 단위사업명 string array
+        val unitBusinessList = resources.getStringArray(R.array.unit_business)
 
+        val amt2019 = annualBudgetList[0].sumOf {
+            it.aggExpenseAmt!!.toInt()
+        }
+
+        // slidingUpPanel 설정
         binding.visualPanel.isTouchEnabled = false
         binding.visualPanel.addPanelSlideListener(PanelEventListener())
 
+        // actionBar 설정
         setSupportActionBar(binding.budgetToolbar)
         supportActionBar?.apply {
             setDisplayUseLogoEnabled(true)
@@ -66,20 +78,19 @@ class VisualActivity : AppCompatActivity() {
         budgetRV.adapter = visualBudgetRVAdapter
         binding.budgetRV.layoutManager= LinearLayoutManager(this)
 
+        // recyclerView Adapter 설정
         visualBudgetRVAdapter.setItemClickListener(object : VisualBudgetRVAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                budgetInfoList.clear()
+                detailBudgetDataList.clear()
                 for (i in 0 .. 3) {
                     hostRetrofitClient((2019+i).toString(), "국회도서관")
                 }
                 binding.visualPanel.panelState = PanelState.COLLAPSED
                 binding.chartScroll.fullScroll(ScrollView.FOCUS_UP)
-                crawlingNewsList()
-
             }
         })
 
-        // floating action btn
+        // floating action button 설정
         binding.fab.setOnClickListener {
             binding.visualPanel.panelState = PanelState.EXPANDED
         }
@@ -247,7 +258,7 @@ class VisualActivity : AppCompatActivity() {
                 val jsonResponse: JsonObject = response.body()!!.njzofberazvhjncha[1]
                 val jsonRowList = Gson().fromJson(jsonResponse, JsonRowList::class.java)
                 val finalData = Gson().fromJson(jsonRowList.row[0], DetailBudgetData::class.java)
-                budgetInfoList.add(finalData)
+                detailBudgetDataList.add(finalData)
                 graphValueList.add(BarEntry((fsclYY).toFloat(), finalData.annualExpBdgAmt!!.toFloat()))
                 if(graphValueList.count() == 4) {
                     setBarChartData()
@@ -260,27 +271,6 @@ class VisualActivity : AppCompatActivity() {
                 Log.d("failure", t.message.toString())
             }
         })
-    }
-
-    private  fun crawlingNewsList() {
-        val retrofit = RetrofitClient.initLocalRetrofit()
-        val newsApi = retrofit.create(RetrofitClient.CrawlingApi::class.java)
-        val crawlingRequestData = CrawlingRequestData(keyword = "고흥", page = 1)
-        newsApi.getCrawlingNews(crawlingRequestData = crawlingRequestData)
-            .enqueue(object : retrofit2.Callback<CrawlingNewList> {
-                override fun onResponse(
-                    call: Call<CrawlingNewList>,
-                    response: Response<CrawlingNewList>,
-                ) {
-                    Log.d("success", response.body()!!.code.toString())
-                    Log.d("success", response.body()!!.message)
-                    Log.d("success", response.body()!!.result[1].toString())
-                }
-
-                override fun onFailure(call: Call<CrawlingNewList>, t: Throwable) {
-                    Log.d("failure", t.message.toString())
-                }
-            })
     }
 
     // 이벤트 리스너

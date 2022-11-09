@@ -27,11 +27,11 @@ class LoginActivity : AppCompatActivity() {
 
     // 아이디 페스워드 버튼 클릭
     fun clickFindPwBtn() {
-        this.supportFragmentManager.beginTransaction().replace(R.id.empty_layout, FindPwFragment())
+        this.supportFragmentManager.beginTransaction().replace(R.id.empty_layout, FindPwFragment()).commit()
     }
 
     fun moveToBack() {
-        this.supportFragmentManager.beginTransaction().replace(R.id.empty_layout, LoginFragment())
+        this.supportFragmentManager.beginTransaction().replace(R.id.empty_layout, LoginFragment()).commit()
     }
 
 }

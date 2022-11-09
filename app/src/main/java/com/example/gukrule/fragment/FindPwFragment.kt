@@ -40,6 +40,19 @@ class FindPwFragment : Fragment() {
         _binding = FragmentFindPwBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        //listener
+        binding.sendCodeBtn.setOnClickListener {
+            sendCodeEvent() // 이메일로 인증 코드 전송
+        }
+
+        binding.backPageBtn.setOnClickListener {
+            moveBackPageEvent()
+        }
+
+        binding.codeInputView.addOnCompleteListener {
+            setMailCodeView()
+        }
+
 
 
         return root
@@ -93,18 +106,18 @@ class FindPwFragment : Fragment() {
         loginActivity.moveToBack()
     }
 
-    private fun setMailCodeView(mailCodeInput : CodeInputView) {
-        if(mailCodeInput.code.toInt() == 123456) {
-            mailCodeInput.setAnimateOnComplete(true)
-            loginActivity.moveToBack()
+    private fun setMailCodeView() {
+        if(binding.codeInputView.code.toInt() == 123456) {
+            binding.codeInputView.setAnimateOnComplete(true)
+            moveBackPageEvent()
             Toast.makeText(loginActivity, "이메일이 전송되었습니다.", Toast.LENGTH_SHORT).show()
         }
         else {
-            mailCodeInput.error = "인증번호가 올바르지 않습니다."
+            binding.codeInputView.error = "인증번호가 올바르지 않습니다."
         }
 
-        mailCodeInput.setEditable(true)
-        mailCodeInput.code = ""
+        binding.codeInputView.setEditable(true)
+        binding.codeInputView.code = ""
     }
 
     override fun onDestroyView() {
