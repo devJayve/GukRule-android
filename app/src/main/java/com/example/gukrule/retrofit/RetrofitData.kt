@@ -9,7 +9,7 @@ data class JsonRowList(
 
 data class Njzofberazvhjncha(
     val head: List<Head>,
-    val row: List<Row>
+    val row: ArrayList<Row>
 )
 
 data class Head(
@@ -51,11 +51,11 @@ data class DetailBudgetData(
         @SerializedName("PGM_NM") val pgmName:String?,       // 프로그램명
         @SerializedName("ACTV_NM") val actvName:String?,     // 단위사업명
         @SerializedName("SACTV_NM") val sactvName:String?,   // 분야명
-        @SerializedName("ANEXP_BDGAMT") val annualExpBdgAmt:Int?,            // 부문명
-        @SerializedName("ANEXP_BDG_CAMT") val annualExpBdgCurrentAmt:Int?,   // 프로그램명
-        @SerializedName("EP_AMT") val expenseAmt:Int?,                       // 단위사업명
-        @SerializedName("THISM_AGGR_EP_AMT") val aggExpenseAmt:Int?,         // 단위사업명
-        @SerializedName("THISM_AGGR_EP_NAMT") val aggExpenseNetAmt:Int?,     // 단위사업명
+        @SerializedName("ANEXP_BDGAMT") val annualExpBdgAmt:Int?,            //
+        @SerializedName("ANEXP_BDG_CAMT") val annualExpBdgCurrentAmt:Int?,   //
+        @SerializedName("EP_AMT") val expenseAmt:Int?,                       //
+        @SerializedName("THISM_AGGR_EP_AMT") val aggExpenseAmt:Int?,         //
+        @SerializedName("THISM_AGGR_EP_NAMT") val aggExpenseNetAmt:Int?,     //
     )
 
 data class CrawlingRequestData(

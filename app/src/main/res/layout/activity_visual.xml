@@ -40,30 +40,115 @@
                 android:paddingBottom="200dp"
                 android:orientation="vertical">
                 <TextView
-                android:id="@+id/visual_1_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="bar chart"
-                android:textSize="15dp"
-                android:textColor="@color/black" />
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/custom_bar_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="10dp"/>
-                <TextView
-                    android:id="@+id/visual_1_content"
+                    android:id="@+id/anexp_bdgamt_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="pie chart"
-                    android:fontFamily="@font/nanum_square_acl"
-                    android:textSize="15dp"
-                    android:textColor="@color/white" />
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/custom_pie_chart"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp"
+                    android:text="단위사업 OO의 년도별 세출예산액 데이터예요."
+                    android:fontFamily="@font/nanum_square_extrabold"
+                    android:textSize="22dp"
+                    android:textColor="@color/black" />
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/anexp_bdgamt_bar_graph"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/anexp_bdgamt_bar_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="20dp"
+                    android:text="세출예산액이란 "
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nanum_square_regular"
+                    android:background="@drawable/bg_budget_comment"/>
+
+                <TextView
+                    android:id="@+id/anexp_bdg_camt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp"
+                    android:text="단위사업 OO의 년도별 세출예산현액 데이터예요."
+                    android:fontFamily="@font/nanum_square_extrabold"
+                    android:textSize="22dp"
+                    android:textColor="@color/black" />
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/anexp_bdg_camt_bar_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/anexp_bdg_camt_bar_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="20dp"
+                    android:text="세출예산현액이란 "
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nanum_square_regular"
+                    android:background="@drawable/bg_budget_comment"/>
+
+                <TextView
+                    android:id="@+id/ep_amt_bar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp"
+                    android:text="단위사업 OO의 년도별 지출금액 데이터예요."
+                    android:fontFamily="@font/nanum_square_extrabold"
+                    android:textSize="22dp"
+                    android:textColor="@color/black" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/ep_amt_bar_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/ep_amt_bar_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="20dp"
+                    android:text="지출금액이란 "
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nanum_square_regular"
+                    android:background="@drawable/bg_budget_comment"/>
+
+                <TextView
+                    android:id="@+id/detailed_budget_pie_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp"
+                    android:text="단위사업 OO에 해당되는 세부사업 데이터예요."
+                    android:fontFamily="@font/nanum_square_extrabold"
+                    android:textSize="22dp"
+                    android:textColor="@color/black" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/detailed_budget_pie_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/detailed_budget_pie_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="20dp"
+                    android:text="세부사업을 보면"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/nanum_square_regular"
+                    android:background="@drawable/bg_budget_comment"/>
                 <TextView
                 android:id="@+id/visual_2_title"
                 android:layout_width="match_parent"
