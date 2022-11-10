@@ -33,8 +33,8 @@ class SignUpInfoFragment : Fragment() {
     private var isPwAcceptable = false // 비밀번호 예외처리 여부
     private var isRePwAcceptable = false // 비밀번호 재입력 예외처리 여부
     private var isEmailAcceptable = false // 이메일 예외처리 여부
-
-    private  var domain = ""
+    private var isPhoneNumberAcceptable = false
+    private var domain = ""
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,6 +63,7 @@ class SignUpInfoFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
 
+
         // 예외처리
         for (i in 0 until editTextList.size) {
             editTextList[i].addTextChangedListener(object : TextWatcher {
@@ -74,6 +75,7 @@ class SignUpInfoFragment : Fragment() {
                         2 -> pwExceptionHandling() // 비밀번호 예외처리 함수 호출부
                         3 -> rePwExceptionHandling() // 비밀번호 재입력 예외처리 함수 호출부
                         4 -> emailExceptionHandling() // 이메일 예외처리 함수 호출부
+                        5 -> phoneNumberExceptionHandling() // 전화번호 예외처리 함수 호출부
                     }
                 }
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit })
@@ -112,6 +114,22 @@ class SignUpInfoFragment : Fragment() {
             binding.nameInputLayout.defaultHintTextColor = ContextCompat.getColorStateList(signUpActivity,R.color.blue)
             isNameAcceptable = true
         }
+    }
+
+    // 전화번호 예외처리
+    private fun phoneNumberExceptionHandling(){
+        isPhoneNumberAcceptable = false
+
+        if(!Pattern.matches("^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})", binding.phoneNumberET.text)){
+            binding.phoneNumberInputLayout.error = "전화번호를 온전히 입력해주세요"
+        }
+        else{
+            binding.phoneNumberInputLayout.error = null
+            binding.phoneNumberET.backgroundTintList = ContextCompat.getColorStateList(signUpActivity, R.color.blue)
+            binding.phoneNumberInputLayout.defaultHintTextColor = ContextCompat.getColorStateList(signUpActivity, R.color.blue)
+            isPhoneNumberAcceptable = true
+        }
+
     }
 
     // 아이디 예외처리
@@ -196,6 +214,7 @@ class SignUpInfoFragment : Fragment() {
 
     private fun moveNextPageEvent() {
         if (!isNameAcceptable) signUpActivity.showToastEvent("이름을 확인해주세요.", true)
+        else if (!isPhoneNumberAcceptable) signUpActivity.showToastEvent("전화번호를 확인해주세요.", true)
         else if (!isIdAcceptable) signUpActivity.showToastEvent("아이디를 확인해주세요.", true)
         else if (!isIdOverlapping) signUpActivity.showToastEvent("아이디가 중복 확인되지 않았습니다.", true)
         else if (!isPwAcceptable) signUpActivity.showToastEvent("비밀번호를 확인해주세요.", true)
@@ -264,7 +283,7 @@ class SignUpInfoFragment : Fragment() {
             id = binding.idET.text.toString(),
             password = binding.pwET.text.toString(),
             passwordForCheck = binding.rePwET.text.toString(),
-            phone = "010-1234-8696",
+            phone = binding.phoneNumberET.text.toString(),
             email = emailConcat,
             nickName = binding.nickNameET.text.toString(),
         )

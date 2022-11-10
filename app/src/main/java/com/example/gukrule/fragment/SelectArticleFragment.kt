@@ -54,7 +54,8 @@ class SelectArticleFragment : Fragment() {
             "의정활동지원 예비금",
             "국회도서관운영 입법정보지원",
             "국회사무처운영 입법정보화",
-            "국회사무처운영 의회운영지원"
+            "국회사무처운영 의회운영지원",
+
         )
 
         val dummyDataUrl = arrayListOf(
