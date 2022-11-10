@@ -43,14 +43,14 @@
 
     <string-array name="unit_business">
         <!--국회행정지원-->
-        <item>조사처기본경비</item>
-        <item>예산처기본경비</item>
-        <item>도서관기본경비</item>
-        <item>사무처기본경비</item>
-        <item>조사처인건비</item>
-        <item>예산처인건비</item>
-        <item>도서관인건비</item>
-        <item>사무처인건비</item>
+        <item>조사처 기본경비</item>
+        <item>예산처 기본경비</item>
+        <item>도서관 기본경비</item>
+        <item>사무처 기본경비</item>
+        <item>조사처 인건비</item>
+        <item>예산처 인건비</item>
+        <item>도서관 인건비</item>
+        <item>사무처 인건비</item>
         <!--의정활동지원-->
         <item>의정지원</item>
         <item>예비금</item>

@@ -24,9 +24,9 @@ data class RESULT(
 
 data class Row(
     val ACTV_NM: String,
-    val ANEXP_BDGAMT: Int,
-    val ANEXP_BDG_CAMT: Int,
-    val EP_AMT: Int,
+    val ANEXP_BDGAMT: Long,
+    val ANEXP_BDG_CAMT: Long,
+    val EP_AMT: Long,
     val EXE_DATE: String,
     val FLD_NM: String,
     val FSCL_NM: String,
@@ -34,8 +34,8 @@ data class Row(
     val PGM_NM: String,
     val SACTV_NM: String,
     val SECT_NM: String,
-    val THISM_AGGR_EP_AMT: Int,
-    val THISM_AGGR_EP_NAMT: Int
+    val THISM_AGGR_EP_AMT: Long,
+    val THISM_AGGR_EP_NAMT: Long
 )
 
 data class BudgetResponseData(

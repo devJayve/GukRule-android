@@ -1,7 +1,12 @@
 package com.example.gukrule
 
+import android.animation.Animator.AnimatorListener
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
@@ -10,6 +15,8 @@ import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieDrawable.RepeatMode
+import com.bumptech.glide.request.transition.ViewPropertyTransition.Animator
 import com.example.gukrule.adapter.VisualBudgetRVAdapter
 import com.example.gukrule.data.BudgetData
 import com.example.gukrule.databinding.ActivityVisualBinding
@@ -42,6 +49,9 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
 
     private lateinit var binding: ActivityVisualBinding
 
+    // 단위사업명 string array
+    private lateinit var unitBusinessList: Array<String>
+
     // 2019,2020,2021,2022 데이터
     private var annual2019BudgetData = ArrayList<Row>()
     private var annual2020BudgetData = ArrayList<Row>()
@@ -54,18 +64,40 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         binding = ActivityVisualBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 단위사업명 string array
-        val unitBusinessList = resources.getStringArray(R.array.unit_business)
+        unitBusinessList = resources.getStringArray(R.array.unit_business)
+
+        binding.lottie.setAnimation("loading.json")
+        binding.lottie.repeatCount = ValueAnimator.INFINITE
+        binding.lottie.addAnimatorListener(object : AnimatorListener {
+            override fun onAnimationStart(p0: android.animation.Animator) {
+            }
+
+            override fun onAnimationEnd(p0: android.animation.Animator) {
+            }
+
+            override fun onAnimationCancel(p0: android.animation.Animator) {
+                binding.loadingLayout.visibility = View.INVISIBLE
+                binding.chartScroll.visibility = View.VISIBLE
+
+                // 차트 애니메이션
+                binding.anexpBdgCamtBarGraph.animateY(1500)
+                binding.anexpBdgamtBarGraph.animateY(1500)
+            }
+
+            override fun onAnimationRepeat(p0: android.animation.Animator) {
+            }
+
+        })
 
         // add dummy data
         val dataList = ArrayList<BudgetData>()
-        for(i: Int in 1..20) {
-            dataList.add(
-                BudgetData(
-                budget_icon = "test",
-                budget_title = unitBusinessList[i],
-                program_name = unitBusinessList[i]
-            ))
+        unitBusinessList.forEach {
+            dataList.apply {
+                add(BudgetData(
+                        budget_icon = "test",
+                        budget_title = it,
+                        program_name = it))
+            }
         }
 
         // setting recycler view
@@ -77,7 +109,10 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         // recyclerView Adapter 설정
         visualBudgetRVAdapter.setItemClickListener(object : VisualBudgetRVAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-
+                // loading 활성화
+                binding.lottie.playAnimation()
+                binding.chartScroll.visibility = View.INVISIBLE
+                binding.loadingLayout.visibility = View.VISIBLE
                 // 년도별 데이터 리스트 초기화
                 annual2019BudgetData.clear()
                 annual2020BudgetData.clear()
@@ -86,23 +121,24 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
 
                 launch {
                     try {
-                        annual2019BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2019", actvName = "입법정보지원").await().njzofberazvhjncha[1].row
-                        annual2020BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2020", actvName = "입법정보지원").await().njzofberazvhjncha[1].row
-                        annual2021BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2021", actvName = "입법정보지원").await().njzofberazvhjncha[1].row
-                        annual2022BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2022", actvName = "입법정보지원").await().njzofberazvhjncha[1].row
+                        annual2019BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2019", actvName = unitBusinessList[position]).await().njzofberazvhjncha[1].row
+                        annual2020BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2020", actvName = unitBusinessList[position]).await().njzofberazvhjncha[1].row
+                        annual2021BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2021", actvName = unitBusinessList[position]).await().njzofberazvhjncha[1].row
+                        annual2022BudgetData = RetrofitClient.getBudgetService().getDetailBusiness(fsclYY = "2022", actvName = unitBusinessList[position]).await().njzofberazvhjncha[1].row
+                        Log.d("LOG","Success : $annual2019BudgetData")
+                    Log.d("LOG","CorutineScope - Api host end")
 
                     } catch (e: Exception) {
-                        print("error : ${e.message}")
+                        Log.d("LOG","error : ${e.message}")
                     }
 
+                    setGraphTitleUI(position)
                     calculateBudgetBarData()
                 }
-
                 binding.visualPanel.panelState = PanelState.COLLAPSED
                 binding.chartScroll.fullScroll(ScrollView.FOCUS_UP)
             }
         })
-
 
 
         // floating action button 설정
@@ -132,16 +168,25 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
 
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun setGraphTitleUI(position: Int) {
+        binding.anexpBdgamtTitle.text = "단위사업 ${unitBusinessList[position]}의 년도별 예산세출액 데이터예요."
+        binding.anexpBdgCamtTitle.text = "단위사업 ${unitBusinessList[position]}의 년도별 예산세출현액 데이터예요."
+        binding.epAmtBarTitle.text = "단위사업 ${unitBusinessList[position]}의 년도별 지출금액 데이터예요."
+
+    }
+
     fun calculateBudgetBarData() {
+        Log.d("LOG", "계산 영역")
         val annualBudgetGraphEntry = ArrayList<BarEntry>()          // 세출예산액 Data Entry
         val annualCurrentBudgetGraphEntry = ArrayList<BarEntry>()   // 세출예산현액 Data Entry
         val expenseBudgetGraphEntry = ArrayList<BarEntry>()         // 지출금액 Data Entry
 
         // 각 예산액 ArrayList 에 년도별 Data 할당
-        annualBudgetGraphEntry.add(BarEntry((2019).toFloat(), (annual2019BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000).toFloat()))
-        annualBudgetGraphEntry.add(BarEntry((2020).toFloat(), (annual2020BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000).toFloat()))
-        annualBudgetGraphEntry.add(BarEntry((2021).toFloat(), (annual2021BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000).toFloat()))
-        annualBudgetGraphEntry.add(BarEntry((2022).toFloat(), (annual2022BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000).toFloat()))
+        annualBudgetGraphEntry.add(BarEntry((2019).toFloat(), (annual2019BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000f)))
+        annualBudgetGraphEntry.add(BarEntry((2020).toFloat(), (annual2020BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000f)))
+        annualBudgetGraphEntry.add(BarEntry((2021).toFloat(), (annual2021BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000f)))
+        annualBudgetGraphEntry.add(BarEntry((2022).toFloat(), (annual2022BudgetData.sumOf { it.ANEXP_BDGAMT } / 1000000f)))
 
         annualCurrentBudgetGraphEntry.add(BarEntry((2019).toFloat(), (annual2019BudgetData.sumOf { it.ANEXP_BDG_CAMT } / 1000000).toFloat()))
         annualCurrentBudgetGraphEntry.add(BarEntry((2020).toFloat(), (annual2020BudgetData.sumOf { it.ANEXP_BDG_CAMT } / 1000000).toFloat()))
@@ -157,10 +202,6 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         setBarChartData(binding.anexpBdgamtBarGraph, annualBudgetGraphEntry)
         setBarChartData(binding.anexpBdgCamtBarGraph, annualCurrentBudgetGraphEntry)
         setBarChartData(binding.epAmtBarGraph, expenseBudgetGraphEntry)
-
-
-
-
     }
 
     private fun initBarChart(barGraph : BarChart) {
@@ -223,39 +264,22 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         yValues.add(PieEntry(35f, "단위사업4"))
         yValues.add(PieEntry(40f, "단위사업5"))
 
-        val description = Description()
-        description.text = "세계 국가" //라벨
-
-        description.textSize = 15f
-        binding.detailedBudgetPieGraph.description = description
 
         val dataSet = PieDataSet(yValues, "Countries")
         dataSet.sliceSpace = 3f
         dataSet.selectionShift = 5f
-        dataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
+        dataSet.setColors(*ColorTemplate.LIBERTY_COLORS)
 
         val data = PieData(dataSet)
         data.setValueTextSize(10f)
         data.setValueTextColor(Color.YELLOW)
 
         binding.detailedBudgetPieGraph.data = data
-        binding.detailedBudgetPieGraph.animateY(1000, Easing.EaseInOutCubic) //애니메이션
-
+//        binding.detailedBudgetPieGraph.animateY(1000, Easing.EaseInOutCubic) //애니메이션
+        binding.detailedBudgetPieGraph.invalidate()
     }
 
     private fun initBubbleChart() {
-        val bubbleDataList = getEntries()
-        val bubbleDataSet = BubbleDataSet(bubbleDataList, "")
-        val bubbleData = BubbleData(bubbleDataSet)
-        binding.customBubbleChart.data = bubbleData
-        binding.customBubbleChart.setScaleEnabled(false)
-
-        bubbleDataSet.colors = ColorTemplate.JOYFUL_COLORS.toList()
-        bubbleDataSet.valueTextColor = Color.BLACK
-        bubbleDataSet.valueTextSize = 18f
-    }
-
-    private fun getEntries() : ArrayList<BubbleEntry> {
         val bubbleEntries = ArrayList<BubbleEntry>()
         bubbleEntries.add(BubbleEntry(0F, 1F, 0.21f))
         bubbleEntries.add(BubbleEntry(1F, 2F, 0.12f))
@@ -263,7 +287,14 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         bubbleEntries.add(BubbleEntry(2F, 4F, 0.52f))
         bubbleEntries.add(BubbleEntry(3F, 5F, 0.29f))
         bubbleEntries.add(BubbleEntry(4F, 6F, 0.62f))
-        return bubbleEntries
+        val bubbleDataSet = BubbleDataSet(bubbleEntries, "")
+        val bubbleData = BubbleData(bubbleDataSet)
+        binding.customBubbleChart.data = bubbleData
+        binding.customBubbleChart.setScaleEnabled(false)
+
+        bubbleDataSet.setColors(*ColorTemplate.LIBERTY_COLORS)
+        bubbleDataSet.valueTextColor = Color.BLACK
+        bubbleDataSet.valueTextSize = 18f
     }
 
     private fun setBarChartData(barGraph : BarChart, budgetDataEntry: ArrayList<BarEntry>) {
@@ -279,11 +310,13 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
             Color.rgb(118, 174, 175), Color.rgb(42, 109, 130))
 
         barGraph.data = BarData(barDataSet)
-        // 차트 갱신
+
         barGraph.invalidate()
-        barGraph.animateY(1000)
-        barGraph.animateX(1000)
+
+        // 애니메이션 종료
+        binding.lottie.cancelAnimation()
     }
+
 
     // 이벤트 리스너
     inner class PanelEventListener : SlidingUpPanelLayout.PanelSlideListener {

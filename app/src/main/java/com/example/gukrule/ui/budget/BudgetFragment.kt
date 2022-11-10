@@ -39,7 +39,7 @@ class BudgetFragment : Fragment() {
 
     private fun setCarouselSlider() {
         val margin = ((resources.displayMetrics.density) * 50).toInt()
-        val itemList = arrayListOf("test1", "test2", "test3", "test4")
+        val itemList = arrayListOf("국회 단위사업\n예산 현황", "국회 단위사업\n예산 현황", "국회 단위사업\n예산 현황", "test4")
         val carouselRVAdapter = CarouselRVAdapter(itemList)
         val viewPager = binding.budgetViewPager
         viewPager.apply {
