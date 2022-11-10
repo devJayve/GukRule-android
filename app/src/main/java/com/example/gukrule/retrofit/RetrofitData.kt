@@ -5,9 +5,9 @@ import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-    data class DetailBudgetList(
-        var njzofberazvhjncha: List<JsonObject>
-    )
+data class DetailBudgetList(
+    var njzofberazvhjncha: List<JsonObject>
+)
 
 data class JsonRowList(
     var row: List<JsonObject>
@@ -30,13 +30,34 @@ data class DetailBudgetData(
     )
 
 data class CrawlingRequestData(
-    var keyword : String,
+    var userIdx : Int,
+    var keyword : String?,
     var page : Int
 )
 
+// CrawlingNewsApi
 data class CrawlingNewList(
-    var isSuccess : String,
-    var code : Int,
-    var message : String,
-    var result : List<List<String>>
+    var isSuccess: String? = null,
+    var code: Int? = null,
+    var message: String? = null,
+    var result: List<List<String>>? = null,
+)
+
+data class CrawlingArticleRequestData(
+    var userIdx : Int? = null,
+    var url : String? = null,
+)
+
+
+// CrawlingArticleApi
+data class CrawlingArticle(
+    var isSuccess: String? = null,
+    var code: Int? = null,
+    var message: String? = null,
+    var result: ArticleResult? = null,
+)
+
+data class ArticleResult(
+    var date: String? = null,
+    var articleText: String? = null,
 )

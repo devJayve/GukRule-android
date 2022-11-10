@@ -1,42 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/article_visual"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ArticleVisualActivity">
 
-    <!-- 뒤로가기 , 뒷페이지 이름 -->
-
-    <LinearLayout
-        android:id="@+id/article_header"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/article_visual_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?android:attr/windowBackground"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
 
-        <ImageButton
-            android:id="@+id/into_budget"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:backgroundTint="#00000000"
-            android:scaleType="fitCenter"
-            android:src="@drawable/article_back_button" />
+<!--    &lt;!&ndash; 뒤로가기 , 뒷페이지 이름 &ndash;&gt;-->
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:paddingLeft="20dp"
-            android:text="이전 페이지"
-            android:textColor="@color/black"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/article_header"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/into_budget"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:backgroundTint="#00000000"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            android:src="@drawable/article_back_button" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="4"-->
+<!--            android:paddingLeft="20dp"-->
+<!--            android:text="이전 페이지"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="25dp"-->
+<!--            android:textStyle="bold" />-->
+<!--    </LinearLayout>-->
     <!--기사 스크롤 뷰-->
     <ScrollView
         android:id="@+id/article_scrollview"
@@ -45,7 +57,7 @@
         app:layout_constraintVertical_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/article_header"
+        app:layout_constraintTop_toBottomOf="@+id/article_visual_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="10dp"
         >
@@ -114,6 +126,9 @@
                 android:textStyle="bold" />
 
             <!-- 기사 이미지 -->
+            <!--  기사 전문  -->
+            <!-- 기타 정보 (ex, 기자 이름, 신문사)-->
+
             <ImageView
                 android:id="@+id/article_image"
                 android:layout_width="350dp"
@@ -123,8 +138,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/article_summary" />
-            <!--  기사 전문  -->
-            <!-- 기타 정보 (ex, 기자 이름, 신문사)-->
 
             <TextView
                 android:id="@+id/article_full_article"

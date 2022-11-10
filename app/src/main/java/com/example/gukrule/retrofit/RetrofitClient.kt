@@ -40,11 +40,24 @@ object RetrofitClient {
             .build()
     }
 
-    interface CrawlingApi {
+    interface CrawlingNewsApi {
+        // 정적헤더
+        @Headers("content-type: application/json")
         @POST("crawling/newsList")
         fun getCrawlingNews(
+            @Header("x-access-token") jwtKey: String,
             @Body() crawlingRequestData: CrawlingRequestData
         ) : Call<CrawlingNewList>
+    }
+
+    interface CrawlingArticleApi {
+        // 정적헤더
+        @Headers("content-type: application/json")
+        @POST("crawling/article")
+        fun getCrawlingArticle(
+            @Header("x-access-token") jwtKey: String,
+            @Body() crawlingArticleRequestData: CrawlingArticleRequestData
+        ) : Call<CrawlingArticle>
     }
 
     interface BudgetApi {

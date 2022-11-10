@@ -1,6 +1,6 @@
 package com.example.gukrule.retrofit.adapter
 
-import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.gukrule.ArticleVisualActivity
+import com.example.gukrule.NewsActivity
 import com.example.gukrule.R
 import com.example.gukrule.article.Article
 
@@ -34,11 +37,9 @@ class NewsAdapter() :
                 articleBudgetKeyView.text = ""
             }
             articleTitleView.text = item.title
-            if (item.image != null) {
-                articleImageView.setImageResource(item.image)
-            } else {
-                articleImageView.setImageResource(R.drawable.keyword_image)
-            }
+            Glide.with(articleImageView.context)
+                .load(item.image)
+                .into(itemView.findViewById(R.id.article_image))
             articleContentView.text = item.content
             articleDateView.text = item.date
         }
