@@ -74,6 +74,18 @@ object RetrofitClient {
         fun getRegisterData(
             @Body() registerData: RegisterData
         ) : Call<RegisterResponse>
-
     }
+
+    interface RegisterApiArticle{
+        @POST("/users/signup/5keywords")
+        fun getRegisterArticleData(
+            @Body() selectedArticleData: SelectedArticleData
+        ) : Call<SelectedArticleResponse>
+    }
+//    interface NickNameApi{
+//        @GET("https://www.dorisdev.shop/users/signup/checkNickname?nickName=")
+//        fun getNickName(
+//            @Query("IsSuccess")
+//        )
+//    }
 }

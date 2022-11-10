@@ -52,8 +52,8 @@ data class LoginResponse(
 )
 
 data class UserInfo(
-    var useridx : Int,
-    var token : String
+    var userIdx : Int,
+    var jwt : String
 )
 
 data class RegisterData(
@@ -76,7 +76,38 @@ data class RegisterToken(
     var jwt: String
 )
 
+data class NickNameCheckData(
+    var nickName: String
+)
+
+data class NickNameCheckResponse(
+    var isSuccess: Boolean,
+    var code: Int,
+    var message: String,
+    var result: NickNameExists
+)
+
+data class NickNameExists(
+    var exists : Boolean
+)
+
 data class SelectedArticleData(
-    var title : String,
-    var selected: Boolean,
+    var userIdx : Int,
+    var keyword1: String,
+    var keyword2: String,
+    var keyword3: String,
+    var keyword4: String,
+    var keyword5: String,
+)
+
+data class SelectedArticleResponse(
+    var isSuccess: Boolean,
+    var code: Int,
+    var message: String,
+    var result: SelectedArticleJWT,
+    var userIdx: Int
+)
+
+data class SelectedArticleJWT(
+    var jwt: String
 )

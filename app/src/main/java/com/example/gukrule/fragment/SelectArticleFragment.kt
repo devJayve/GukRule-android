@@ -1,25 +1,25 @@
 package com.example.gukrule.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.gukrule.LoginActivity
+import com.example.gukrule.MainActivity
 import com.example.gukrule.SignUpActivity
 import com.example.gukrule.adapter.SelectRVAdapter
 import com.example.gukrule.databinding.FragmentSelectArticleBinding
 import com.example.gukrule.databinding.ItemSelectArticleBinding
+import com.example.gukrule.retrofit.RetrofitClient
 import com.example.gukrule.retrofit.SelectedArticleData
-import com.example.gukrule.retrofit.adapter.KeywordRVAdapter
-import kotlinx.android.synthetic.main.fragment_feed.*
-import kotlinx.android.synthetic.main.item_select_article.*
-import org.w3c.dom.Text
+import com.example.gukrule.retrofit.SelectedArticleResponse
+import retrofit2.Call
+import retrofit2.Response
 
 
 class SelectArticleFragment : Fragment() {
@@ -44,7 +44,6 @@ class SelectArticleFragment : Fragment() {
     ): View {
         _binding = FragmentSelectArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         val dummyDataList = arrayListOf(
             "국회행정지원 조사처 기본경비",
             "의정활동지원 의정지원",
@@ -70,8 +69,40 @@ class SelectArticleFragment : Fragment() {
             }
         })
 
+        binding.signUpSubmitBtn.setOnClickListener {
+            registerSelectedArticleApi()
+        }
+
         return root
     }
 
+    private fun registerSelectedArticleApi(){
+        val selectedArticleData = SelectedArticleData(
+            userIdx = ,
+            keyword1 = ,
+            keyword2 = ,
+            keyword3 = ,
+            keyword4 = ,
+            keyword5 = ,
+        )
+        val retrofit = RetrofitClient.initLocalRetrofit()
+        val registerApiArticle = retrofit.create(RetrofitClient.RegisterApiArticle::class.java)
+        registerApiArticle.getRegisterArticleData(selectedArticleData = selectedArticleData)
+            .enqueue(object: retrofit2.Callback<SelectedArticleResponse>{
+                override fun onResponse(
+                    call: Call<SelectedArticleResponse>,
+                    response: Response<SelectedArticleResponse>
+                ) {
+                    if(response.body()!!.isSuccess && response.body()!!.code == 1000){
+                        val intent = Intent(signUpActivity, LoginActivity::class.java) // 로그인 페이지로 전환
+                        startActivity(intent)
+                        response.body()!!.result
+                    }
+                }
 
+                override fun onFailure(call: Call<SelectedArticleResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+    }
 }

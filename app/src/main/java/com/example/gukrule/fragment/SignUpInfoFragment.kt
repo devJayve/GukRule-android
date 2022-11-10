@@ -17,6 +17,7 @@ import com.example.gukrule.LoginActivity
 import com.example.gukrule.R
 import com.example.gukrule.SignUpActivity
 import com.example.gukrule.databinding.FragmentSignUpInfoBinding
+import com.example.gukrule.retrofit.NickNameCheckData
 import com.example.gukrule.retrofit.RegisterData
 import com.example.gukrule.retrofit.RegisterResponse
 import com.example.gukrule.retrofit.RetrofitClient
@@ -206,6 +207,15 @@ class SignUpInfoFragment : Fragment() {
 //        }
     }
 
+    private fun checkNickNameApi(){
+        val nickNameCheckData = NickNameCheckData(
+            nickName = binding.nickNameET.text.toString()
+        )
+        val retrofit = RetrofitClient.initLocalRetrofit()
+    }
+
+
+
     //TODO::register Data class를 만들고 API 통신 test
     private fun connectRegisterApi() {
         val registerData = RegisterData(
@@ -222,10 +232,8 @@ class SignUpInfoFragment : Fragment() {
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
-                TODO("응답 코드가 성공일 시에 login Activity로 보내고," +
-                        "실패 응답 코드에 따라 dialog")
                 if(response.body()!!.isSuccess && response.body()!!.code == 1000){
-
+                    //userIdx를 SelectArticleFragment로 전달해야 함
                 }
             }
 

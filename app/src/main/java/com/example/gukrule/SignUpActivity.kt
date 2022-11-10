@@ -14,9 +14,8 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_empty)
 
-        supportFragmentManager.beginTransaction().replace(R.id.empty_layout, SignUpInfoFragment().apply{
-            arguments = Bundle().apply {putInt("KEY",0)}
-        })
+        //SignUpInfoFragment에서 Api를 통해 받은 userIdx를 SelectArticleFragment로 보내줘야 함
+        supportFragmentManager.beginTransaction().replace(R.id.empty_layout, SignUpInfoFragment())
             .commit()
     }
 

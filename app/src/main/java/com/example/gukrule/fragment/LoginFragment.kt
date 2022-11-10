@@ -74,20 +74,20 @@ class LoginFragment : Fragment() {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.body()!!.isSuccess && response.body()!!.code == 1000) {
                     //id, token preference Util 설정
-                    if(PrefManager.getUserToken().isNotEmpty() && PrefManager.getUserIdx() > 0){
+                    if(PrefManager.getUserIdx() > 0){
                         PrefManager.deleteUserToken()
                         PrefManager.deleteUserIdx()
                     }
-                    PrefManager.storeUserToken(response.body()!!.result.token)
-                    PrefManager.storeUserIdx(response.body()!!.result.useridx)
+                    PrefManager.storeUserToken(response.body()!!.result.jwt)
+                    PrefManager.storeUserIdx(response.body()!!.result.userIdx)
 
-                    //Main Activity로 intent
+                    //MainActivity intent
                     val intent = Intent(loginActivity, MainActivity::class.java) // 메인 페이지로 전환
                     startActivity(intent)
                     response.body()!!.result
 
                 }
-
+                Log.d("success", response.body()!!.result.jwt)
                 Log.d("success", response.body()!!.code.toString())
                 Log.d("success", response.body()!!.message)
                 Log.d("success", "로그인 성공 : ${response.body()!!.isSuccess}")

@@ -67,8 +67,6 @@ class KeywordRVAdapter() : RecyclerView.Adapter<KeywordRVAdapter.KeywordViewHold
 
     private lateinit var itemClickListener: OnItemClickListener
 
-
-
     override fun getItemCount(): Int {
         return keywordList.size
     }

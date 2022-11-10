@@ -33,19 +33,22 @@ class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val
         reportItem.setOnClickListener {
             if(sendDataList.count() > 4) {
                 if (reportItem.isSelected) {
-                    sendDataList.removeAt(position)
+                    sendDataList.remove(keywordDataList[position])
                     reportItem.isSelected = !(reportItem.isSelected)
-                    submitBtn.setVisibility(VISIBLE)
+//                    submitBtn.visibility = VISIBLE
                 }
             } else {
-                Log.d("TAG", "size1  : ${sendDataList.count()}")
-                Log.d("TAG", "size2  : ${keywordDataList.count()}")
+//                if(submitBtn.visibility == VISIBLE){
+//                    submitBtn.visibility = INVISIBLE
+//                }
                 if (!reportItem.isSelected) {
-                    sendDataList.add(position, keywordDataList[position])
+                    sendDataList.add(keywordDataList[position])
                 } else {
-                    sendDataList.removeAt(position)
+                    sendDataList.remove(keywordDataList[position])
                 }
                 reportItem.isSelected = !(reportItem.isSelected)
+                Log.d("TAG", "sendDataList size  : ${sendDataList.count()}, $sendDataList")
+                Log.d("TAG", "keywordList size  : ${keywordDataList.count()}")
             }
 
             Log.d("LOG", "isSelected : ${reportItem.isSelected}");
