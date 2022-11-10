@@ -88,7 +88,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/phoneNumberInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <EditText
                     android:id="@+id/phoneNumberET"
@@ -127,7 +128,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:hint="6자 이내"
+                        android:hint="10자 이내"
                         android:textSize="15sp" />
 
 

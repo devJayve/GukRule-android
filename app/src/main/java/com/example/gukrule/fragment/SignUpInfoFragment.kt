@@ -33,7 +33,7 @@ class SignUpInfoFragment : Fragment() {
     private var isPwAcceptable = false // 비밀번호 예외처리 여부
     private var isRePwAcceptable = false // 비밀번호 재입력 예외처리 여부
     private var isEmailAcceptable = false // 이메일 예외처리 여부
-    private var isPhoneNumberAcceptable = false
+    private var isPhoneNumberAcceptable = false // 전화번호 예외처리 여부
     private var domain = ""
 
     override fun onAttach(context: Context) {
@@ -49,7 +49,7 @@ class SignUpInfoFragment : Fragment() {
         _binding = FragmentSignUpInfoBinding.inflate(inflater, container, false)
         val root: View = binding.root
         
-        val editTextList = arrayListOf(binding.nameET, binding.idET, binding.pwET, binding.rePwET, binding.emailET)
+        val editTextList = arrayListOf(binding.nameET, binding.idET, binding.pwET, binding.rePwET, binding.emailET, binding.phoneNumberET)
 
         // domain Spinner
         val domainList = resources.getStringArray(R.array.domain_array)
@@ -120,8 +120,11 @@ class SignUpInfoFragment : Fragment() {
     private fun phoneNumberExceptionHandling(){
         isPhoneNumberAcceptable = false
 
-        if(!Pattern.matches("^01([0|1|6|7|8|9])-([0-9]{4})-([0-9]{4})", binding.phoneNumberET.text)){
+        if(binding.phoneNumberET.length() > 13){
             binding.phoneNumberInputLayout.error = "전화번호를 온전히 입력해주세요"
+        }
+        else if(!Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}\$",binding.phoneNumberET.text)){
+            binding.phoneNumberInputLayout.error = "전화번호 형식에 부합하지 않습니다"
         }
         else{
             binding.phoneNumberInputLayout.error = null
