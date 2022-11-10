@@ -58,10 +58,12 @@ data class UserInfo(
 
 data class RegisterData(
     var id : String,
-    var pw : String,
+    var password : String,
+    var passwordForCheck: String,
+    var phone : String,
+    var email : String,
     var name : String,
     var nickname : String,
-    var email : String,
 )
 
 data class RegisterResponse(
@@ -76,10 +78,6 @@ data class RegisterToken(
     var jwt: String
 )
 
-data class NickNameCheckData(
-    var nickName: String
-)
-
 data class NickNameCheckResponse(
     var isSuccess: Boolean,
     var code: Int,
@@ -89,6 +87,17 @@ data class NickNameCheckResponse(
 
 data class NickNameExists(
     var exists : Boolean
+)
+
+data class IdCheckResponse(
+    var isSuccess: Boolean,
+    var code : Int,
+    var message: String,
+    var result : IdExists
+)
+
+data class IdExists(
+    var exists: Boolean
 )
 
 data class SelectedArticleData(

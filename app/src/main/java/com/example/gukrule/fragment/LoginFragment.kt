@@ -88,6 +88,7 @@ class LoginFragment : Fragment() {
 
                 }
                 Log.d("success", response.body()!!.result.jwt)
+                Log.d("success", response.body()!!.result.userIdx.toString())
                 Log.d("success", response.body()!!.code.toString())
                 Log.d("success", response.body()!!.message)
                 Log.d("success", "로그인 성공 : ${response.body()!!.isSuccess}")

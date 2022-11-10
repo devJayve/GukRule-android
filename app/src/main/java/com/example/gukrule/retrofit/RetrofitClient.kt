@@ -82,10 +82,17 @@ object RetrofitClient {
             @Body() selectedArticleData: SelectedArticleData
         ) : Call<SelectedArticleResponse>
     }
-//    interface NickNameApi{
-//        @GET("https://www.dorisdev.shop/users/signup/checkNickname?nickName=")
-//        fun getNickName(
-//            @Query("nickName") nickName:String
-//        ) : Call<>
-//    }
+    interface NickNameCheckApi{
+        @GET("users/signup/checkNickname?nickName=")
+        fun getNicknameOverlap(
+            @Query("nickName") nickName:String
+        ) : Call<NickNameCheckResponse>
+    }
+
+    interface IdCheckApi{
+        @GET("/users/signup/checkId?id=")
+        fun getIdOverlap(
+            @Query("id") id:String
+        ) : Call<IdCheckResponse>
+    }
 }

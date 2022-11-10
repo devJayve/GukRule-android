@@ -52,11 +52,20 @@ class SelectArticleFragment : Fragment() {
             "국회사무처운영 입법정보화",
             "국회사무처운영 의회운영지원"
         )
+
+        val dummyDataUrl = arrayListOf(
+            "https://imgnews.pstatic.net/image/469/2022/10/10/0000701258_001_20221010090104176.jpg?type=w647",
+            "https://imgnews.pstatic.net/image/003/2022/11/10/NISI20221110_0001126847_web_20221110175530_20221110180006755.jpg?type=w647",
+            "https://imgnews.pstatic.net/image/047/2015/05/23/IE001827293_STD_99_20150523114603.jpg?type=w647",
+            "https://imgnews.pstatic.net/image/421/2022/08/31/0006309447_001_20220831184703144.jpg?type=w647",
+            "https://imgnews.pstatic.net/image/030/2020/11/10/0002912265_001_20201110171713920.jpg?type=w647",
+            "https://imgnews.pstatic.net/image/021/2022/09/19/0002531609_001_20220919115806431.jpg?type=w647",
+        )
         arguments?.let{
             userIdx = it.getInt("userIdx")
         }
 
-        selectAdapter = SelectRVAdapter(dummyDataList, dummyDataList)
+        selectAdapter = SelectRVAdapter(dummyDataList, dummyDataList,dummyDataUrl)
 
         gridManger = GridLayoutManager(signUpActivity, 2)
         gridManger.orientation = GridLayoutManager.VERTICAL
@@ -75,6 +84,7 @@ class SelectArticleFragment : Fragment() {
         })
 
         binding.signUpSubmitBtn.setOnClickListener {
+            Log.d("success", "버튼 눌립니다")
             registerSelectedArticleApi()
         }
 
@@ -100,6 +110,12 @@ class SelectArticleFragment : Fragment() {
                     response: Response<SelectedArticleResponse>
                 ) {
                     if(response.body()!!.isSuccess && response.body()!!.code == 1000){
+                        Log.d("success", userIdx.toString())
+                        Log.d("success", selectAdapter.sendDataList[0])
+                        Log.d("success", selectAdapter.sendDataList[1])
+                        Log.d("success", selectAdapter.sendDataList[2])
+                        Log.d("success", selectAdapter.sendDataList[3])
+
                         val intent = Intent(signUpActivity, LoginActivity::class.java) // 로그인 페이지로 전환
                         startActivity(intent)
                         response.body()!!.result

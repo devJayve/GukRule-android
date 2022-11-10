@@ -15,10 +15,7 @@ import androidx.fragment.app.Fragment
 import com.example.gukrule.R
 import com.example.gukrule.SignUpActivity
 import com.example.gukrule.databinding.FragmentSignUpInfoBinding
-import com.example.gukrule.retrofit.NickNameCheckData
-import com.example.gukrule.retrofit.RegisterData
-import com.example.gukrule.retrofit.RegisterResponse
-import com.example.gukrule.retrofit.RetrofitClient
+import com.example.gukrule.retrofit.*
 import retrofit2.Call
 import retrofit2.Response
 import java.util.regex.Pattern
@@ -83,7 +80,7 @@ class SignUpInfoFragment : Fragment() {
         }
 
         binding.idOverlapCheckBtn.setOnClickListener {
-            overlapCheckEvent()
+            checkIdApi()
         }
 
         // 다음 페이지 이동 (회원가입 완료)
@@ -96,6 +93,10 @@ class SignUpInfoFragment : Fragment() {
         // 이전 페이지로 이동
         binding.backPageBtn.setOnClickListener {
             moveBackPageEvent()
+        }
+
+        binding.nickNameOverlapCheckBtn.setOnClickListener{
+            checkNickNameApi()
         }
 
         return root
@@ -211,25 +212,63 @@ class SignUpInfoFragment : Fragment() {
 
     // 닉네임 중복 Api GET
     private fun checkNickNameApi(){
-        val nickNameCheckData = NickNameCheckData(
-            nickName = binding.nickNameET.text.toString()
-        )
         val retrofit = RetrofitClient.initLocalRetrofit()
+        val requestNickNameApi = retrofit.create(RetrofitClient.NickNameCheckApi::class.java)
+        requestNickNameApi.getNicknameOverlap(nickName = binding.nickNameET.text.toString()).enqueue(object : retrofit2.Callback<NickNameCheckResponse>{
+            override fun onResponse(
+                call: Call<NickNameCheckResponse>,
+                response: Response<NickNameCheckResponse>
+            ) {
+                if(response.body()!!.isSuccess && response.body()!!.code == 1000 && response.body()!!.result.exists){
+                    AlertDialog.Builder(signUpActivity)
+                        .setMessage("사용가능한 닉네임입니다.")
+                        .setPositiveButton("확인", null)
+                        .show()
+
+                    isIdOverlapping = true                }
+            }
+
+            override fun onFailure(call: Call<NickNameCheckResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     // 아이디 중복 Api
-    private fun checkId(){
+    private fun checkIdApi(){
+        val retrofit = RetrofitClient.initLocalRetrofit()
+        val requestNickNameApi = retrofit.create(RetrofitClient.IdCheckApi::class.java)
+        requestNickNameApi.getIdOverlap(id = binding.idET.text.toString()).enqueue(object : retrofit2.Callback<IdCheckResponse>{
+            override fun onResponse(
+                call: Call<IdCheckResponse>,
+                response: Response<IdCheckResponse>
+            ) {
+                if(response.body()!!.isSuccess && response.body()!!.code == 1000 && response.body()!!.result.exists){
+                    AlertDialog.Builder(signUpActivity)
+                        .setMessage("사용가능한 아이디입니다.")
+                        .setPositiveButton("확인", null)
+                        .show()
 
+                    isIdOverlapping = true                }
+            }
+
+            override fun onFailure(call: Call<IdCheckResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     //TODO::register Data class를 만들고 API 통신 test
     private fun connectRegisterApi() {
         val registerData = RegisterData(
             id = binding.idET.text.toString(),
-            pw = binding.pwET.text.toString(),
-            name = binding.nameET.text.toString(),
-            nickname = binding.nickNameET.text.toString(),
+            password = binding.pwET.text.toString(),
+            //passwordForCheck = binding.
+            //phone = binding.
             email = binding.emailET.text.toString(),
+            //name = binding.nameET.text.toString(),
+            nickname = binding.nickNameET.text.toString(),
+
         )
         val retrofit = RetrofitClient.initLocalRetrofit()
         val requestRegisterApi = retrofit.create(RetrofitClient.RegisterApi::class.java)

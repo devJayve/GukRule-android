@@ -38,21 +38,7 @@ class ArticleVisualActivity : AppCompatActivity() {
                     + "일각에선 윤석열 정부가 국정과제로 내년 처음 시행하는 '부모급여(만 0·1세 각각 100만 원, 50만 원, 내년에는 각각 70만 원, 35만 원 지급)'를 위해 보육 관련 사업 예산을 대부분 삭감한 것으로 해석한다. 복지부는 영아수당을 확대한 부모급여 사업에 약 1조6,000억 원을 책정했다. 지난해(영아수당)보다 366% 증액된 규모다."
         )
 
-        //제스쳐 감지
-        //mDetector = GestureDetectorCompat(this, this)
-
-
     }
-
-//    override fun onScroll(
-//        event1: MotionEvent,
-//        event2: MotionEvent,
-//        distanceX: Float,
-//        distanceY: Float
-//    ): Boolean {
-//        return true
-//    }
-
 
     override fun onDestroy() {
         super.onDestroy()

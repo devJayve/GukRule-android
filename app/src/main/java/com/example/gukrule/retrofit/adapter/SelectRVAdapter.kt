@@ -3,19 +3,13 @@ package com.example.gukrule.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gukrule.R
-import com.example.gukrule.retrofit.adapter.CarouselRVAdapter
-import java.util.logging.Handler
 
-class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val keywordDataList: ArrayList<String>)
+class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val keywordDataList: ArrayList<String>, private val articleUrlList: ArrayList<String>)
     : RecyclerView.Adapter<SelectRVAdapter.SelectViewHolder>() {
 
     var sendDataList = ArrayList<String>(keywordDataList.count())
@@ -36,12 +30,12 @@ class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val
                 if (reportItem.isSelected) {
                     sendDataList.remove(keywordDataList[position])
                     reportItem.isSelected = !(reportItem.isSelected)
-//                    submitBtn.visibility = VISIBLE
+//                    submitBtn.visibility = View.VISIBLE
                 }
             } else {
-//                if(submitBtn.visibility == VISIBLE){
-//                    submitBtn.visibility = INVISIBLE
-//                }
+//                if(submitBtn.visibility == View.VISIBLE){
+//                    submitBtn.visibility = View.INVISIBLE
+//                } else
                 if (!reportItem.isSelected) {
                     sendDataList.add(keywordDataList[position])
                 } else {
