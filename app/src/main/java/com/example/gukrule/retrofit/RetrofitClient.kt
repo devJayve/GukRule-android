@@ -55,8 +55,6 @@ object RetrofitClient {
     }
 
     interface CrawlingArticleApi {
-        // 정적헤더
-        @Headers("content-type: application/json")
         @POST("crawling/article")
         fun getCrawlingArticle(
             @Header("x-access-token") jwtKey: String,

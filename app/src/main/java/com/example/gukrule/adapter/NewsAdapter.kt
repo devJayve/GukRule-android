@@ -1,5 +1,6 @@
 package com.example.gukrule.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,20 @@ import com.example.gukrule.NewsActivity
 import com.example.gukrule.R
 import com.example.gukrule.article.Article
 
-class NewsAdapter() :
-    ListAdapter<Article, NewsAdapter.NewsViewHolder>(NewsDiffCallback) {
+@SuppressLint("NotifyDataSetChanged")
+class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    var newsData = mutableListOf<Article>()
+    var articleData = ArrayList<Article>()
+
+    fun initializeArticle(article : Article) {
+        articleData.add(article)
+        notifyDataSetChanged()
+    }
+
+    fun addArticleData(article : Article) {
+        articleData.add(article)
+        notifyDataSetChanged()
+    }
 
     /* ViewHolder for Article, takes in the inflated view */
     class NewsViewHolder(itemView: View) :
@@ -54,22 +65,10 @@ class NewsAdapter() :
 
     /* news to bind view. */
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-//        val article = getItem(position)
-//        holder.bind(article)
-        holder.bind(newsData[position])
+        holder.bind(articleData[position])
     }
 
     override fun getItemCount(): Int {
-        return newsData.size
-    }
-}
-
-object NewsDiffCallback : DiffUtil.ItemCallback<Article>() {
-    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem.id == newItem.id
+        return articleData.size
     }
 }

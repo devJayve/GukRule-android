@@ -42,6 +42,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun moveToAllPost() {
+        val intent = Intent(this, NewsActivity::class.java)
+        intent.putExtra("isKeywordExist", false)
+        startActivity(intent)
+    }
+
     fun moveToArticle(keyword: String, url: String) {
         Log.d("LOG", "this is - moveToArticle")
         val intent = Intent(this, ArticleVisualActivity::class.java)

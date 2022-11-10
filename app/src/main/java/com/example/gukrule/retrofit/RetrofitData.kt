@@ -70,15 +70,15 @@ data class CrawlingRequestData(
 
 // CrawlingNewsApi
 data class CrawlingNewList(
-    var isSuccess: String? = null,
-    var code: Int? = null,
-    var message: String? = null,
-    var result: List<List<String>>? = null,
+    var isSuccess: String,
+    var code: Int,
+    var message: String,
+    var result: ArrayList<ArrayList<String>>
 )
 
 data class CrawlingArticleRequestData(
-    var userIdx : Int? = null,
-    var url : String? = null,
+    var userIdx : Int,
+    var url : String,
 )
 
 

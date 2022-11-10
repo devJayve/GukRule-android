@@ -53,8 +53,8 @@ class ArticleVisualActivity : AppCompatActivity() {
         }
 
         // userIdx = getUserIdx()
-        val requestData = CrawlingArticleRequestData(userIdx = 218, url = pageUrl)
-        var articleApi: RetrofitClient.CrawlingArticleApi = RetrofitClient.initLocalRetrofit()!!.create(
+        val requestData = CrawlingArticleRequestData(userIdx = 218, url = "")
+        var articleApi: RetrofitClient.CrawlingArticleApi = RetrofitClient.initLocalRetrofit().create(
             RetrofitClient.CrawlingArticleApi::class.java)
         articleApi.getCrawlingArticle(
             // jwtKey = getUserToken()
