@@ -77,8 +77,8 @@ class NewsActivity() : AppCompatActivity() {
 
         // userIdx = getUserIdx()
         val requestData = CrawlingRequestData(userIdx = 218, keyword = null, page = pageInt)
-        var articleApi: RetrofitClient.CrawlingApi = RetrofitClient.initLocalRetrofit()!!.create(
-            RetrofitClient.CrawlingApi::class.java)
+        var articleApi: RetrofitClient.CrawlingNewsApi = RetrofitClient.initLocalRetrofit()!!.create(
+            RetrofitClient.CrawlingNewsApi::class.java)
         articleApi.getCrawlingNews(
             // jwtKey = getUserToken()
             jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE" ,

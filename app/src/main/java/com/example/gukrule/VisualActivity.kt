@@ -261,9 +261,9 @@ class VisualActivity : AppCompatActivity() {
         })
     }
 
-    private  fun crawlingNewsList() {
+    private fun crawlingNewsList() {
         val retrofit = RetrofitClient.initLocalRetrofit()
-        val newsApi = retrofit.create(RetrofitClient.CrawlingApi::class.java)
+        val newsApi = retrofit.create(RetrofitClient.CrawlingNewsApi::class.java)
         val crawlingRequestData = CrawlingRequestData(userIdx = 218, keyword = "고흥", page = 1)
         newsApi.getCrawlingNews(
             jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE" ,

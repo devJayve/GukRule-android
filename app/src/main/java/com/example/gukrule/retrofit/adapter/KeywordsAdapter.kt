@@ -32,7 +32,8 @@ class KeywordsAdapter() :
     /* keywords to bind view. */
     override fun onBindViewHolder(holder: KeywordViewHolder, position: Int) {
         val keywordCircle = holder.itemView.findViewById<TextView>(R.id.keyword_circle)
-        keywordCircle.text = keywordData[position].name
+        var keywordText: String? = keywordData[position].name
+        keywordCircle.text = keywordText!!.replace(" ", "\n")
 
         keywordCircle.setOnClickListener {
             itemClickListener.onClick(it, position)

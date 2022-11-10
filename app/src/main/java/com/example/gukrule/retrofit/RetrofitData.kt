@@ -35,9 +35,29 @@ data class CrawlingRequestData(
     var page : Int
 )
 
+// CrawlingNewsApi
 data class CrawlingNewList(
     var isSuccess: String? = null,
     var code: Int? = null,
     var message: String? = null,
     var result: List<List<String>>? = null,
+)
+
+data class CrawlingArticleRequestData(
+    var userIdx : Int? = null,
+    var url : String? = null,
+)
+
+
+// CrawlingArticleApi
+data class CrawlingArticle(
+    var isSuccess: String? = null,
+    var code: Int? = null,
+    var message: String? = null,
+    var result: ArticleResult? = null,
+)
+
+data class ArticleResult(
+    var date: String? = null,
+    var articleText: String? = null,
 )

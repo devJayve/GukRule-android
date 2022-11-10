@@ -33,7 +33,7 @@ class ArticlesAdapter :
             if (item.budgetKey != null) {
                 articleBudgetKeyView.text = item.budgetKey
             } else {
-                articleBudgetKeyView.text = "랜덤 키워드"
+                articleBudgetKeyView.text = "랜덤 -> 키워드 세팅 요망"
             }
             articleTitleView.text = item.title
             if (item.image != null) {
