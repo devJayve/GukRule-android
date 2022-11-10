@@ -28,9 +28,9 @@ class SelectArticleFragment : Fragment() {
     private lateinit var selectAdapter: SelectRVAdapter
     private lateinit var gridManger: GridLayoutManager
     private var _binding: FragmentSelectArticleBinding? = null
-    private var _itemBinding: ItemSelectArticleBinding? = null
     private val binding get() = _binding!!
-    private val itemBinding get() = _itemBinding!!
+    private var userIdx : Int = 0
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,11 +52,16 @@ class SelectArticleFragment : Fragment() {
             "국회사무처운영 입법정보화",
             "국회사무처운영 의회운영지원"
         )
+        arguments?.let{
+            userIdx = it.getInt("userIdx")
+        }
 
         selectAdapter = SelectRVAdapter(dummyDataList, dummyDataList)
 
         gridManger = GridLayoutManager(signUpActivity, 2)
         gridManger.orientation = GridLayoutManager.VERTICAL
+
+
 
         binding.selectArticleGrid.apply {
             layoutManager = gridManger
@@ -77,13 +82,14 @@ class SelectArticleFragment : Fragment() {
     }
 
     private fun registerSelectedArticleApi(){
+
         val selectedArticleData = SelectedArticleData(
-            userIdx = ,
-            keyword1 = ,
-            keyword2 = ,
-            keyword3 = ,
-            keyword4 = ,
-            keyword5 = ,
+            userIdx = userIdx,
+            keyword1 = selectAdapter.sendDataList[0],
+            keyword2 = selectAdapter.sendDataList[1],
+            keyword3 = selectAdapter.sendDataList[2],
+            keyword4 = selectAdapter.sendDataList[3],
+            keyword5 = selectAdapter.sendDataList[4],
         )
         val retrofit = RetrofitClient.initLocalRetrofit()
         val registerApiArticle = retrofit.create(RetrofitClient.RegisterApiArticle::class.java)

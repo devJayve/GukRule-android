@@ -85,7 +85,7 @@ object RetrofitClient {
 //    interface NickNameApi{
 //        @GET("https://www.dorisdev.shop/users/signup/checkNickname?nickName=")
 //        fun getNickName(
-//            @Query("IsSuccess")
-//        )
+//            @Query("nickName") nickName:String
+//        ) : Call<>
 //    }
 }

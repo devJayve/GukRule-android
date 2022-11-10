@@ -2,7 +2,6 @@ package com.example.gukrule.fragment
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.gukrule.LoginActivity
 import com.example.gukrule.R
 import com.example.gukrule.SignUpActivity
 import com.example.gukrule.databinding.FragmentSignUpInfoBinding
@@ -38,7 +36,9 @@ class SignUpInfoFragment : Fragment() {
     private var isPwAcceptable = false // 비밀번호 예외처리 여부
     private var isRePwAcceptable = false // 비밀번호 재입력 예외처리 여부
     private var isEmailAcceptable = false // 이메일 예외처리 여부
-    
+
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         signUpActivity = activity as SignUpActivity
@@ -88,7 +88,9 @@ class SignUpInfoFragment : Fragment() {
 
         // 다음 페이지 이동 (회원가입 완료)
         binding.nextPageBtn.setOnClickListener {
+            connectRegisterApi()
             moveNextPageEvent()
+
         }
 
         // 이전 페이지로 이동
@@ -207,6 +209,7 @@ class SignUpInfoFragment : Fragment() {
 //        }
     }
 
+    // 닉네임 중복 Api GET
     private fun checkNickNameApi(){
         val nickNameCheckData = NickNameCheckData(
             nickName = binding.nickNameET.text.toString()
@@ -214,7 +217,10 @@ class SignUpInfoFragment : Fragment() {
         val retrofit = RetrofitClient.initLocalRetrofit()
     }
 
+    // 아이디 중복 Api
+    private fun checkId(){
 
+    }
 
     //TODO::register Data class를 만들고 API 통신 test
     private fun connectRegisterApi() {
@@ -234,6 +240,7 @@ class SignUpInfoFragment : Fragment() {
             ) {
                 if(response.body()!!.isSuccess && response.body()!!.code == 1000){
                     //userIdx를 SelectArticleFragment로 전달해야 함
+                    signUpActivity.setDataAtFragment(SelectArticleFragment(),response.body()!!.userIdx)
                 }
             }
 

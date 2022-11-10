@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.provider.Settings.Global.putString
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.gukrule.fragment.SelectArticleFragment
 import com.example.gukrule.fragment.SignUpInfoFragment
 
@@ -14,9 +15,23 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_empty)
 
-        //SignUpInfoFragment에서 Api를 통해 받은 userIdx를 SelectArticleFragment로 보내줘야 함
         supportFragmentManager.beginTransaction().replace(R.id.empty_layout, SignUpInfoFragment())
             .commit()
+    }
+
+    fun setDataAtFragment(fragment: Fragment, userIdx: Int){
+        val bundle = Bundle()
+        bundle.putInt("userIdx", userIdx)
+
+        fragment.arguments = bundle
+        setFragment(fragment)
+    }
+
+    private fun setFragment(fragment: Fragment){
+        val transaction =
+            supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.empty_layout, fragment)
+        transaction.commit()
     }
 
     fun transFragEvent(transNum : Int) {

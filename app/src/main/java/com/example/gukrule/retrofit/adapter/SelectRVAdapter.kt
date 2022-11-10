@@ -13,11 +13,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gukrule.R
 import com.example.gukrule.retrofit.adapter.CarouselRVAdapter
+import java.util.logging.Handler
 
 class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val keywordDataList: ArrayList<String>)
     : RecyclerView.Adapter<SelectRVAdapter.SelectViewHolder>() {
 
-    private var sendDataList = ArrayList<String>(keywordDataList.count())
+    var sendDataList = ArrayList<String>(keywordDataList.count())
 
     class SelectViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -59,6 +60,7 @@ class SelectRVAdapter(private val reportDataList: ArrayList<String>, private val
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
     }
+
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
         this.itemClickListener = onItemClickListener
