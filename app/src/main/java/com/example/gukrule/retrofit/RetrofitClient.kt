@@ -38,11 +38,24 @@ object RetrofitClient {
             .build()
     }
 
-    interface CrawlingApi {
+    interface CrawlingNewsApi {
+        // 정적헤더
+        @Headers("content-type: application/json")
         @POST("crawling/newsList")
         fun getCrawlingNews(
+            @Header("x-access-token") jwtKey: String,
             @Body() crawlingRequestData: CrawlingRequestData
         ) : Call<CrawlingNewList>
+    }
+
+    interface CrawlingArticleApi {
+        // 정적헤더
+        @Headers("content-type: application/json")
+        @POST("crawling/article")
+        fun getCrawlingArticle(
+            @Header("x-access-token") jwtKey: String,
+            @Body() crawlingArticleRequestData: CrawlingArticleRequestData
+        ) : Call<CrawlingArticle>
     }
 
     interface BudgetApi {
@@ -77,8 +90,9 @@ object RetrofitClient {
     }
 
     interface RegisterApiArticle{
-        @POST("/users/signup/5keywords")
+        @POST("users/signup/5keywords")
         fun getRegisterArticleData(
+            @Header("x-access-token") jwtKey: String,
             @Body() selectedArticleData: SelectedArticleData
         ) : Call<SelectedArticleResponse>
     }
@@ -90,7 +104,7 @@ object RetrofitClient {
     }
 
     interface IdCheckApi{
-        @GET("/users/signup/checkId?id=")
+        @GET("users/signup/checkId?id=")
         fun getIdOverlap(
             @Query("id") id:String
         ) : Call<IdCheckResponse>

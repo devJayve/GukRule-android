@@ -29,8 +29,6 @@ class SelectArticleFragment : Fragment() {
     private lateinit var gridManger: GridLayoutManager
     private var _binding: FragmentSelectArticleBinding? = null
     private val binding get() = _binding!!
-    private var userIdx : Int = 0
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,6 +42,12 @@ class SelectArticleFragment : Fragment() {
     ): View {
         _binding = FragmentSelectArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val userIdx = arguments?.getInt("userIdx", 0)!!
+        val jwt = arguments?.getString("jwt", "")!!
+
+
+
         val dummyDataList = arrayListOf(
             "국회행정지원 조사처 기본경비",
             "의정활동지원 의정지원",
@@ -61,9 +65,6 @@ class SelectArticleFragment : Fragment() {
             "https://imgnews.pstatic.net/image/030/2020/11/10/0002912265_001_20201110171713920.jpg?type=w647",
             "https://imgnews.pstatic.net/image/021/2022/09/19/0002531609_001_20220919115806431.jpg?type=w647",
         )
-        arguments?.let{
-            userIdx = it.getInt("userIdx")
-        }
 
         selectAdapter = SelectRVAdapter(dummyDataList, dummyDataList,dummyDataUrl)
 
@@ -84,15 +85,16 @@ class SelectArticleFragment : Fragment() {
         })
 
         binding.signUpSubmitBtn.setOnClickListener {
+            Log.d("success", userIdx.toString())
             Log.d("success", "버튼 눌립니다")
-            registerSelectedArticleApi()
+            registerSelectedArticleApi(userIdx, jwt)
         }
 
         return root
     }
 
-    private fun registerSelectedArticleApi(){
-
+    private fun registerSelectedArticleApi(userIdx : Int, jwt : String){
+        Log.d("LOG", "function - registerSelectedArticleApi")
         val selectedArticleData = SelectedArticleData(
             userIdx = userIdx,
             keyword1 = selectAdapter.sendDataList[0],
@@ -102,23 +104,16 @@ class SelectArticleFragment : Fragment() {
             keyword5 = selectAdapter.sendDataList[4],
         )
         val retrofit = RetrofitClient.initLocalRetrofit()
-        val registerApiArticle = retrofit.create(RetrofitClient.RegisterApiArticle::class.java)
-        registerApiArticle.getRegisterArticleData(selectedArticleData = selectedArticleData)
+        val registerArticleApi = retrofit.create(RetrofitClient.RegisterApiArticle::class.java)
+        registerArticleApi.getRegisterArticleData(selectedArticleData = selectedArticleData, jwtKey = jwt)
             .enqueue(object: retrofit2.Callback<SelectedArticleResponse>{
                 override fun onResponse(
                     call: Call<SelectedArticleResponse>,
                     response: Response<SelectedArticleResponse>
                 ) {
                     if(response.body()!!.isSuccess && response.body()!!.code == 1000){
-                        Log.d("success", userIdx.toString())
-                        Log.d("success", selectAdapter.sendDataList[0])
-                        Log.d("success", selectAdapter.sendDataList[1])
-                        Log.d("success", selectAdapter.sendDataList[2])
-                        Log.d("success", selectAdapter.sendDataList[3])
 
-                        val intent = Intent(signUpActivity, LoginActivity::class.java) // 로그인 페이지로 전환
-                        startActivity(intent)
-                        response.body()!!.result
+                        signUpActivity.moveToLogin()
                     }
                 }
 

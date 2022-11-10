@@ -3,9 +3,9 @@ package com.example.gukrule.retrofit
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
-    data class DetailBudgetList(
-        var njzofberazvhjncha: List<JsonObject>
-    )
+data class DetailBudgetList(
+    var njzofberazvhjncha: List<JsonObject>
+)
 
 data class JsonRowList(
     var row: List<JsonObject>
@@ -28,10 +28,12 @@ data class DetailBudgetData(
     )
 
 data class CrawlingRequestData(
-    var keyword : String,
+    var userIdx : Int,
+    var keyword : String?,
     var page : Int
 )
 
+// CrawlingNewsApi
 data class CrawlingNewList(
     var isSuccess : String,
     var code : Int,
@@ -62,8 +64,7 @@ data class RegisterData(
     var passwordForCheck: String,
     var phone : String,
     var email : String,
-    var name : String,
-    var nickname : String,
+    var nickName : String,
 )
 
 data class RegisterResponse(
@@ -71,12 +72,12 @@ data class RegisterResponse(
     var code: Int,
     var message: String,
     var result : RegisterToken,
-    var userIdx : Int
 )
 
 data class RegisterToken(
-    var jwt: String
-)
+    var jwt: String,
+    var userIdx : Int,
+    )
 
 data class NickNameCheckResponse(
     var isSuccess: Boolean,
@@ -114,9 +115,29 @@ data class SelectedArticleResponse(
     var code: Int,
     var message: String,
     var result: SelectedArticleJWT,
-    var userIdx: Int
 )
 
 data class SelectedArticleJWT(
-    var jwt: String
+    var jwt: String,
+    var userIdx: Int
 )
+
+data class CrawlingArticleRequestData(
+    var userIdx : Int? = null,
+    var url : String? = null,
+)
+
+
+// CrawlingArticleApi
+data class CrawlingArticle(
+    var isSuccess: String? = null,
+    var code: Int? = null,
+    var message: String? = null,
+    var result: ArticleResult? = null,
+)
+
+data class ArticleResult(
+    var date: String? = null,
+    var articleText: String? = null,
+)
+

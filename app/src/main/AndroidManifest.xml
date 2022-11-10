@@ -29,13 +29,14 @@
             </intent-filter>
         </activity>
 
+<!--        <activity android:name=".LoginActivity"/>-->
+        <activity android:name=".MainActivity"/>
         <activity android:name=".VisualActivity"/>
         <activity android:name=".NewsActivity" />
         <activity android:name=".KeywordActivity" />
         <activity android:name=".ArticleVisualActivity" />
         <activity android:name=".BudgetVisualActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity"/>
 
     </application>
 
