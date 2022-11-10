@@ -143,6 +143,8 @@
                             android:layout_height="300dp"
                             android:layout_margin="10dp"/>
 
+
+
                         <TextView
                             android:id="@+id/detailed_budget_pie_comment"
                             android:layout_width="match_parent"

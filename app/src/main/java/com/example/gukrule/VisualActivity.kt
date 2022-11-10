@@ -133,6 +133,7 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
                     }
 
                     setGraphTitleUI(position)
+                    calculateDetailedBudgetPieData()
                     calculateBudgetBarData()
                 }
                 binding.visualPanel.panelState = PanelState.COLLAPSED
@@ -176,7 +177,7 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
 
     }
 
-    fun calculateBudgetBarData() {
+    private fun calculateBudgetBarData() {
         Log.d("LOG", "계산 영역")
         val annualBudgetGraphEntry = ArrayList<BarEntry>()          // 세출예산액 Data Entry
         val annualCurrentBudgetGraphEntry = ArrayList<BarEntry>()   // 세출예산현액 Data Entry
@@ -202,6 +203,15 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         setBarChartData(binding.anexpBdgamtBarGraph, annualBudgetGraphEntry)
         setBarChartData(binding.anexpBdgCamtBarGraph, annualCurrentBudgetGraphEntry)
         setBarChartData(binding.epAmtBarGraph, expenseBudgetGraphEntry)
+    }
+
+    private fun calculateDetailedBudgetPieData() {
+        val detailedAnnBgtAmt = ArrayList<PieEntry>()
+        val detailedDataMap = annual2022BudgetData.groupBy { it.SACTV_NM }
+        detailedDataMap.forEach{ map ->
+            detailedAnnBgtAmt.add(PieEntry((map.value.sumOf { it.ANEXP_BDGAMT } / 10000).toFloat(), map.key))
+        }
+        setPieChartData(detailedAnnBgtAmt)
     }
 
     private fun initBarChart(barGraph : BarChart) {
@@ -251,32 +261,12 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         binding.detailedBudgetPieGraph.setExtraOffsets(5F, 10F, 5F, 5F)
 
         binding.detailedBudgetPieGraph.dragDecelerationFrictionCoef = 0.95f
+        binding.detailedBudgetPieGraph.legend.isWordWrapEnabled = true
 
-        binding.detailedBudgetPieGraph.isDrawHoleEnabled = false
+
+//        binding.detailedBudgetPieGraph.isDrawHoleEnabled = false
         binding.detailedBudgetPieGraph.setHoleColor(Color.WHITE)
         binding.detailedBudgetPieGraph.transparentCircleRadius = 61f
-
-        val yValues = ArrayList<PieEntry>()
-
-        yValues.add(PieEntry(34f, "단위사업1"))
-        yValues.add(PieEntry(23f, "단위사업2"))
-        yValues.add(PieEntry(14f, "단위사업3"))
-        yValues.add(PieEntry(35f, "단위사업4"))
-        yValues.add(PieEntry(40f, "단위사업5"))
-
-
-        val dataSet = PieDataSet(yValues, "Countries")
-        dataSet.sliceSpace = 3f
-        dataSet.selectionShift = 5f
-        dataSet.setColors(*ColorTemplate.LIBERTY_COLORS)
-
-        val data = PieData(dataSet)
-        data.setValueTextSize(10f)
-        data.setValueTextColor(Color.YELLOW)
-
-        binding.detailedBudgetPieGraph.data = data
-//        binding.detailedBudgetPieGraph.animateY(1000, Easing.EaseInOutCubic) //애니메이션
-        binding.detailedBudgetPieGraph.invalidate()
     }
 
     private fun initBubbleChart() {
@@ -315,6 +305,22 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
 
         // 애니메이션 종료
         binding.lottie.cancelAnimation()
+    }
+
+    private fun setPieChartData(pieEntryArray: ArrayList<PieEntry>) {
+        val dataSet = PieDataSet(pieEntryArray, "")
+        dataSet.sliceSpace = 3f
+        dataSet.selectionShift = 5f
+        dataSet.setColors(*ColorTemplate.LIBERTY_COLORS)
+
+        val data = PieData(dataSet)
+        data.setValueTextSize(10f)
+        data.setValueTextColor(Color.YELLOW)
+
+        binding.detailedBudgetPieGraph.data = data
+//        binding.detailedBudgetPieGraph.animateY(1000, Easing.EaseInOutCubic) //애니메이션
+        binding.detailedBudgetPieGraph.invalidate()
+
     }
 
 
