@@ -3,14 +3,13 @@ package com.example.gukrule.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gukrule.R
+import com.example.gukrule.adapter.ArticlesAdapter
 import com.example.gukrule.keyword.Keyword
-import kotlinx.android.synthetic.main.keyword_circle.view.*
 
 class KeywordsAdapter() :
     ListAdapter<Keyword, KeywordsAdapter.KeywordViewHolder>(KeywordDiffCallback) {
@@ -32,12 +31,26 @@ class KeywordsAdapter() :
 
     /* keywords to bind view. */
     override fun onBindViewHolder(holder: KeywordViewHolder, position: Int) {
-//        val keyword = getItem(position)
-//        holder.bind(keyword)
         val keywordCircle = holder.itemView.findViewById<TextView>(R.id.keyword_circle)
-        keywordCircle.text = keywordData[position].name
-//        holder.bind(keywordData[position])
+        var keywordText: String? = keywordData[position].name
+        keywordCircle.text = keywordText!!.replace(" ", "\n")
+
+        keywordCircle.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
+
+    // (2) listener interface
+    interface OnItemClickListener : ArticlesAdapter.OnItemClickListener {
+        override fun onClick(v: View, position: Int)
+    }
+
+    // (3) click event
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+    // (4) setItemClickListener fun
+    private lateinit var itemClickListener : ArticlesAdapter.OnItemClickListener
 
     override fun getItemCount(): Int {
         return keywordData.size
