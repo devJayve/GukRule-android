@@ -38,9 +38,33 @@ object RetrofitClient {
             .build()
     }
 
+    fun initSummaryRetrofit(): Retrofit {
+        val url = "https://api-inference.huggingface.co/"
+        val gson = Gson()
+        val clientBuilder = OkHttpClient.Builder().build()
+
+        return Retrofit.Builder()
+            .baseUrl(url)
+            .client(clientBuilder)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    interface SummaryNewsApi {
+        @POST("models/gogamza/kobart-summarization")
+        fun postSummaryNews(
+            @Header("Authorization") Authorization: String,
+            @Body() summaryRequestData: SummaryRequestData
+        ) : Call<SummaryArticle>
+
+        // * "Bearer "+ 토큰
+        // *
+        // * 헤더 : {"Authorization": "Bearer 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"}
+        //
+        // * 바디 : { "inputs" : 여기에 뉴스기사 입력 }
+    }
+
     interface CrawlingNewsApi {
-        // 정적헤더
-        @Headers("content-type: application/json")
         @POST("crawling/newsList")
         fun getCrawlingNews(
             @Header("x-access-token") jwtKey: String,
@@ -49,8 +73,6 @@ object RetrofitClient {
     }
 
     interface CrawlingArticleApi {
-        // 정적헤더
-        @Headers("content-type: application/json")
         @POST("crawling/article")
         fun getCrawlingArticle(
             @Header("x-access-token") jwtKey: String,

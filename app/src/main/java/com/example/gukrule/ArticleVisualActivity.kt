@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
 import com.bumptech.glide.Glide
@@ -14,7 +18,6 @@ import com.example.gukrule.adapter.ArticlesAdapter
 import com.example.gukrule.article.Article
 import com.example.gukrule.databinding.ActivityArticleVisualBinding
 import com.example.gukrule.retrofit.*
-import com.example.gukrule.ui.feed.FeedFragment
 import kotlinx.android.synthetic.main.activity_article_visual.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +40,12 @@ class ArticleVisualActivity : AppCompatActivity() {
 
         val intent = intent
         val keyword = intent.getStringExtra("keyword")
-        Log.d("keyword: ", ""+keyword)
+        val articleUrl = intent.getStringExtra("articleUrl")
+        val imgUrl = intent.getStringExtra("imgUrl")
+        Log.d("check: ", keyword!!)
+        Log.d("check: ", articleUrl!!)
+        Log.d("check: ", imgUrl!!)
+
         /* toolbar 클릭 범위를 전체에서 아이콘으로 줄이기 */
         setSupportActionBar(findViewById(R.id.article_visual_toolbar))
         supportActionBar?.apply {
@@ -52,9 +60,9 @@ class ArticleVisualActivity : AppCompatActivity() {
             startActivity(nextIntent)
         }
 
-        // userIdx = getUserIdx()
-        val requestData = CrawlingArticleRequestData(userIdx = 218, url = pageUrl)
-        var articleApi: RetrofitClient.CrawlingArticleApi = RetrofitClient.initLocalRetrofit()!!.create(
+        Log.d("LOG","articleUrl : $articleUrl & $keyword")
+        val requestData = CrawlingArticleRequestData(userIdx = 218, url = articleUrl, keyword = "국회행정지원 예산처 기본경비")
+        val articleApi: RetrofitClient.CrawlingArticleApi = RetrofitClient.initLocalRetrofit().create(
             RetrofitClient.CrawlingArticleApi::class.java)
         articleApi.getCrawlingArticle(
             // jwtKey = getUserToken()
@@ -67,39 +75,62 @@ class ArticleVisualActivity : AppCompatActivity() {
                     call: Call<CrawlingArticle>,
                     response: Response<CrawlingArticle>
                 ) {
-                    Log.d("success", response?.body()!!.code.toString())
-                    Log.d("success", response?.body()!!.message.toString())
-                    Log.d("success", response?.body()!!.result!!.toString())
-                    article = response?.body()!!.result!!
+                    Log.d("success", response.body()!!.code.toString())
+                    Log.d("success", response.body()!!.message)
+                    Log.d("success", response.body()!!.result.toString())
+                    article = response.body()!!.result
+                    val fullArticleText : String = article.articleText!!.substring(1).trim().replace("\\r\\n|\\r|\\n|\\n\\r".toRegex(),"")
+                    Log.d("LOG", "delete space : $fullArticleText")
 
-                    //이미지 url 링크 받아서 인터넷으로 로딩해서 띄우기    // articleList[position]에서 추출
+                    hostSummaryApi(fullArticleText)
+
+                    //이미지 url 링크 받아서 인터넷으로 로딩해서 띄우기
                     Glide.with(article_visual)
-                        .load(pageUrl)
+                        .load(imgUrl)
                         .error(R.drawable.img_load_failed)
                         .into(findViewById(R.id.article_image))
 
-                    binding.articleTitle.text = "기사제목"       // articleList[position]에서 추출
-                    binding.articleSummary.text = "기사요약"     // articleList[position]에서 추출
-                    binding.articleFullArticle.text = article.articleText
+//                    binding.articleSummaryHeader.text = "상세 기사"
+                    binding.articleSheetButton.text = "기사 데이터 그래프"
+                    binding.articleSheetButton.visibility = View.VISIBLE
+                    binding.articleSheetButton.background.apply { R.drawable.article_bottom_sheet_button }
+                    binding.articleSheetButton.drawableState.apply { R.drawable.article_chart }
+                    binding.articleSummaryIcon.findViewById<ImageView>(R.drawable.article_summary_icon)
 
+                    // by crawling api
+                    binding.articleTitle.text = article.title
+                    binding.articleFullArticle.text = fullArticleText
                 }
-                override fun onFailure(call: Call<CrawlingArticle>?, t: Throwable?) {
+                override fun onFailure(call: Call<CrawlingArticle>, t: Throwable) {
                 }
             })
-
-        // 기사 내용 텍스트 뷰로 전달
-
+        // 기사 내용 텍스트 뷰로 전
 
     }
 
-//    override fun onScroll(
-//        event1: MotionEvent,
-//        event2: MotionEvent,
-//        distanceX: Float,
-//        distanceY: Float
-//    ): Boolean {
-//        return true
-//    }
+    private fun hostSummaryApi(fullArticleText :String) {
+        Log.d("LOG", "host summary : $fullArticleText")
+        val summaryData = SummaryRequestData(inputs = fullArticleText)
+        val summaryApi: RetrofitClient.SummaryNewsApi = RetrofitClient.initSummaryRetrofit().create(
+            RetrofitClient.SummaryNewsApi::class.java)
+        summaryApi.postSummaryNews(
+            Authorization = "Bearer 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",
+            summaryRequestData = summaryData,
+        )
+            .enqueue(object : Callback<SummaryArticle>{
+                override fun onResponse(
+                    call: Call<SummaryArticle>,
+                    response: Response<SummaryArticle>
+                ) {
+                    Log.d("LOG","summaryText: " + response.code().toString())
+                    val summaryText: String = response.body()!!.generatedList[0].generated_text
+                    Log.d("summaryText: ", summaryText)
+                    binding.articleVisualSummary.text = summaryText
+                }
+                override fun onFailure(call: Call<SummaryArticle>, t: Throwable) {
+                }
+            })
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

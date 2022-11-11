@@ -67,7 +67,7 @@ class FeedFragment : Fragment() {
     private val keywordData = mutableListOf<Keyword>()
     private var articleList = listOf<List<String>>()
     private lateinit var mainActivity : MainActivity
-//    lateinit var keywordsAdapter: KeywordsAdapter
+    //    lateinit var keywordsAdapter: KeywordsAdapter
 //    lateinit var articlesAdapter: ArticlesAdapter
     private var pageInt: Int = 1
     private val binding get() = _binding!!
@@ -113,8 +113,9 @@ class FeedFragment : Fragment() {
                     call: Call<CrawlingNewList>,
                     response: Response<CrawlingNewList>,
                 ) {
+
                     val pCode = response.body()!!.code
-                    var errMessage: String? = "에러메시지"
+
                     if (pCode == 1000) {
                         Log.d("success", response.body()!!.code.toString())
                         Log.d("success", response.body()!!.message.toString())
@@ -195,9 +196,53 @@ class FeedFragment : Fragment() {
             keywordsAdapter.notifyDataSetChanged()
         }
 
+        // Fragment to Activity
+        val keywordArrow: ImageButton = binding.keywordArrow
+        keywordArrow.setOnClickListener{
+            requireActivity().run{
+                startActivity(Intent(this, KeywordActivity::class.java))
+                finish()
+            }
+        }
+        val articleArrow: ImageButton = binding.articleArrow
+        articleArrow.setOnClickListener{
+            requireActivity().run{
+                startActivity(Intent(this, NewsActivity::class.java))
+                finish()
+            }
+        }
+
+        // articleRecyclerView item click -> ArticleVisualActivity
+        articlesAdapter.setItemClickListener(object: ArticlesAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                mainActivity.moveToArticle(
+                    word.toString(),
+                    articleList[position][4],
+                    articleList[position][2],
+                )
+            }
+        })
+
+        // keywordRecyclerView item click -> request data keyword setting
+        keywordsAdapter.setItemClickListener(object: KeywordsAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                word = keywordData[position].name
+                Log.d("keyword", ""+word)
+                // keyword도 바뀜
+                // articleList를 clear하고 페이지 다시 그림
+
+
+                // 일단 페이지 리로드
+                requireActivity().run{
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+            }
+        })
+
+
         return root
     }
-
 
     fun loadPost(x: String?, y: Int) {
             val articlesAdapter = ArticlesAdapter()
