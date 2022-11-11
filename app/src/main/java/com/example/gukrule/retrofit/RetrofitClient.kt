@@ -79,4 +79,16 @@ object RetrofitClient {
         ) : Call<BudgetResponseData>
     }
 
+    interface AccountApi{
+        @POST("/auth/check/sendSMS")
+        fun postSendSms(
+            @Body() accountData : AccountData
+        ) : Call<SmsResponse>
+
+        @POST("/auth/check/password")
+        fun postModifyPassword(
+            @Body() passwordData : PasswordData
+        ) : Call<ModifyPwResponse>
+    }
+
 }

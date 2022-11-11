@@ -94,3 +94,38 @@ data class ArticleResult(
     var date: String? = null,
     var articleText: String? = null,
 )
+
+data class AccountData(
+    var id : String,
+    var phone : String
+)
+
+data class SmsResponse(
+    var isSuccess: String,
+    var code: Int,
+    var message: String,
+    var result : AuthData
+)
+
+data class AuthData(
+    var authCode : String,
+    var userIdx: Int
+)
+
+data class ModifyPwResponse(
+    var isSuccess: String,
+    var code: Int,
+    var message: String,
+    var result : UserData
+)
+
+data class PasswordData(
+    var userIdx : Int,
+    var password : String,
+    var passwordForCheck : String
+)
+
+data class UserData(
+    var userIdx: Int,
+    var jwt : String
+)

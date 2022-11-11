@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <LinearLayout
@@ -15,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHeight_percent="0.32"
         >
 
         <ImageButton
@@ -31,15 +30,15 @@
             android:layout_weight="1.5"/>
 
         <EditText
-            android:id="@+id/findPwIdET"
+            android:id="@+id/pwET"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
             android:layout_weight="2"
-            android:hint="아이디"
-            android:inputType="text"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
             android:maxLength="30"
             android:paddingLeft="15dp"
             android:selectAllOnFocus="true"
@@ -48,68 +47,34 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/findPwEmailET"
+            android:id="@+id/rePwET"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="10dp"
             android:layout_weight="2"
-            android:hint="전화번호"
+            android:hint="전화번호 재입력"
             android:textColorHint="@color/dark_grey"
             android:textSize="15sp"
             android:paddingLeft="15dp"
-            android:inputType="phone"
+            android:inputType="textPassword"
             android:maxLength="30"
             android:selectAllOnFocus="true"
             android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/sendCodeBtn"
+            android:id="@+id/modifyPwBtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="30dp"
-            android:text="인증번호 보내기"
-            android:background="@drawable/login_btn_background"
+            android:text="변경하기"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textAllCaps="false"
             android:layout_weight="2"/>
-
-        <LinearLayout
-            android:id="@+id/codeInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:visibility="invisible">
-
-            <com.raycoarana.codeinputview.CodeInputView
-                android:id="@+id/codeInputView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:paddingBottom="10dp"
-                app:animate_on_complete="false"
-                app:code_text_color="@color/black"
-                app:input_type="numeric"
-                app:length_of_code="4"
-                app:error_text_gravity="center"
-                app:underline_color="@color/black"
-                app:underline_selected_color="@color/black" />
-
-            <TextView
-                android:id="@+id/timeTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="03:00"
-                android:textColor="@color/red" />
-        </LinearLayout>
 
     </LinearLayout>
 
