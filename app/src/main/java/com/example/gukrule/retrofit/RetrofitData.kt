@@ -62,6 +62,19 @@ data class DetailBudgetData(
         @SerializedName("THISM_AGGR_EP_NAMT") val aggExpenseNetAmt:Int?,     //
     )
 
+
+data class SummaryRequestData(
+    var inputs: String,
+)
+
+data class SummaryArticle(
+    var generatedList: List<SummaryText>
+)
+
+data class SummaryText(
+    var generated_text: String
+)
+
 data class CrawlingRequestData(
     var userIdx : Int,
     var keyword : String?,
@@ -158,22 +171,24 @@ data class SelectedArticleJWT(
 )
 
 data class CrawlingArticleRequestData(
-    var userIdx : Int,
-    var url : String,
+    var userIdx: Int,
+    var url: String,
+    var keyword: String
 )
 
 
 // CrawlingArticleApi
 data class CrawlingArticle(
-    var isSuccess: String? = null,
-    var code: Int? = null,
-    var message: String? = null,
-    var result: ArticleResult? = null,
+    var isSuccess: String,
+    var code: Int,
+    var message: String,
+    var result: ArticleResult,
 )
 
 data class ArticleResult(
     var date: String? = null,
     var articleText: String? = null,
+    var title: String? = null,
 )
 
 data class AccountData(

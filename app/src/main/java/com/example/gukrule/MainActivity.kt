@@ -48,11 +48,12 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun moveToArticle(keyword: String, url: String) {
+    fun moveToArticle(keyword: String, articleUrl: String ,imgUrl: String) {
         Log.d("LOG", "this is - moveToArticle")
         val intent = Intent(this, ArticleVisualActivity::class.java)
-        intent.putExtra("keyword", "test")
-        intent.putExtra("url", "test2")
+        intent.putExtra("keyword", keyword)
+        intent.putExtra("articleUrl", articleUrl)
+        intent.putExtra("imgUrl", imgUrl)
         startActivity(intent)
     }
 }
