@@ -11,7 +11,7 @@ import com.example.gukrule.R
 class KeywordRVAdapter() : RecyclerView.Adapter<KeywordRVAdapter.KeywordViewHolder>() {
 
     private val keywordList = listOf(
-        "사무국\n 인건비",
+        "국회행정지원 조사처 기본경비",
         "사무국\n 인건비",
         "사무국\n 인건비",
         "사무국\n 인건비",
@@ -66,8 +66,6 @@ class KeywordRVAdapter() : RecyclerView.Adapter<KeywordRVAdapter.KeywordViewHold
     }
 
     private lateinit var itemClickListener: OnItemClickListener
-
-
 
     override fun getItemCount(): Int {
         return keywordList.size
