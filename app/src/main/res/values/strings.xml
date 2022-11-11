@@ -117,4 +117,10 @@
         <item>의회운영지원</item>
     </string-array>
 
+    <string name="description_1">세출 예산액은 지방자치단체가 행정목적을 달성하기 위해서 필요로하는 회계연도 내의 경비의 지출을 의미합니다.</string>
+    <string name="description_2">세출 예산현액은 본래의 세출예산액에 변경을 가한 후의 예산액을 의미합니다.</string>
+    <string name="description_3">지출 금맥은 예정된 기간동안 지출된 것으로 추산되는 총액을 의미합니다.</string>
+    <string name="description_4">연간 누계지출금액은 1년동안 지출한 금액의 총액을 의미합니다.</string>
+
+
 </resources>

@@ -152,7 +152,6 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         initBarChart(binding.anexpBdgCamtBarGraph)
         initBarChart(binding.epAmtBarGraph)
         initPieChart()
-        initBubbleChart()
     }
 
     private fun initUI() {
@@ -166,7 +165,6 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
             setDisplayUseLogoEnabled(true)
             title = "시각화"
         }
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -174,7 +172,7 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         binding.anexpBdgamtTitle.text = "단위사업 ${unitBusinessList[position]}의 년도별 예산세출액 데이터예요."
         binding.anexpBdgCamtTitle.text = "단위사업 ${unitBusinessList[position]}의 년도별 예산세출현액 데이터예요."
         binding.epAmtBarTitle.text = "단위사업 ${unitBusinessList[position]}의 년도별 지출금액 데이터예요."
-
+        binding.detailedBudgetPieTitle.text = "단위사업 ${unitBusinessList[position]}에 해당되는 세부사업 데이터예요."
     }
 
     private fun calculateBudgetBarData() {
@@ -269,23 +267,6 @@ class VisualActivity : AppCompatActivity(), CoroutineScope{
         binding.detailedBudgetPieGraph.transparentCircleRadius = 61f
     }
 
-    private fun initBubbleChart() {
-        val bubbleEntries = ArrayList<BubbleEntry>()
-        bubbleEntries.add(BubbleEntry(0F, 1F, 0.21f))
-        bubbleEntries.add(BubbleEntry(1F, 2F, 0.12f))
-        bubbleEntries.add(BubbleEntry(2F, 3F, 0.20f))
-        bubbleEntries.add(BubbleEntry(2F, 4F, 0.52f))
-        bubbleEntries.add(BubbleEntry(3F, 5F, 0.29f))
-        bubbleEntries.add(BubbleEntry(4F, 6F, 0.62f))
-        val bubbleDataSet = BubbleDataSet(bubbleEntries, "")
-        val bubbleData = BubbleData(bubbleDataSet)
-        binding.customBubbleChart.data = bubbleData
-        binding.customBubbleChart.setScaleEnabled(false)
-
-        bubbleDataSet.setColors(*ColorTemplate.LIBERTY_COLORS)
-        bubbleDataSet.valueTextColor = Color.BLACK
-        bubbleDataSet.valueTextSize = 18f
-    }
 
     private fun setBarChartData(barGraph : BarChart, budgetDataEntry: ArrayList<BarEntry>) {
         // Zoom In / Out 가능 여부 설정
