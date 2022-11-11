@@ -4,7 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/feed_scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintTop_toTopOf="parent">
@@ -19,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/profile_linear">
+            android:id="@+id/profile_linear"
+            >
 
             <View
                 app:layout_constraintTop_toTopOf="@+id/profile_linear"
@@ -28,139 +28,70 @@
                 android:layout_height="5dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/topDivider_gray"
-                android:background="@color/light_gray"/>
+                android:background="@color/light_gray"
+                />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="450dp"
                 android:id="@+id/profile_box"
-                android:paddingTop="100dp"
+                android:paddingTop="70dp"
                 android:background="@color/white"
-                android:drawableTop="@drawable/ic_profile_on"
-                android:text="ID: gukrule1004*\nNICKNAME: 국룰이"
+                android:drawableTop="@drawable/ic_blue_profile"
+                android:text="ID:  GUKRULE2 \n NICKNAME:  국룰이"
+                android:textSize="16sp"
                 />
 
             <View
                 app:layout_constraintTop_toTopOf="@+id/profile_box"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/firstMiddleDivider_gray"
-                android:background="@color/light_gray"/>
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:paddingBottom="10dp"
-                android:id="@+id/bookmark_linear"
-
-                app:layout_constraintTop_toBottomOf="@id/bottomDivider_gray"
-                >
-
-                <LinearLayout
-                    android:id="@+id/keyword_top"
-                    android:paddingTop="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/keyword_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="북마크"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:paddingLeft="20dp"
-                    android:drawablePadding="20dp"
-                    android:paddingRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:drawableLeft="@drawable/bookmark_article"
-                    android:id="@+id/article_bookmark"
-                    android:text="기사"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:paddingLeft="20dp"
-                    android:drawablePadding="20dp"
-                    android:paddingRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:drawableLeft="@drawable/bookmark_money"
-                    android:id="@+id/budget_bookmark"
-                    android:text="예산"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:drawablePadding="20dp"
-                    android:background="@android:color/transparent"
-                    android:textSize="16sp"
-                    android:drawableLeft="@drawable/bookmark_term"
-                    android:id="@+id/term_bookmark"
-                    android:text="용어사전"
-                    />
-
-            </LinearLayout>
-
-            <View
-                app:layout_constraintTop_toTopOf="@+id/profile_box"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/secondMiddleDivider_gray"
-                android:background="@color/light_gray"/>
-
-            <LinearLayout
+                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/white"
                 android:id="@+id/setting_linear"
                 android:paddingBottom="10dp"
+                android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/bottomDivider_gray"
                 >
 
                 <LinearLayout
-                    android:id="@+id/setting_top"
-                    android:paddingTop="10dp"
                     android:paddingLeft="10dp"
                     android:paddingBottom="10dp"
                     android:paddingRight="10dp"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/setting_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="환경설정"
+                        android:text="계정 / 정보 관리"
+                        android:paddingBottom="5dp"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingLeft="20dp"
+                    android:drawablePadding="20dp"
+                    android:paddingRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:drawableLeft="@drawable/user_info"
+                    android:text="사용자 정보"
+                    />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -172,34 +103,7 @@
                     android:textSize="16sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:drawableLeft="@drawable/app_settings"
-                    android:id="@+id/setting1"
-                    android:text="앱 설정"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:drawablePadding="20dp"
-                    android:background="@android:color/transparent"
-                    android:textSize="16sp"
-                    android:drawableLeft="@drawable/app_notice"
-                    android:id="@+id/setting3"
-                    android:text="공지사항"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:drawablePadding="20dp"
-                    android:background="@android:color/transparent"
-                    android:textSize="16sp"
-                    android:drawableLeft="@drawable/app_question"
-                    android:id="@+id/setting4"
-                    android:text="자주 묻는 질문"
+                    android:text="비밀번호 변경"
                     />
 
             </LinearLayout>
@@ -213,6 +117,7 @@
                 android:background="@color/light_gray"/>
 
             <Button
+                android:id="@+id/profile_logout"
                 app:layout_constraintTop_toBottomOf="@id/setting_linear"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -221,9 +126,9 @@
                 android:textColor="@color/white"
                 android:background="@color/deep_blue"
                 android:textSize="20sp"
-                android:id="@+id/profile_logout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:drawableLeft="@drawable/user_logout"
                 android:text="Logout"
-                android:layout_marginBottom="80dp"
                 />
 
         </LinearLayout>

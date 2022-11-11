@@ -67,7 +67,7 @@ class FeedFragment : Fragment() {
     private val keywordData = mutableListOf<Keyword>()
     private var articleList = listOf<List<String>>()
     private lateinit var mainActivity : MainActivity
-//    lateinit var keywordsAdapter: KeywordsAdapter
+    //    lateinit var keywordsAdapter: KeywordsAdapter
 //    lateinit var articlesAdapter: ArticlesAdapter
     private var pageInt: Int = 1
     private val binding get() = _binding!!
@@ -106,13 +106,13 @@ class FeedFragment : Fragment() {
             // jwtKey = getUserToken()
             jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE" ,
             crawlingRequestData = requestData,
-            )
+        )
             .enqueue(object : Callback<CrawlingNewList> {
                 override fun onResponse(
                     call: Call<CrawlingNewList>,
                     response: Response<CrawlingNewList>,
                 ) {
-                    val pCode = response.body()!!.code
+                    val pCode = response.body()!!.code!!
                     var errMessage : String? = "에러메시지"
                     if (pCode == 1000) {
                         Log.d("success", response.body()!!.code.toString())
@@ -217,11 +217,11 @@ class FeedFragment : Fragment() {
         // articleRecyclerView item click -> ArticleVisualActivity
         articlesAdapter.setItemClickListener(object: ArticlesAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                // fragment에서 activity로 articleUrl(String?)을 넘겨야하는데 잘 안됨
-//                // 액티비티로 페이지 이동, articleUrl 값은 가져온 상태
-                pageUrl = articleList[position][4]
-                Log.d("articleUrl", ""+articleList[position][4])
-                mainActivity.moveToArticle("test", "test")
+                mainActivity.moveToArticle(
+                    word.toString(),
+                    articleList[position][4],
+                    articleList[position][2],
+                )
             }
         })
 
@@ -235,73 +235,15 @@ class FeedFragment : Fragment() {
 
 
                 // 일단 페이지 리로드
-//                requireActivity().run{
-//                    startActivity(Intent(this, MainActivity::class.java))
-//                    finish()
-//                }
+                requireActivity().run{
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
             }
         })
 
 
         return root
-    }
-
-    fun loadPost(x: String?, y: Int) {
-        val articlesAdapter = ArticlesAdapter()
-        // userIdx = getUserIdx()
-        val requestData = CrawlingRequestData(userIdx = 218, keyword = x, page = y)
-        var articleApi: RetrofitClient.CrawlingNewsApi = RetrofitClient.initLocalRetrofit().create(RetrofitClient.CrawlingNewsApi::class.java)
-        articleApi.getCrawlingNews(
-            // jwtKey = getUserToken()
-            jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE" ,
-            crawlingRequestData = requestData,
-        )
-            .enqueue(object : Callback<CrawlingNewList> {
-                override fun onResponse(
-                    call: Call<CrawlingNewList>,
-                    response: Response<CrawlingNewList>,
-                ) {
-                    val pCode = response.body()!!.code
-                    var errMessage : String? = "에러메시지"
-                    if (pCode == 1000) {
-                        Log.d("success", response.body()!!.code.toString())
-                        Log.d("success", response.body()!!.message.toString())
-                        Log.d("success", response.body()!!.result!!.toString())
-                        articleList = response.body()!!.result!!
-
-                        val articleData = mutableListOf<Article>()
-                        for(i: Int in 0..9) {
-                            articleData.add(
-                                Article(
-                                    id = i + 1,
-                                    budgetKey = word,
-                                    title = articleList[i][0],
-                                    date = articleList[i][1],
-                                    image = articleList[i][2],
-                                    content = articleList[i][3],
-                                ),
-                            )
-                        }
-                        articlesAdapter.articleData = articleData
-                        articlesAdapter.notifyDataSetChanged()
-                    } else {
-                        when (pCode) {
-                            2001 -> errMessage = pCode.toString()+"JWT를 입력해주세요"
-                            2002 -> errMessage = pCode.toString()+"유효하지 않은 JWT입니다."
-                            2003 -> errMessage = pCode.toString()+"권한이 없는 유저의 접근"
-                            2044 -> errMessage = pCode.toString()+"page를 입력해주세요"
-                            4000 -> errMessage = pCode.toString()+"데이터베이스 연결에 실패하였습니다."
-                        }
-                        Toast.makeText(view?.context,
-                            "${pCode}\n${errMessage}",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<CrawlingNewList>, t: Throwable) {
-                    Log.d("failure", t.message.toString())
-                }
-            })
     }
 
     override fun onDestroyView() {
