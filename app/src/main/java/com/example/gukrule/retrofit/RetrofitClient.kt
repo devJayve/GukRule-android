@@ -2,8 +2,6 @@ package com.example.gukrule.retrofit
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -99,4 +97,38 @@ object RetrofitClient {
         ) : Call<DetailBudgetList>
     }
 
+    interface LoginApi{
+        @POST("auth/login")
+        fun getLoginData(
+            @Body() loginData: LoginData
+        ) : Call<LoginResponse>
+    }
+
+    interface RegisterApi{
+        @POST("users/signup")
+        fun getRegisterData(
+            @Body() registerData: RegisterData
+        ) : Call<RegisterResponse>
+    }
+
+    interface RegisterApiArticle{
+        @POST("users/signup/5keywords")
+        fun getRegisterArticleData(
+            @Header("x-access-token") jwtKey: String,
+            @Body() selectedArticleData: SelectedArticleData
+        ) : Call<SelectedArticleResponse>
+    }
+    interface NickNameCheckApi{
+        @GET("users/signup/checkNickname?nickName=")
+        fun getNicknameOverlap(
+            @Query("nickName") nickName:String
+        ) : Call<NickNameCheckResponse>
+    }
+
+    interface IdCheckApi{
+        @GET("users/signup/checkId?id=")
+        fun getIdOverlap(
+            @Query("id") id:String
+        ) : Call<IdCheckResponse>
+    }
 }

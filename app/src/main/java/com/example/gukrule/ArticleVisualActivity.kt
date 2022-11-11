@@ -104,10 +104,7 @@ class ArticleVisualActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<CrawlingArticle>, t: Throwable) {
                 }
             })
-        // 기사 내용 텍스트 뷰로 전달
-
-        //제스쳐 감지
-        //mDetector = GestureDetectorCompat(this, this)
+        // 기사 내용 텍스트 뷰로 전
 
     }
 
@@ -134,16 +131,6 @@ class ArticleVisualActivity : AppCompatActivity() {
                 }
             })
 
-    }
-
-    //    override fun onScroll(
-//        event1: MotionEvent,
-//        event2: MotionEvent,
-//        distanceX: Float,
-//        distanceY: Float
-//    ): Boolean {
-//        return true
-//    }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

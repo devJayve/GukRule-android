@@ -101,10 +101,11 @@ class FeedFragment : Fragment() {
 
         // userIdx = getUserIdx()
         val requestData = CrawlingRequestData(userIdx = 218, keyword = word, page = pageInt)
-        var articleApi: RetrofitClient.CrawlingNewsApi = RetrofitClient.initLocalRetrofit().create(RetrofitClient.CrawlingNewsApi::class.java)
+        var articleApi: RetrofitClient.CrawlingNewsApi =
+            RetrofitClient.initLocalRetrofit().create(RetrofitClient.CrawlingNewsApi::class.java)
         articleApi.getCrawlingNews(
             // jwtKey = getUserToken()
-            jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE" ,
+            jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE",
             crawlingRequestData = requestData,
         )
             .enqueue(object : Callback<CrawlingNewList> {
@@ -112,8 +113,9 @@ class FeedFragment : Fragment() {
                     call: Call<CrawlingNewList>,
                     response: Response<CrawlingNewList>,
                 ) {
-                    val pCode = response.body()!!.code!!
-                    var errMessage : String? = "에러메시지"
+
+                    val pCode = response.body()!!.code
+
                     if (pCode == 1000) {
                         Log.d("success", response.body()!!.code.toString())
                         Log.d("success", response.body()!!.message.toString())
@@ -121,7 +123,7 @@ class FeedFragment : Fragment() {
                         articleList = response.body()!!.result!!
 
                         val articleData = mutableListOf<Article>()
-                        for(i: Int in 0..9) {
+                        for (i: Int in 0..9) {
                             articleData.add(
                                 Article(
                                     id = i + 1,
@@ -137,15 +139,17 @@ class FeedFragment : Fragment() {
                         articlesAdapter.notifyDataSetChanged()
                     } else {
                         when (pCode) {
-                            2001 -> errMessage = pCode.toString()+"JWT를 입력해주세요"
-                            2002 -> errMessage = pCode.toString()+"유효하지 않은 JWT입니다."
-                            2003 -> errMessage = pCode.toString()+"권한이 없는 유저의 접근"
-                            2044 -> errMessage = pCode.toString()+"page를 입력해주세요"
-                            4000 -> errMessage = pCode.toString()+"데이터베이스 연결에 실패하였습니다."
+                            2001 -> errMessage = pCode.toString() + "JWT를 입력해주세요"
+                            2002 -> errMessage = pCode.toString() + "유효하지 않은 JWT입니다."
+                            2003 -> errMessage = pCode.toString() + "권한이 없는 유저의 접근"
+                            2044 -> errMessage = pCode.toString() + "page를 입력해주세요"
+                            4000 -> errMessage = pCode.toString() + "데이터베이스 연결에 실패하였습니다."
                         }
-                        Toast.makeText(view?.context,
+                        Toast.makeText(
+                            view?.context,
                             "${pCode}\n${errMessage}",
-                            Toast.LENGTH_SHORT).show()
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
@@ -153,9 +157,6 @@ class FeedFragment : Fragment() {
                     Log.d("failure", t.message.toString())
                 }
             })
-
-
-
 
 
         // 더미 데이터
@@ -194,9 +195,6 @@ class FeedFragment : Fragment() {
             keywordsAdapter.keywordData = keywordData
             keywordsAdapter.notifyDataSetChanged()
         }
-
-        // 스크롤 다운 시 추가 호출(일단 보류)
-
 
         // Fragment to Activity
         val keywordArrow: ImageButton = binding.keywordArrow
@@ -245,6 +243,67 @@ class FeedFragment : Fragment() {
 
         return root
     }
+
+    fun loadPost(x: String?, y: Int) {
+            val articlesAdapter = ArticlesAdapter()
+            // userIdx = getUserIdx()
+            val requestData = CrawlingRequestData(userIdx = 218, keyword = x, page = y)
+            var articleApi: RetrofitClient.CrawlingNewsApi = RetrofitClient.initLocalRetrofit()
+                .create(RetrofitClient.CrawlingNewsApi::class.java)
+            articleApi.getCrawlingNews(
+                // jwtKey = getUserToken()
+                jwtKey = "eyJ0eXBlIjoiand0IiwiYWxnIjoiSFMyNTYifQ.eyJ1c2VySWR4IjoyMTgsImlhdCI6MTY2Nzk4OTQ1MCwiZXhwIjoxNjY5NDYwNjc5fQ.iYa-I-ExdJoF6LSJ_zlPXB4d49lK_RitfeWhNQnKTDE",
+                crawlingRequestData = requestData,
+            )
+                .enqueue(object : Callback<CrawlingNewList> {
+                    override fun onResponse(
+                        call: Call<CrawlingNewList>,
+                        response: Response<CrawlingNewList>,
+                    ) {
+                        val pCode = response.body()!!.code
+                        var errMessage: String? = "에러메시지"
+                        if (pCode == 1000) {
+                            Log.d("success", response.body()!!.code.toString())
+                            Log.d("success", response.body()!!.message.toString())
+                            Log.d("success", response.body()!!.result!!.toString())
+                            articleList = response.body()!!.result!!
+
+                            val articleData = mutableListOf<Article>()
+                            for (i: Int in 0..9) {
+                                articleData.add(
+                                    Article(
+                                        id = i + 1,
+                                        budgetKey = word,
+                                        title = articleList[i][0],
+                                        date = articleList[i][1],
+                                        image = articleList[i][2],
+                                        content = articleList[i][3],
+                                    ),
+                                )
+                            }
+                            articlesAdapter.articleData = articleData
+                            articlesAdapter.notifyDataSetChanged()
+                        } else {
+                            when (pCode) {
+                                2001 -> errMessage = pCode.toString() + "JWT를 입력해주세요"
+                                2002 -> errMessage = pCode.toString() + "유효하지 않은 JWT입니다."
+                                2003 -> errMessage = pCode.toString() + "권한이 없는 유저의 접근"
+                                2044 -> errMessage = pCode.toString() + "page를 입력해주세요"
+                                4000 -> errMessage = pCode.toString() + "데이터베이스 연결에 실패하였습니다."
+                            }
+                            Toast.makeText(
+                                view?.context,
+                                "${pCode}\n${errMessage}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CrawlingNewList>, t: Throwable) {
+                        Log.d("failure", t.message.toString())
+                    }
+                })
+        }
 
     override fun onDestroyView() {
         super.onDestroyView()

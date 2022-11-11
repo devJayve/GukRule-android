@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".util.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +20,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.GukRule">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -28,8 +29,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity"/>
-<!--        <activity android:name=".MainActivity"/>-->
+<!--        <activity android:name=".LoginActivity"/>-->
+        <activity android:name=".MainActivity"/>
         <activity android:name=".VisualActivity"/>
         <activity android:name=".NewsActivity" />
         <activity android:name=".KeywordActivity" />
