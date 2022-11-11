@@ -70,10 +70,91 @@ data class CrawlingRequestData(
 
 // CrawlingNewsApi
 data class CrawlingNewList(
-    var isSuccess: String,
+    var isSuccess : String,
+    var code : Int,
+    var message : String,
+    var result : List<List<String>>
+)
+
+data class LoginData(
+    var id : String,
+    var password : String
+)
+
+data class LoginResponse(
+    var isSuccess : Boolean,
+    var code : Int,
+    var message : String,
+    var result : UserInfo
+)
+
+data class UserInfo(
+    var userIdx : Int,
+    var jwt : String
+)
+
+data class RegisterData(
+    var id : String,
+    var password : String,
+    var passwordForCheck: String,
+    var phone : String,
+    var email : String,
+    var nickName : String,
+)
+
+data class RegisterResponse(
+    var isSuccess: Boolean,
     var code: Int,
     var message: String,
-    var result: ArrayList<ArrayList<String>>
+    var result : RegisterToken,
+)
+
+data class RegisterToken(
+    var jwt: String,
+    var userIdx : Int,
+    )
+
+data class NickNameCheckResponse(
+    var isSuccess: Boolean,
+    var code: Int,
+    var message: String,
+    var result: NickNameExists
+)
+
+data class NickNameExists(
+    var exists : Boolean
+)
+
+data class IdCheckResponse(
+    var isSuccess: Boolean,
+    var code : Int,
+    var message: String,
+    var result : IdExists
+)
+
+data class IdExists(
+    var exists: Boolean
+)
+
+data class SelectedArticleData(
+    var userIdx : Int,
+    var keyword1: String,
+    var keyword2: String,
+    var keyword3: String,
+    var keyword4: String,
+    var keyword5: String,
+)
+
+data class SelectedArticleResponse(
+    var isSuccess: Boolean,
+    var code: Int,
+    var message: String,
+    var result: SelectedArticleJWT,
+)
+
+data class SelectedArticleJWT(
+    var jwt: String,
+    var userIdx: Int
 )
 
 data class CrawlingArticleRequestData(

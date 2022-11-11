@@ -90,10 +90,6 @@ class ArticleVisualActivity : AppCompatActivity() {
         // 기사 내용 텍스트 뷰로 전달
 
 
-        //제스쳐 감지
-        //mDetector = GestureDetectorCompat(this, this)
-
-
     }
 
 //    override fun onScroll(

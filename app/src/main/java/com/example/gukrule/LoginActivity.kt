@@ -4,11 +4,13 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gukrule.fragment.FindPwFragment
 import com.example.gukrule.fragment.LoginFragment
 import com.example.gukrule.fragment.ModifyPwFragment
 import com.example.gukrule.fragment.SignUpInfoFragment
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginActivity : AppCompatActivity() {
