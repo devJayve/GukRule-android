@@ -117,25 +117,26 @@ class ArticleVisualActivity : AppCompatActivity() {
             Authorization = "Bearer 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",
             summaryRequestData = summaryData,
         )
-            .enqueue(object : Callback<SummaryArticle>{
+            .enqueue(object : Callback<SummaryArticle> {
                 override fun onResponse(
                     call: Call<SummaryArticle>,
                     response: Response<SummaryArticle>
                 ) {
-                    Log.d("LOG","summaryText: " + response.code().toString())
+                    Log.d("LOG", "summaryText: " + response.code().toString())
                     val summaryText: String = response.body()!!.generatedList[0].generated_text
                     Log.d("summaryText: ", summaryText)
                     binding.articleVisualSummary.text = summaryText
                 }
+
                 override fun onFailure(call: Call<SummaryArticle>, t: Throwable) {
                 }
             })
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
-}
 
+        override fun onDestroy() {
+            super.onDestroy()
+            _binding = null
+        }
+    }
 
 

@@ -14,6 +14,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:text="test 텍스트 입니다."
+        android:fontFamily="@font/nanum_square_extrabold"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="30dp"

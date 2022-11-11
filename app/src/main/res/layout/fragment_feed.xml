@@ -7,14 +7,13 @@
     android:id="@+id/feed_scroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".ui.feed.FeedFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/feed_const"
         android:layout_width="match_parent"
-        android:paddingTop="45dp"
-        android:layout_height="match_parent"
-        tools:context=".ui.feed.FeedFragment">
+        android:layout_height="match_parent">
 
         <View
             app:layout_constraintTop_toBottomOf="@+id/keyword_linear"
@@ -160,14 +159,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:orientation="vertical"
                 tools:listitem="@layout/item_article"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:overScrollMode="never"
+                android:descendantFocusability="blocksDescendants"
                 android:nestedScrollingEnabled="false"
-                tools:itemCount="10" />
+                />
 
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
-
 

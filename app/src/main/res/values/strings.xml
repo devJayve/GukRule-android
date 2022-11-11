@@ -41,4 +41,86 @@
         <item>nate.com</item>
     </string-array>
 
+    <string-array name="unit_business">
+        <!--국회행정지원-->
+        <item>조사처 기본경비</item>
+        <item>예산처 기본경비</item>
+        <item>도서관 기본경비</item>
+        <item>사무처 기본경비</item>
+        <item>조사처 인건비</item>
+        <item>예산처 인건비</item>
+        <item>도서관 인건비</item>
+        <item>사무처 인건비</item>
+        <!--의정활동지원-->
+        <item>의정지원</item>
+        <item>예비금</item>
+        <item>국회활동관련단체지원</item>
+        <item>의회외교</item>
+        <item>위원회운영지원</item>
+        <!--입법조사처운영-->
+        <item>입법조사처정보화</item>
+        <item>입법및정책조사분석</item>
+        <item>기획관리및운영지원</item>
+        <!--예산정책처운영-->
+        <item>예산정책정보화</item>
+        <item>국가재정·경제분석및의안비용추계</item>
+        <item>기획관리및정책총괄지원</item>
+        <!--국회도서관운영-->
+        <item>전자도서관운영</item>
+        <item>도서관자료확충및보존</item>
+        <item>입법정보지원</item>
+        <item>도서관운영지원</item>
+        <!--국회사무처운영-->
+        <item>국회방송운영</item>
+        <item>의회운영교육수입대체경비</item>
+        <item>입법정보화</item>
+        <item>국회청사확보및시설관리</item>
+        <item>법제활동지원</item>
+        <item>의회운영지원</item>
+    </string-array>
+
+    <string-array name="detailed_business">
+        <!--국회행정지원-->
+        <item>전산운영경비/사회문화조사실 기본경비/경제산업조사실 기본경비/정치행정조사실 기본경비/기관운영및지원</item>
+        <item>전산운영경비/경제분석국 기본경비/추계세제분석실 기본경비/예산분석실 기본경비/기관운영 기본경비</item>
+        <item>국회부산도서관기본경비/전산운영경비/국회기록보존소 기본경비/정보봉사국 기본경비/정보관리국 기본경비/법률정보실 기본경비/의회정보실 기본경비/기관운영 기본경비</item>
+        <item>사무처 기본경비</item>
+        <item>조사처 인건비</item>
+        <item>예산처 인건비</item>
+        <item>도서관 인건비</item>
+        <item>사무처 인건비</item>
+        <!--의정활동지원-->
+        <item>의정지원</item>
+        <item>예비금</item>
+        <item>국회활동관련단체지원</item>
+        <item>의회외교</item>
+        <item>위원회운영지원</item>
+        <!--입법조사처운영-->
+        <item>입법조사처정보화</item>
+        <item>입법및정책조사분석</item>
+        <item>기획관리및운영지원</item>
+        <!--예산정책처운영-->
+        <item>예산정책정보화</item>
+        <item>국가재정·경제분석및의안비용추계</item>
+        <item>기획관리및정책총괄지원</item>
+        <!--국회도서관운영-->
+        <item>전자도서관운영</item>
+        <item>도서관자료확충및보존</item>
+        <item>입법정보지원</item>
+        <item>도서관운영지원</item>
+        <!--국회사무처운영-->
+        <item>국회방송운영</item>
+        <item>의회운영교육수입대체경비</item>
+        <item>입법정보화</item>
+        <item>국회청사확보및시설관리</item>
+        <item>법제활동지원</item>
+        <item>의회운영지원</item>
+    </string-array>
+
+    <string name="description_1">세출 예산액은 지방자치단체가 행정목적을 달성하기 위해서 필요로하는 회계연도 내의 경비의 지출을 의미합니다.</string>
+    <string name="description_2">세출 예산현액은 본래의 세출예산액에 변경을 가한 후의 예산액을 의미합니다.</string>
+    <string name="description_3">지출 금맥은 예정된 기간동안 지출된 것으로 추산되는 총액을 의미합니다.</string>
+    <string name="description_4">연간 누계지출금액은 1년동안 지출한 금액의 총액을 의미합니다.</string>
+
+
 </resources>

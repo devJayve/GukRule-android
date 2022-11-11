@@ -73,4 +73,11 @@ dependencies {
     // codeInputView
     implementation 'com.raycoarana.codeinputview:codeinputview:2.1.4'
 
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    // lottie
+    implementation 'com.airbnb.android:lottie:3.5.0'
+
 }

@@ -15,7 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.gukrule.BudgetVisualActivity
 import com.example.gukrule.R
 import com.example.gukrule.VisualActivity
-import com.example.gukrule.retrofit.adapter.CarouselRVAdapter
+import com.example.gukrule.adapter.CarouselRVAdapter
 import com.example.gukrule.databinding.FragmentBudgetBinding
 import java.lang.Math.abs
 
@@ -39,7 +39,7 @@ class BudgetFragment : Fragment() {
 
     private fun setCarouselSlider() {
         val margin = ((resources.displayMetrics.density) * 50).toInt()
-        val itemList = arrayListOf("test1", "test2", "test3", "test4")
+        val itemList = arrayListOf("국회 단위사업\n예산 현황", "국회 단위사업\n예산 현황", "국회 단위사업\n예산 현황", "test4")
         val carouselRVAdapter = CarouselRVAdapter(itemList)
         val viewPager = binding.budgetViewPager
         viewPager.apply {

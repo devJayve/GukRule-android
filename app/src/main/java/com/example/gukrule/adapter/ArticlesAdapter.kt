@@ -1,7 +1,6 @@
 package com.example.gukrule.adapter
 
-import android.content.Context
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +14,10 @@ import com.bumptech.glide.Glide
 import com.example.gukrule.R
 import com.example.gukrule.article.Article
 
-class ArticlesAdapter :
-    ListAdapter<Article, ArticlesAdapter.ArticleViewHolder>(ArticleDiffCallback) {
+class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ArticleViewHolder>() {
 
-    var articleData = mutableListOf<Article>()
+    var articleData = ArrayList<Article>()
 
-    /* ViewHolder for Article, takes in the inflated view */
     class ArticleViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         private val articleBudgetKeyView : Button = itemView.findViewById(R.id.article_keyword)
@@ -30,21 +27,12 @@ class ArticlesAdapter :
         private val articleDateView : TextView = itemView.findViewById(R.id.article_date)
 
         fun bind(item: Article) {
-            if (item.budgetKey != null) {
-                articleBudgetKeyView.text = item.budgetKey
-            } else {
-                articleBudgetKeyView.text = "랜덤 -> 키워드 세팅 요망"
-            }
+            articleBudgetKeyView.text = item.budgetKey
             articleTitleView.text = item.title
-            if (item.image != null) {
-                Glide.with(articleImageView.context)
-                    .load(item.image)
-                    .error(R.drawable.img_load_failed)
-                    .into(articleImageView)
-            } else {
-                articleImageView.setImageResource(R.drawable.img_load_failed)
-            }
-
+            Glide.with(articleImageView.context)
+                .load(item.image)
+                .error(R.drawable.img_load_failed)
+                .into(articleImageView)
             articleContentView.text = item.content
             articleDateView.text = item.date
         }
@@ -84,12 +72,6 @@ class ArticlesAdapter :
     }
 }
 
-object ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
-    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem == newItem
-    }
 
-    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem.id == newItem.id
-    }
-}
+
+
