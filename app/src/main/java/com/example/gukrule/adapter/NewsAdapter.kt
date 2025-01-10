@@ -29,7 +29,6 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     fun addArticleData(article : Article) {
         articleData.add(article)
-        notifyDataSetChanged()
     }
 
     /* ViewHolder for Article, takes in the inflated view */

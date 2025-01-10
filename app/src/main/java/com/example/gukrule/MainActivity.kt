@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.main_toolbar))
         supportActionBar?.apply {
-            setIcon(R.drawable.tmp_resize)
+            setIcon(R.mipmap.ic_logo)
             setDisplayUseLogoEnabled(true)
             setTitle(R.string.app_name)
         }

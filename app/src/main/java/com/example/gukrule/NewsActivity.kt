@@ -102,7 +102,7 @@ class NewsActivity : AppCompatActivity() {
 
     // 리사이클러뷰에 더 보여줄 데이터를 로드하는 경우
     private fun loadMoreArticle() {
-        if(!isLoading) {
+
             val requestData = CrawlingRequestData(userIdx = 218, keyword = keyword, page = getPage())
             val articleApi = RetrofitClient.initLocalRetrofit()
                 .create(RetrofitClient.CrawlingNewsApi::class.java)
@@ -131,6 +131,7 @@ class NewsActivity : AppCompatActivity() {
                                         ))
                                 }
                             }
+                            notifyDataSetChanged()
                         }
                     }
                     isLoading = false
@@ -140,7 +141,7 @@ class NewsActivity : AppCompatActivity() {
                     Log.d("failure", t.message.toString())
                 }
             })
-        }
+
     }
 
     private fun initScrollListener() {
@@ -150,7 +151,6 @@ class NewsActivity : AppCompatActivity() {
                 if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
                     Log.d("LOG", "scroll to bottom")
                     loadMoreArticle()
-                    isLoading = true
                 }
             }
         })
